@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Arenna Denver — Ads Growth Engine</title>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;900&family=Noto+Serif:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;900&amp;family=Noto+Serif:ital@1&amp;display=swap" rel="stylesheet">
 <style>
 :root {
   --blue: #454A60;
@@ -75,6 +73,1310 @@ thead tr{background:var(--blue);color:var(--cream);}
 thead th{padding:10px 14px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.5px;text-transform:uppercase;}
 tbody tr{border-bottom:1px solid rgba(69,74,96,0.1);}
 tbody tr:hover{background:rgba(69,74,96,0.04);}
+tbody td{padding:10px 14px;font-size:12px;}
+tbody td:first-child{font-weight:600;}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.3px;}
+.tag-tofu{background:var(--blue);color:var(--cream);}
+.tag-mofu{background:var(--green);color:var(--cream);}
+.tag-bofu{background:var(--orange);color:#fff;}
+.tag-ret{background:var(--terra);color:#fff;}
+
+/* PERSONAS */
+.personas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+.persona-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(69,74,96,0.08);cursor:pointer;transition:.2s;}
+.persona-card:hover{box-shadow:0 4px 24px rgba(69,74,96,0.15);transform:translateY(-2px);}
+.persona-card .card-header{padding:20px;display:flex;align-items:flex-start;gap:14px;}
+.persona-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.persona-card h3{font-size:15px;font-weight:800;margin-bottom:2px;}
+.persona-card .archetype{font-size:11px;font-style:italic;font-family:'Noto Serif',serif;opacity:.6;}
+.persona-card .card-body{padding:0 20px 20px;}
+.persona-detail{margin-bottom:12px;}
+.persona-detail .label{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.4;font-weight:600;margin-bottom:4px;}
+.persona-detail .value{font-size:12px;line-height:1.5;}
+.persona-detail ul{font-size:12px;padding-left:16px;line-height:1.8;}
+.persona-quote{background:var(--cream);border-left:3px solid var(--orange);padding:10px 14px;border-radius:0 8px 8px 0;font-size:12px;font-style:italic;font-family:'Noto Serif',serif;margin-top:12px;line-height:1.6;}
+.persona-channels{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.channel-tag{padding:3px 10px;background:var(--blue);color:var(--cream);border-radius:20px;font-size:10px;font-weight:600;}
+
+/* EXPAND/COLLAPSE */
+.expandable .expand-trigger{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#fff;border-radius:10px;margin-bottom:2px;box-shadow:0 1px 4px rgba(69,74,96,0.08);transition:.2s;}
+.expandable .expand-trigger:hover{background:var(--blue);color:var(--cream);}
+.expandable .expand-trigger h5{font-size:13px;font-weight:700;}
+.expandable .expand-trigger .arrow{font-size:12px;transition:.2s;}
+.expandable .expand-trigger.open .arrow{transform:rotate(180deg);}
+.expandable .expand-content{display:none;background:#fff;border-radius:0 0 10px 10px;padding:16px 18px;margin-bottom:8px;border-top:1px solid rgba(69,74,96,0.08);font-size:12px;line-height:1.7;}
+.expandable .expand-content.open{display:block;}
+
+/* COPY BLOCKS */
+.copy-block{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 6px rgba(69,74,96,0.07);}
+.copy-block .copy-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.4;font-weight:600;margin-bottom:8px;}
+.copy-block .copy-text{font-size:13px;line-height:1.7;border-left:3px solid var(--mint);padding-left:12px;}
+.copy-block .copy-headline{font-size:16px;font-weight:800;margin:10px 0 4px;}
+.copy-block .copy-cta{display:inline-block;margin-top:8px;padding:6px 16px;background:var(--orange);color:#fff;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;}
+
+/* HOOKS */
+.hooks-grid{display:grid;gap:10px;}
+.hook-item{background:#fff;border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 1px 4px rgba(69,74,96,0.07);}
+.hook-num{background:var(--blue);color:var(--cream);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.hook-type{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+.hook-text{font-size:13px;font-style:italic;font-family:'Noto Serif',serif;line-height:1.6;}
+
+/* FLOW */
+.flow-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 6px rgba(69,74,96,0.07);}
+.flow-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:4px;}
+.flow-dot{width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px;}
+.flow-line{width:2px;background:rgba(69,74,96,0.15);height:24px;margin-left:4px;}
+.flow-step-content .trigger{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--terra);}
+.flow-step-content .action{font-size:12px;line-height:1.6;}
+.flow-step-content .timing{font-size:10px;color:var(--green);font-weight:600;margin-top:2px;}
+
+/* BUDGET */
+.budget-bar-wrap{margin-bottom:14px;}
+.budget-bar-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;}
+.budget-bar{height:10px;border-radius:5px;background:rgba(69,74,96,0.1);}
+.budget-bar-fill{height:100%;border-radius:5px;transition:.8s;}
+
+/* RULES GRID */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.rule-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 6px rgba(69,74,96,0.07);}
+.rule-card .rule-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rule-card .rule-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+.rule-card ul{font-size:12px;padding-left:16px;line-height:1.9;}
+
+/* AUDIENCE TABLE */
+.audience-wrap{overflow-x:auto;}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 6px rgba(69,74,96,0.07);text-align:center;}
+.stat-card .stat-val{font-size:26px;font-weight:900;color:var(--orange);line-height:1;}
+.stat-card .stat-label{font-size:11px;opacity:.55;margin-top:4px;line-height:1.3;}
+
+/* CREATIVE MATRIX */
+.matrix-wrap{overflow-x:auto;}
+.matrix-wrap table tbody td{vertical-align:top;}
+
+/* LANDING PAGE SECTION */
+.lp-section{background:#fff;border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 1px 6px rgba(69,74,96,0.07);}
+.lp-section .lp-section-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:8px;}
+.lp-section h5{font-size:16px;font-weight:800;margin-bottom:8px;}
+.lp-section p{font-size:12px;line-height:1.7;opacity:.75;}
+
+/* CHECKLIST */
+.checklist{list-style:none;padding:0;}
+.checklist li{padding:6px 0;font-size:12px;display:flex;gap:8px;align-items:flex-start;border-bottom:1px solid rgba(69,74,96,0.06);}
+.checklist li::before{content:'□';font-size:14px;color:var(--orange);flex-shrink:0;line-height:1;}
+
+/* TABS */
+.tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.tab-btn{padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid transparent;background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(69,74,96,0.1);transition:.2s;font-family:'Red Hat Display',sans-serif;}
+.tab-btn:hover{border-color:var(--blue);}
+.tab-btn.active{background:var(--blue);color:var(--cream);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* NAMING CONV */
+.code{background:var(--blue);color:var(--orange);padding:2px 8px;border-radius:4px;font-family:monospace;font-size:12px;}
+
+/* PROJECTIONS */
+.proj-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.proj-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 6px rgba(69,74,96,0.07);}
+.proj-card .period{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:600;margin-bottom:8px;}
+.proj-card .leads{font-size:24px;font-weight:900;color:var(--blue);}
+.proj-card .leads span{font-size:13px;font-weight:400;opacity:.5;}
+.proj-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.proj-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(69,74,96,0.08);}
+.proj-item .k{font-size:12px;opacity:.65;}
+.proj-item .v{font-size:13px;font-weight:700;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  #sidebar{display:none;}
+  #main{margin-left:0;padding:24px;}
+  .personas-grid{grid-template-columns:1fr;}
+  .rules-grid{grid-template-columns:1fr;}
+  .proj-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div class="brand">Studio Arenna · Denver</div>
+    <h1>Ads Growth Engine</h1>
+    <div class="sub">Paid Media Strategy v1.0 · March 2026</div>
+  </div>
+  <nav>
+    <span class="section-label">Strategy</span>
+    <a href="#s1" class=""><span class="nav-num">01</span>Full Funnel Architecture</a>
+    <a href="#s2" class="active"><span class="nav-num">02</span>Persona Definitions</a>
+    <span class="section-label">Platforms</span>
+    <a href="#s3" class=""><span class="nav-num">03</span>Meta Ads Structure</a>
+    <a href="#s4" class=""><span class="nav-num">04</span>Google Ads Structure</a>
+    <a href="#s5" class=""><span class="nav-num">05</span>Segmented Audiences</a>
+    <span class="section-label">Creative</span>
+    <a href="#s6" class=""><span class="nav-num">06</span>Creative Matrix</a>
+    <a href="#s7" class=""><span class="nav-num">07</span>Ready-to-Deploy Copies</a>
+    <a href="#s8" class=""><span class="nav-num">08</span>Hooks &amp; Angles</a>
+    <span class="section-label">Execution</span>
+    <a href="#s9" class=""><span class="nav-num">09</span>Retargeting Flows</a>
+    <a href="#s10" class=""><span class="nav-num">10</span>Optimization &amp; Scaling</a>
+    <a href="#s11" class=""><span class="nav-num">11</span>Landing Pages</a>
+    <a href="#s12" class=""><span class="nav-num">12</span>Budget &amp; Projections</a>
+  </nav>
+</nav>
+
+<main id="main">
+
+  <div class="page-header">
+    <div class="eyebrow">Paid Media · Growth Engine</div>
+    <h2>Studio Arenna Denver<br>Ads Growth Engine</h2>
+    <div class="tagline">"Unlock your potential" — 2525 W Barberry, Denver CO</div>
+    <div class="meta-pills">
+      <span class="pill pill-blue">$25K/month budget</span>
+      <span class="pill pill-orange">5 Personas</span>
+      <span class="pill pill-mint">Meta + Google</span>
+      <span class="pill pill-terra">6 Padel Courts</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: FUNNEL -->
+  <div class="section" id="s1">
+    <div class="section-title"><span class="num">1</span>Full Funnel Architecture</div>
+    <div class="section-desc">Four-stage funnel from cold awareness to retention — each with distinct objectives, formats, and budget allocation.</div>
+
+    <div class="funnel-stage funnel-tofu">
+      <div class="stage-label">TOFU — Top of Funnel</div>
+      <div class="stage-name">Awareness &amp; Brand Discovery</div>
+      <div class="stage-desc">Cold audiences · Cold interests · Geo-targeting · Lookalikes</div>
+      <div class="stage-meta">
+        <span><strong>Formats:</strong> Video 15–30s, Reels, Display, YouTube Pre-Roll</span>
+        <span><strong>Budget:</strong> 40% — $10,000/mo</span>
+        <span><strong>KPIs:</strong> CPM &lt;$18 · VCR &gt;30%</span>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-stage funnel-mofu">
+      <div class="stage-label">MOFU — Middle of Funnel</div>
+      <div class="stage-name">Consideration &amp; Education</div>
+      <div class="stage-desc">Video viewers 25%+ · Web visitors · IG engagers · Email openers</div>
+      <div class="stage-meta">
+        <span><strong>Formats:</strong> Carousel, Long-form video, Lead Ads, Stories</span>
+        <span><strong>Budget:</strong> 30% — $7,500/mo</span>
+        <span><strong>KPIs:</strong> CTR &gt;1.8% · CPL &lt;$35</span>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-stage funnel-bofu">
+      <div class="stage-label">BOFU — Bottom of Funnel</div>
+      <div class="stage-name">Conversion &amp; Purchase</div>
+      <div class="stage-desc">Hot leads · Landing page visitors · Lead form completers</div>
+      <div class="stage-meta">
+        <span><strong>Formats:</strong> Single image, Carousel product, DPA, Stories</span>
+        <span><strong>Budget:</strong> 20% — $5,000/mo</span>
+        <span><strong>KPIs:</strong> CPA &lt;$150 · Conv. Rate &gt;8%</span>
+      </div>
+    </div>
+    <div class="funnel-arrow">↓</div>
+    <div class="funnel-stage funnel-ret">
+      <div class="stage-label">Retention — Bottom Layer</div>
+      <div class="stage-name">Retention &amp; Upsell</div>
+      <div class="stage-desc">Active members · Lapsed members · Session purchasers</div>
+      <div class="stage-meta">
+        <span><strong>Formats:</strong> Testimonial video, Event ads, Offer ads</span>
+        <span><strong>Budget:</strong> 10% — $2,500/mo</span>
+        <span><strong>KPIs:</strong> Repeat rate &gt;60%</span>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:.8px;">KPIs by Stage</h4>
+      <table>
+        <thead><tr><th>Stage</th><th>Primary KPI</th><th>Secondary KPI</th><th>Benchmark</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-tofu">TOFU</span></td><td>CPM, Reach, VCR</td><td>Frequency, Brand Lift</td><td>CPM &lt;$18 · VCR &gt;30%</td></tr>
+          <tr><td><span class="tag tag-mofu">MOFU</span></td><td>CTR, CPL, Lead Quality</td><td>Cost per LP View</td><td>CTR &gt;1.8% · CPL &lt;$35</td></tr>
+          <tr><td><span class="tag tag-bofu">BOFU</span></td><td>ROAS, CPA, Conv. Rate</td><td>Cost per Membership</td><td>CPA &lt;$150 · CR &gt;8%</td></tr>
+          <tr><td><span class="tag tag-ret">RET</span></td><td>Repeat Booking Rate</td><td>Churn Rate</td><td>Repeat rate &gt;60%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: PERSONAS -->
+  <div class="section" id="s2">
+    <div class="section-title"><span class="num">2</span>Persona Definitions</div>
+    <div class="section-desc">Five buyer personas targeting Denver's HHI $120K–$400K+ segment — each with distinct digital behavior, pain points, and conversion triggers.</div>
+    <div class="personas-grid">
+
+      <div class="persona-card">
+        <div class="card-header">
+          <div class="persona-avatar" style="background:var(--blue);color:var(--cream);">💼</div>
+          <div>
+            <h3>Alex Rivera</h3>
+            <div class="archetype">"The High-Performance Executive" — P1</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="persona-detail">
+            <div class="label">Demographics</div>
+            <div class="value">Age 35–45 · 70% male · HHI $175K–$250K<br>Highlands, Cherry Creek, LoHi<br>Tech director, finance, management consultant</div>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Pain Points</div>
+            <ul>
+              <li>No time for high learning-curve sports</li>
+              <li>Gym lacks social/sport component</li>
+              <li>Bored with traditional cardio</li>
+              <li>Needs non-corporate networking</li>
+            </ul>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Conversion Triggers</div>
+            <ul>
+              <li>Peer proof — friend already plays</li>
+              <li>"Founding member" exclusivity</li>
+              <li>Padel vs. other sports health stats</li>
+            </ul>
+          </div>
+          <div class="persona-quote">"The world's most addictive sport comes to Denver. No long learning curve, with the intensity you need and the network you deserve."</div>
+          <div class="persona-channels">
+            <span class="channel-tag">Meta IG/Reels</span>
+            <span class="channel-tag">LinkedIn</span>
+            <span class="channel-tag">Google Search</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="card-header">
+          <div class="persona-avatar" style="background:var(--green);color:var(--cream);">🎾</div>
+          <div>
+            <h3>Michael Torres</h3>
+            <div class="archetype">"The Converted Athlete" — P2</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="persona-detail">
+            <div class="label">Demographics</div>
+            <div class="value">Age 40–55 · Mixed · HHI $150K–$200K<br>Country Club, Washington Park, Platt Park<br>Physician, attorney, business owner</div>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Pain Points</div>
+            <ul>
+              <li>Tired of same racquet sports</li>
+              <li>Outdoor courts difficult in Denver winter</li>
+              <li>Worried about learning curve</li>
+              <li>Wants same socioeconomic community</li>
+            </ul>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Conversion Triggers</div>
+            <ul>
+              <li>"If you play tennis, you play padel in 30 min"</li>
+              <li>World's fastest-growing sport</li>
+              <li>Free/discounted intro session</li>
+            </ul>
+          </div>
+          <div class="persona-quote">"Everything you love about tennis and pickleball, amplified. Padel leverages every skill you already have."</div>
+          <div class="persona-channels">
+            <span class="channel-tag">Meta FB/IG</span>
+            <span class="channel-tag">Google Search</span>
+            <span class="channel-tag">YouTube</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="card-header">
+          <div class="persona-avatar" style="background:var(--pink);color:var(--blue);">🌿</div>
+          <div>
+            <h3>Sarah Chen</h3>
+            <div class="archetype">"The Holistic Wellness Seeker" — P3</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="persona-detail">
+            <div class="label">Demographics</div>
+            <div class="value">Age 35–50 · 90% female · HHI $150K–$220K<br>Washington Park, Wash Park West, Observatory Park<br>Physician, senior designer, wellness entrepreneur</div>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Pain Points</div>
+            <ul>
+              <li>Traditional gym is lonely and boring</li>
+              <li>Group classes feel repetitive</li>
+              <li>Hard to find activity + socialization</li>
+              <li>Padel's intensity feels intimidating</li>
+            </ul>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Conversion Triggers</div>
+            <ul>
+              <li>Strong female community element</li>
+              <li>Space aesthetics (club photos)</li>
+              <li>Testimonial from woman who started from zero</li>
+            </ul>
+          </div>
+          <div class="persona-quote">"The workout that doesn't feel like a workout. Padel burns up to 1,000 calories an hour while you connect."</div>
+          <div class="persona-channels">
+            <span class="channel-tag">Meta IG Reels</span>
+            <span class="channel-tag">TikTok</span>
+            <span class="channel-tag">Pinterest</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="card-header">
+          <div class="persona-avatar" style="background:var(--terra);color:#fff;">🤝</div>
+          <div>
+            <h3>David Kim</h3>
+            <div class="archetype">"The High-Impact Relationship Builder" — P4</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="persona-detail">
+            <div class="label">Demographics</div>
+            <div class="value">Age 40–55 · Mixed · HHI $200K–$400K+<br>Cherry Creek North, Country Club, Hilltop<br>CEO/COO, senior partner, VP enterprise sales</div>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Pain Points</div>
+            <ul>
+              <li>Corporate events feel forced and artificial</li>
+              <li>Golf feels dated for their generation</li>
+              <li>Time is their scarcest resource</li>
+              <li>Needs activity that generates real bonds</li>
+            </ul>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Conversion Triggers</div>
+            <ul>
+              <li>Exclusivity: "Founding Member" privileges</li>
+              <li>ROI argument: deals closed on the court</li>
+              <li>Corporate membership for client entertainment</li>
+            </ul>
+          </div>
+          <div class="persona-quote">"The best business relationships aren't built in conference rooms. They're built on the court."</div>
+          <div class="persona-channels">
+            <span class="channel-tag">LinkedIn Ads</span>
+            <span class="channel-tag">Meta FB</span>
+            <span class="channel-tag">Google Brand</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="card-header">
+          <div class="persona-avatar" style="background:var(--orange);color:#fff;">⚡</div>
+          <div>
+            <h3>Jordan Walsh</h3>
+            <div class="archetype">"The FOMO-Driven Explorer" — P5</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="persona-detail">
+            <div class="label">Demographics</div>
+            <div class="value">Age 30–45 · 50/50 · HHI $120K–$180K<br>Sloan's Lake, LoHi, Five Points, Sunnyside<br>Creative professional, marketer, software engineer</div>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Pain Points</div>
+            <ul>
+              <li>Doesn't want to miss the "next big thing"</li>
+              <li>Worried about looking foolish as a beginner</li>
+              <li>Budget sensitivity — $94/hr feels high</li>
+              <li>Needs people to play with</li>
+            </ul>
+          </div>
+          <div class="persona-detail">
+            <div class="label">Conversion Triggers</div>
+            <ul>
+              <li>FOMO: "X people have already played"</li>
+              <li>First class free / heavily discounted</li>
+              <li>"Play your first real match in 60 minutes"</li>
+            </ul>
+          </div>
+          <div class="persona-quote">"No experience needed. No equipment needed. Just show up. Try padel free — understand why 25M are obsessed."</div>
+          <div class="persona-channels">
+            <span class="channel-tag">Meta IG Reels</span>
+            <span class="channel-tag">TikTok</span>
+            <span class="channel-tag">Google Search</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: META ADS -->
+  <div class="section" id="s3">
+    <div class="section-title"><span class="num">3</span>Meta Ads Account Structure</div>
+    <div class="section-desc">6 campaigns covering full funnel — from cold persona targeting to winback/upsell.</div>
+
+    <div class="subsection">
+      <h4>Naming Convention</h4>
+      <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 4px rgba(69,74,96,0.07);font-size:12px;line-height:2;">
+        <strong>Campaigns:</strong> <span class="code">[STAGE]_[OBJECTIVE]_[AUDIENCE]_[DATE]</span><br>
+        e.g. <span class="code">TOFU_AWA_ColdInterests_Highlands_2026Q2</span><br>
+        <strong>Ad Sets:</strong> <span class="code">[PERSONA]_[AUDIENCE]_[PLACEMENT]_[AGE]</span><br>
+        e.g. <span class="code">P1-ActivePro_Tennis-Interests_Feed_35-45</span><br>
+        <strong>Ads:</strong> <span class="code">[FORMAT]_[ANGLE]_[VARIANT]_[DATE]</span><br>
+        e.g. <span class="code">VID_HookPain_V1_Mar26</span>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger open" onclick="toggleExpand(this)">
+        <h5>Campaign 1 — [TOFU] Cold Personas · $3,300/mo · 5 Ad Sets</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content open">
+        <table>
+          <thead><tr><th>Ad Set</th><th>Persona</th><th>Key Interests</th><th>Budget/day</th></tr></thead>
+          <tbody>
+            <tr><td>P1-ActivePro</td><td>Alex Rivera</td><td>Forbes, LinkedIn, Equinox, Whoop, Strava · Top 25% HHI</td><td>$25</td></tr>
+            <tr><td>P2-SocialAthlete</td><td>Michael Torres</td><td>Tennis, Pickleball, Racquetball, USTA, Tennis Channel</td><td>$25</td></tr>
+            <tr><td>P3-WellnessSeeker</td><td>Sarah Chen</td><td>CorePower, SoulCycle, Peloton, Lululemon, Well+Good · Female</td><td>$20</td></tr>
+            <tr><td>P4-CorpNetworker</td><td>David Kim</td><td>HBR, WSJ, YPO, Golf, Soho House · Top 10% HHI</td><td>$20</td></tr>
+            <tr><td>P5-CuriousNewcomer</td><td>Jordan Walsh</td><td>Trending sports, Pickleball, ClassPass, New activities</td><td>$20</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Campaign 2 — [TOFU] Geo Neighborhoods · $1,500/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Geo Ad Set</th><th>Radius</th><th>Audience</th></tr></thead>
+          <tbody>
+            <tr><td>GEO_Highlands</td><td>3mi</td><td>All Personas, 25–55</td></tr>
+            <tr><td>GEO_SloansLake</td><td>3mi</td><td>All Personas, 30–55</td></tr>
+            <tr><td>GEO_CherryCreek</td><td>5mi</td><td>High Income, 35–55</td></tr>
+            <tr><td>GEO_WashingtonPark</td><td>3mi</td><td>All Personas, 30–55</td></tr>
+            <tr><td>GEO_CountryClub</td><td>5mi</td><td>High Income, 40–55</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;padding:12px;background:var(--cream);border-radius:8px;">
+          <strong style="font-size:12px;">Sample copy — Highlands:</strong>
+          <p style="font-size:12px;margin-top:4px;">"Highlands, meet your new favorite court. Studio Arenna is minutes from Highlands. 6 indoor padel courts, incredible community. Founding memberships available. #ArennaLifestyle"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Campaign 3 — [MOFU] Video/Engagement Retargeting · $2,400/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Ad Set</th><th>Audience Definition</th><th>Budget/day</th></tr></thead>
+          <tbody>
+            <tr><td>Video Viewers 25%+</td><td>Watched ≥25% of any video, last 30 days · Excl. leads &amp; conversions</td><td>$40</td></tr>
+            <tr><td>IG Engagers 30d</td><td>Engaged with IG business profile or ads, last 30 days</td><td>$40</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;font-size:12px;line-height:1.7;">
+          <strong>Ads:</strong> 30s video "You saw the video — here's what we didn't show you" · Carousel "5 reasons to be a Studio Arenna Founding Member" · Story with swipe-up to FAQ
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Campaign 4 — [MOFU] Lead Gen Waitlist · $3,000/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <p style="font-size:12px;margin-bottom:12px;"><strong>Instant Form fields:</strong> Name · Email · Phone · Have you played padel? · Membership type interest (Individual/Couple/Corporate)</p>
+        <table>
+          <thead><tr><th>Ad Set</th><th>Personas</th><th>Offer</th><th>Budget/day</th></tr></thead>
+          <tbody>
+            <tr><td>P1P2 High Value</td><td>Alex + Michael</td><td>"Founding Member: Exclusive Benefits" — spots filling up</td><td>$50</td></tr>
+            <tr><td>P3P5 Trial Class</td><td>Sarah + Jordan</td><td>"First Class Free. No commitment." — 60 min, no equipment</td><td>$50</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Campaign 5 — [BOFU] Hot Audiences Conversion · $4,500/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Ad Set</th><th>Audience</th><th>Message</th><th>Budget/day</th></tr></thead>
+          <tbody>
+            <tr><td>Lead Form Completers</td><td>Completed form · No purchase · 30 days</td><td>"Your founding member spot is waiting" — confirm today</td><td>$60</td></tr>
+            <tr><td>Web Visitors 7d</td><td>Site visitors · Non-purchasers · 7 days</td><td>"Last founding member spots" — urgency + price lock</td><td>$50</td></tr>
+            <tr><td>Video Viewers 75%+</td><td>Watched ≥75% of any video · 14 days · No conversion</td><td>Direct offer with specific founding benefits</td><td>$40</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Campaign 6 — [Retention] Winback + Upsell · $900/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Ad Set</th><th>Audience</th><th>Message</th></tr></thead>
+          <tbody>
+            <tr><td>Active Members Upsell</td><td>CRM — active members</td><td>"Upgrade to unlimited" · "Bring a friend and get X"</td></tr>
+            <tr><td>Inactive Winback</td><td>CRM — no activity 45+ days</td><td>"We miss you on the court" — re-entry offer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: GOOGLE ADS -->
+  <div class="section" id="s4">
+    <div class="section-title"><span class="num">4</span>Google Ads Account Structure</div>
+    <div class="section-desc">4 Search campaigns + Display Remarketing + YouTube Pre-Roll targeting Denver DMA.</div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Search — Brand (Studio Arenna) · $450/mo · Target IS: 90% top of page</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <p style="font-size:12px;line-height:1.8;">Keywords: <span class="code">[studio arenna]</span> <span class="code">[studio arenna denver]</span> <span class="code">[arenna padel]</span> <span class="code">[studio arenna padel]</span></p>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Search — High Intent Category · $1,800/mo · Target CPA $80</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Ad Group</th><th>Keywords</th></tr></thead>
+          <tbody>
+            <tr><td>Padel Denver Direct</td><td>"padel courts denver" · [padel court denver] · "play padel denver" · [padel club denver] · "indoor padel denver"</td></tr>
+            <tr><td>Padel Membership</td><td>"padel membership denver" · "padel court rental denver" · "book padel court denver"</td></tr>
+            <tr><td>Padel Lessons/Intro</td><td>"padel lessons denver" · "learn padel denver" · "padel beginner class denver" · "how to play padel denver"</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;font-size:12px;line-height:1.7;">
+          <strong>RSA Headlines (sample):</strong> Studio Arenna Denver · Padel Courts Denver · Book a Padel Court Today · Denver's #1 Padel Club · Founding Members Welcome · Try Padel for Free · Indoor Padel Courts · Reserve Your Court Now
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Search — Competitor + Alternative Keywords · $600/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <table>
+          <thead><tr><th>Ad Group</th><th>Keywords</th></tr></thead>
+          <tbody>
+            <tr><td>Padel Haus Alternatives</td><td>"padel haus denver" · "padel haus alternative denver" · "padel clubs denver"</td></tr>
+            <tr><td>Crossover Racquet Sports</td><td>"pickleball vs padel denver" · "tennis alternative denver" · "indoor racquet sports denver"</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;color:var(--terra);margin-top:8px;font-weight:600;">Note: Do not use competitor name in ad copy (Google policy)</p>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Search — Upper Funnel "What is Padel" · $600/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <p style="font-size:12px;line-height:1.8;">Keywords: <span class="code">"what is padel"</span> <span class="code">"padel sport"</span> <span class="code">"padel vs pickleball"</span> <span class="code">"padel tennis rules"</span> <span class="code">"how to play padel"</span></p>
+      </div>
+    </div>
+
+    <div class="subsection expandable">
+      <div class="expand-trigger" onclick="toggleExpand(this)">
+        <h5>Display Remarketing · $600/mo + YouTube Pre-Roll · $450/mo</h5>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="expand-content">
+        <p style="font-size:12px;margin-bottom:10px;"><strong>Display segments:</strong> Web visitors all pages 30d · Pricing/membership page 14d · YouTube channel engagers 30d</p>
+        <p style="font-size:12px;margin-bottom:10px;"><strong>YouTube targeting:</strong> Custom intent: padel/tennis/pickleball searches · Placements: padel/tennis/fitness Denver channels · Demo: 30–55, high income, Denver DMA</p>
+        <p style="font-size:12px;"><strong>YouTube hook (0–5s non-skippable):</strong> "You still haven't played padel?" → exciting rally → community → CTA: "Studio Arenna Denver — founding memberships available"</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h4>Ad Extensions</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#fff;border-radius:10px;padding:14px;font-size:12px;box-shadow:0 1px 4px rgba(69,74,96,0.07);">
+          <strong>Sitelinks</strong>
+          <ul style="margin-top:6px;padding-left:16px;line-height:1.9;">
+            <li>Founding Membership → /membership</li>
+            <li>Book a Court → /book</li>
+            <li>First Class Free → /intro-class</li>
+            <li>Location → /location</li>
+          </ul>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:14px;font-size:12px;box-shadow:0 1px 4px rgba(69,74,96,0.07);">
+          <strong>Callouts</strong>
+          <ul style="margin-top:6px;padding-left:16px;line-height:1.9;">
+            <li>6 Indoor Courts</li>
+            <li>Classes for All Levels</li>
+            <li>Founding Members: Exclusive Benefits</li>
+            <li>Open Year-Round</li>
+            <li>Premium Locker Rooms</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: AUDIENCES -->
+  <div class="section" id="s5">
+    <div class="section-title"><span class="num">5</span>Segmented Audiences</div>
+    <div class="section-desc">Cold, warm retargeting, and lookalike audiences with technical definitions for Meta.</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'cold')">Cold Audiences</button>
+      <button class="tab-btn" onclick="switchTab(this,'warm')">Retargeting (Warm)</button>
+      <button class="tab-btn" onclick="switchTab(this,'lookalike')">Lookalike Audiences</button>
+      <button class="tab-btn" onclick="switchTab(this,'exclusions')">Exclusions</button>
+    </div>
+
+    <div id="cold" class="tab-panel active audience-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Audience</th><th>Interests / Behaviors</th><th>Demo</th><th>Est. Denver Size</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Tennis Players Denver</td><td>Tennis, USTA, Tennis Channel, Wilson Tennis</td><td>30–60, all</td><td>45K–180K</td></tr>
+          <tr><td>2</td><td>Pickleball Enthusiasts</td><td>Pickleball, USA Pickleball, Pickleball Central</td><td>35–65, all</td><td>35K–140K</td></tr>
+          <tr><td>3</td><td>Fitness High Spenders</td><td>Equinox, Barry's, CrossFit, F45 Training</td><td>25–55, all</td><td>80K–320K</td></tr>
+          <tr><td>4</td><td>Yoga &amp; Wellness Women</td><td>CorePower, SoulCycle, Peloton, Lululemon</td><td>25–55, female</td><td>120K–480K</td></tr>
+          <tr><td>5</td><td>Executive/Business</td><td>HBR, Forbes, Bloomberg, WSJ</td><td>35–60, all</td><td>60K–240K</td></tr>
+          <tr><td>6</td><td>Tech Professionals</td><td>LinkedIn, Salesforce, Slack, tech executives</td><td>28–50, all</td><td>90K–360K</td></tr>
+          <tr><td>7</td><td>Racquet Sports All</td><td>Tennis + Squash + Racquetball + Badminton cluster</td><td>30–60, all</td><td>55K–220K</td></tr>
+          <tr><td>8</td><td>High HHI Households</td><td>Financial services, luxury brands, premium cards</td><td>35–60, top 25%</td><td>70K–280K</td></tr>
+          <tr><td>9</td><td>Social Sports</td><td>Recreational leagues, Kickball, Social sports, ClassPass</td><td>25–50, all</td><td>100K–400K</td></tr>
+          <tr><td>10</td><td>Wellness Lifestyle</td><td>Well+Good, Mindbodyonline, Headspace</td><td>28–55, all</td><td>130K–520K</td></tr>
+          <tr><td>11</td><td>Golf Players</td><td>Golf, Golf Digest, PGA Tour, golf courses</td><td>35–65, male</td><td>50K–200K</td></tr>
+          <tr><td>12</td><td>Corporate Networkers</td><td>YPO, EO, Chambers of Commerce, networking events</td><td>35–60, all</td><td>25K–100K</td></tr>
+          <tr><td>13</td><td>Luxury Lifestyle</td><td>Luxury travel, premium dining, Soho House</td><td>30–60, top 15%</td><td>40K–160K</td></tr>
+          <tr><td>14</td><td>New Activity Seekers</td><td>ClassPass, Groupon fitness, adventure sports</td><td>25–50, all</td><td>150K–600K</td></tr>
+          <tr><td>15</td><td>World Padel Tour Fans</td><td>WPT, padel sport, padel racket, Belasteguín</td><td>20–55, all</td><td>8K–30K</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="warm" class="tab-panel audience-wrap">
+      <table>
+        <thead><tr><th>Audience</th><th>Technical Definition</th><th>Est. Size</th><th>Funnel Use</th></tr></thead>
+        <tbody>
+          <tr><td>Web Visitors 30d</td><td>All pixel visitors, last 30 days</td><td>Variable</td><td>MOFU/BOFU</td></tr>
+          <tr><td>Pricing Page 14d</td><td>/membership or /pricing visitors, 14 days</td><td>Small</td><td><strong>BOFU priority</strong></td></tr>
+          <tr><td>Video Viewers 25%</td><td>Watched 25%+ of any video, 30 days</td><td>Grows w/ TOFU</td><td>MOFU</td></tr>
+          <tr><td>Video Viewers 50%</td><td>Watched 50%+ of any video, 30 days</td><td>Medium</td><td>MOFU</td></tr>
+          <tr><td>Video Viewers 75%</td><td>Watched 75%+ of any video, 14 days</td><td>Small</td><td>BOFU</td></tr>
+          <tr><td>Video Viewers 95%</td><td>Watched 95%+ of any video, 7 days</td><td>Very small</td><td>Urgent BOFU</td></tr>
+          <tr><td>IG Engagers 30d</td><td>Engaged with IG profile or ads, 30 days</td><td>Grows</td><td>MOFU</td></tr>
+          <tr><td>Lead Form Openers</td><td>Opened instant form — did NOT complete</td><td>Variable</td><td><strong>Critical BOFU</strong></td></tr>
+          <tr><td>Lead Form Completers</td><td>Completed form · no subsequent conversion</td><td>Variable</td><td>Urgent BOFU</td></tr>
+          <tr><td>Customer List</td><td>CRM list of current members/purchasers</td><td>Small initially</td><td>Retention/Upsell</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="lookalike" class="tab-panel audience-wrap">
+      <table>
+        <thead><tr><th>Seed</th><th>Similarity %</th><th>Description</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Lead form completers</td><td>1%</td><td>Most similar to high-intent leads</td><td>MOFU priority</td></tr>
+          <tr><td>Lead form completers</td><td>2–3%</td><td>Broader similar to leads</td><td>TOFU/MOFU</td></tr>
+          <tr><td>Customer list (members)</td><td>1%</td><td>Most similar to paying members</td><td>BOFU</td></tr>
+          <tr><td>Customer list (members)</td><td>3–5%</td><td>Broader scale for awareness</td><td>TOFU</td></tr>
+          <tr><td>Video viewers 95%</td><td>1%</td><td>Similar to most engaged viewers</td><td>MOFU</td></tr>
+          <tr><td>IG Engagers 30d</td><td>1–2%</td><td>Similar to social engagers</td><td>TOFU/MOFU</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;margin-top:10px;color:var(--terra);font-weight:600;">Activate lookalikes only when seeds have 1,000+ users. Prioritize 1% high-quality seed over 5% large seed.</p>
+    </div>
+
+    <div id="exclusions" class="tab-panel audience-wrap">
+      <table>
+        <thead><tr><th>Campaign</th><th>Required Exclusions</th></tr></thead>
+        <tbody>
+          <tr><td>TOFU Cold</td><td>Current customers (CRM list), Lead form completers, Web visitors 30d</td></tr>
+          <tr><td>TOFU Geo</td><td>Current customers</td></tr>
+          <tr><td>MOFU Consideration</td><td>Current customers, Lead form completers</td></tr>
+          <tr><td>MOFU Lead Gen</td><td>Current customers, already-converted lead form completers</td></tr>
+          <tr><td>BOFU Conversion</td><td>Current customers (unless upsell active)</td></tr>
+          <tr><td>Retention/Winback</td><td>Exclude active members from Winback adset</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 6: CREATIVE MATRIX -->
+  <div class="section" id="s6">
+    <div class="section-title"><span class="num">6</span>Creative Matrix</div>
+    <div class="section-desc">Full creative direction by persona × funnel stage — hook, copy direction, visual direction, and CTA.</div>
+    <div class="matrix-wrap">
+      <table>
+        <thead><tr><th>Persona</th><th>Stage</th><th>Format</th><th>Hook</th><th>Copy Direction</th><th>CTA</th></tr></thead>
+        <tbody>
+          <tr><td>Active Professional</td><td><span class="tag tag-tofu">TOFU</span></td><td>Video 15s Reel</td><td>"When was the last time you genuinely challenged yourself?"</td><td>Office vs. court contrast, energy</td><td>Learn more</td></tr>
+          <tr><td>Active Professional</td><td><span class="tag tag-mofu">MOFU</span></td><td>Carousel</td><td>"5 reasons Denver's top executives choose padel"</td><td>Networking, health, time ROI</td><td>See more</td></tr>
+          <tr><td>Active Professional</td><td><span class="tag tag-bofu">BOFU</span></td><td>Static + Urgency</td><td>"Your founding member spot is filling up"</td><td>Real scarcity, exclusive benefits</td><td>Join now</td></tr>
+          <tr><td>Social Athlete</td><td><span class="tag tag-tofu">TOFU</span></td><td>Video 30s</td><td>"If you play tennis, you already know padel"</td><td>Skill transfer, excitement of new sport</td><td>See more</td></tr>
+          <tr><td>Social Athlete</td><td><span class="tag tag-mofu">MOFU</span></td><td>Testimonial video</td><td>"I've played tennis 20 years. Padel changed everything."</td><td>Real testimonial, authenticity</td><td>Schedule intro</td></tr>
+          <tr><td>Social Athlete</td><td><span class="tag tag-bofu">BOFU</span></td><td>Lead Ad</td><td>"First session at Studio Arenna: $0 for racquet players"</td><td>Trial offer, zero risk</td><td>Claim class</td></tr>
+          <tr><td>Wellness Seeker</td><td><span class="tag tag-tofu">TOFU</span></td><td>Reel 15s</td><td>"1,000 calories. Not bored for a single second."</td><td>Fitness stats, female community, joy</td><td>Learn more</td></tr>
+          <tr><td>Wellness Seeker</td><td><span class="tag tag-mofu">MOFU</span></td><td>Story swipe-up</td><td>"The workout that makes you want to come back"</td><td>Community, belonging, enjoyable routine</td><td>Book class</td></tr>
+          <tr><td>Wellness Seeker</td><td><span class="tag tag-bofu">BOFU</span></td><td>Carousel</td><td>"Your next fitness obsession in Denver"</td><td>Evolution from CorePower/SoulCycle</td><td>Join now</td></tr>
+          <tr><td>Corporate Networker</td><td><span class="tag tag-tofu">TOFU</span></td><td>Video 30s</td><td>"Best business relationships aren't built in conference rooms"</td><td>Premium atmosphere, exclusivity</td><td>Request info</td></tr>
+          <tr><td>Corporate Networker</td><td><span class="tag tag-mofu">MOFU</span></td><td>Lead Gen Ad</td><td>"Studio Arenna Denver corporate membership"</td><td>Team value, ROI, differentiation</td><td>Request proposal</td></tr>
+          <tr><td>Corporate Networker</td><td><span class="tag tag-bofu">BOFU</span></td><td>Static retargeting</td><td>"Corporate Founding Member: limited time"</td><td>Exclusivity urgency, founder price</td><td>Confirm membership</td></tr>
+          <tr><td>Curious Newcomer</td><td><span class="tag tag-tofu">TOFU</span></td><td>Viral reel</td><td>"I tried padel first time and couldn't stop"</td><td>Authentic POV, social FOMO</td><td>See more</td></tr>
+          <tr><td>Curious Newcomer</td><td><span class="tag tag-mofu">MOFU</span></td><td>Explainer video</td><td>"What is padel? (Explained in 60 seconds)"</td><td>Quick education, accessible</td><td>Try for free</td></tr>
+          <tr><td>Curious Newcomer</td><td><span class="tag tag-bofu">BOFU</span></td><td>Lead Ad "Free"</td><td>"First class free. No experience needed."</td><td>Zero risk, zero friction</td><td>Claim free class</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 7: COPIES -->
+  <div class="section" id="s7">
+    <div class="section-title"><span class="num">7</span>Ready-to-Deploy Copies</div>
+    <div class="section-desc">3 copy variants per persona — Pain Hook, Aspiration Hook, Curiosity/Differentiator Hook.</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'cp1')">Active Professional</button>
+      <button class="tab-btn" onclick="switchTab(this,'cp2')">Social Athlete</button>
+      <button class="tab-btn" onclick="switchTab(this,'cp3')">Wellness Seeker</button>
+      <button class="tab-btn" onclick="switchTab(this,'cp4')">Corp. Networker</button>
+      <button class="tab-btn" onclick="switchTab(this,'cp5')">Curious Newcomer</button>
+    </div>
+
+    <div id="cp1" class="tab-panel active">
+      <div class="copy-block">
+        <div class="copy-label">Variant A — Pain Hook</div>
+        <div class="copy-headline">The sport that changes everything</div>
+        <div class="copy-text">Bored with your gym? Padel changes everything. Studio Arenna Denver — opening soon.<br><br><em>Long: You've been doing the same thing at the gym for years. Cardio, weights, classes. It works, but it's boring. Padel is different: real intensity, mental strategy, a high-caliber community. Studio Arenna Denver brings the world's most addictive sport to your city.</em></div>
+        <span class="copy-cta">Learn more</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant B — Aspiration Hook</div>
+        <div class="copy-headline">Founding Member Denver</div>
+        <div class="copy-text">Denver's leaders have a new sport. Have you played padel yet? Studio Arenna — founding members now.<br><br><em>Long: Padel is more than a sport. It's how the most successful professionals in Madrid, Dubai, and New York stay fit and connected. Now Denver has Studio Arenna: 6 premium indoor courts, a curated community, world-class experience. Founding memberships: limited spots.</em></div>
+        <span class="copy-cta">Join the list</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant C — Curiosity Hook</div>
+        <div class="copy-headline">Why is everyone playing padel?</div>
+        <div class="copy-text">25 million people are obsessed with padel. You still don't know why? Studio Arenna Denver coming soon.<br><br><em>Long: The world's fastest-growing sport comes to Denver. No prior experience needed. In your first session, you're already playing. Studio Arenna: 6 indoor courts, professional instruction, a community you won't find at any gym.</em></div>
+        <span class="copy-cta">See more</span>
+      </div>
+    </div>
+
+    <div id="cp2" class="tab-panel">
+      <div class="copy-block">
+        <div class="copy-label">Variant A — Crossover</div>
+        <div class="copy-headline">Your skills brought you here</div>
+        <div class="copy-text">Play tennis or pickleball? Padel uses exactly those skills — but with a wall. Studio Arenna Denver.<br><br><em>Long: Padel is the sport tennis players adopt first. Your serve, your volley, your court sense — it all transfers. And the walls add a completely new dimension. Studio Arenna Denver: 6 indoor courts, certified instructors, a community of racquet players just like you.</em></div>
+        <span class="copy-cta">Learn more</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant B — Sport Social Proof</div>
+        <div class="copy-headline">The sport of champions</div>
+        <div class="copy-text">Padel is the #1 sport in Spain, growing 30% annually in the USA. Denver now has Studio Arenna. Are you in?<br><br><em>Long: Novak Djokovic plays padel on his days off. Rafael Nadal has his own academy. The World Padel Tour fills stadiums. And now Denver has Studio Arenna: the city's first premium padel club.</em></div>
+        <span class="copy-cta">See more</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant C — Winter Differentiation</div>
+        <div class="copy-headline">Indoor. Year-round. Denver.</div>
+        <div class="copy-text">Tired of canceling tennis because of Denver's weather? 6 indoor padel courts are waiting for you.<br><br><em>Long: Denver in winter destroys tennis plans. Studio Arenna is the solution: 6 indoor padel courts, climate-controlled, no wind, no snow, no excuses. Same challenge you love in tennis — premium environment year-round.</em></div>
+        <span class="copy-cta">Book now</span>
+      </div>
+    </div>
+
+    <div id="cp3" class="tab-panel">
+      <div class="copy-block">
+        <div class="copy-label">Variant A — Fitness + Fun</div>
+        <div class="copy-headline">Fitness that makes you happy</div>
+        <div class="copy-text">The workout that doesn't feel like a workout. Padel burns 600–1,000 cal/hour. Studio Arenna Denver.<br><br><em>Long: Imagine burning more calories than your best SoulCycle class — while laughing, connecting, and challenging yourself mentally. That's padel. Studio Arenna Denver: 6 indoor courts, beginner classes, a community of women who support each other.</em></div>
+        <span class="copy-cta">Learn more</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant B — Female Community</div>
+        <div class="copy-headline">Your community is waiting</div>
+        <div class="copy-text">Women who play together. Studio Arenna Denver has leagues, clinics, and community for you.<br><br><em>Long: Padel is the world's most social sport — and Studio Arenna Denver knows it. Women's leagues, intro clinics, community events. No racquet experience needed. Just bring your energy.</em></div>
+        <span class="copy-cta">Join now</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant C — Routine Evolution</div>
+        <div class="copy-headline">The next level is calling</div>
+        <div class="copy-text">Is CorePower feeling too easy? Padel is the next level. Studio Arenna Denver — founding memberships.<br><br><em>Long: You've spent years at CorePower, Peloton, or SoulCycle. You've grown as an athlete. Padel is the next step: explosive cardio, coordination, strategy, and genuine community.</em></div>
+        <span class="copy-cta">Sign up</span>
+      </div>
+    </div>
+
+    <div id="cp4" class="tab-panel">
+      <div class="copy-block">
+        <div class="copy-label">Variant A — Networking ROI</div>
+        <div class="copy-headline">Networking that actually works</div>
+        <div class="copy-text">How many deals have you closed at the gym? On the padel court, the conversation flows naturally.<br><br><em>Long: Golf as a networking tool is 50 years old. Padel is the new playing field for business leaders who want real, natural, memorable connections. Studio Arenna Denver: an exclusive space where Denver's business community meets. Corporate memberships available.</em></div>
+        <span class="copy-cta">Request information</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant B — Exclusivity</div>
+        <div class="copy-headline">Exclusive. Limited. Denver.</div>
+        <div class="copy-text">Studio Arenna Denver: founding memberships for the city's leaders. Limited spots. Is your name on the list?</div>
+        <span class="copy-cta">Request proposal</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant C — Team Building</div>
+        <div class="copy-headline">Team building done differently</div>
+        <div class="copy-text">Team building your team will actually remember. Studio Arenna Denver: corporate events on premium padel courts.<br><br><em>Long: Company dinners are forgettable. Padel challenges, connects, and creates real memories. Studio Arenna Denver offers corporate events across 6 indoor padel courts. No experience needed. Professional instruction included.</em></div>
+        <span class="copy-cta">Get a quote</span>
+      </div>
+    </div>
+
+    <div id="cp5" class="tab-panel">
+      <div class="copy-block">
+        <div class="copy-label">Variant A — Viral FOMO</div>
+        <div class="copy-headline">First class free</div>
+        <div class="copy-text">Everyone's talking about padel. It's time you tried it. Studio Arenna Denver — first class free.<br><br><em>Long: Your feed is full of padel. Your friends are trying it. It's the world's fastest-growing sport and it's coming to Denver with Studio Arenna. FREE introductory class for the first registrants. No experience needed. No equipment needed.</em></div>
+        <span class="copy-cta">Claim now</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant B — Educational Curiosity</div>
+        <div class="copy-headline">Padel &gt; Everything else</div>
+        <div class="copy-text">Padel vs. pickleball? Padel vs. tennis? Spoiler: padel wins. Studio Arenna Denver.<br><br><em>Long: Everyone talks about pickleball. But padel has it all: walls that change the game, more strategy, more adrenaline, more fun as a team. And in Denver, there's only one place to play it right: Studio Arenna.</em></div>
+        <span class="copy-cta">See more</span>
+      </div>
+      <div class="copy-block">
+        <div class="copy-label">Variant C — Zero Barrier Entry</div>
+        <div class="copy-headline">60 minutes to play your first match</div>
+        <div class="copy-text">You don't need to know anything about padel. In 60 minutes you're playing a real match. Studio Arenna Denver.</div>
+        <span class="copy-cta">Book intro</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: HOOKS -->
+  <div class="section" id="s8">
+    <div class="section-title"><span class="num">8</span>Hooks &amp; Angles by Persona</div>
+    <div class="section-desc">5 hooks per persona — covering Pain, Curiosity, Aspiration, Social Proof, and Urgency/Scarcity angles.</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'h1')">Active Professional</button>
+      <button class="tab-btn" onclick="switchTab(this,'h2')">Social Athlete</button>
+      <button class="tab-btn" onclick="switchTab(this,'h3')">Wellness Seeker</button>
+      <button class="tab-btn" onclick="switchTab(this,'h4')">Corp. Networker</button>
+      <button class="tab-btn" onclick="switchTab(this,'h5')">Curious Newcomer</button>
+    </div>
+
+    <div id="h1" class="tab-panel active hooks-grid">
+      <div class="hook-item"><div class="hook-num">1</div><div><div class="hook-type">Pain</div><div class="hook-text">"When was the last time you left the gym feeling genuinely challenged — not just tired?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">2</div><div><div class="hook-type">Curiosity</div><div class="hook-text">"Why are Fortune 500 executives in Madrid playing padel instead of going to the gym?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">3</div><div><div class="hook-type">Aspiration</div><div class="hook-text">"The sport that turns 60 minutes of your week into the best investment for your mind, body, and network."</div></div></div>
+      <div class="hook-item"><div class="hook-num">4</div><div><div class="hook-type">Social Proof</div><div class="hook-text">"Denver's most successful startup CEOs already have their founding membership. Do you?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">5</div><div><div class="hook-type">Urgency</div><div class="hook-text">"Studio Arenna Denver founding memberships are filling up. Once the club opens, the founding price disappears for good."</div></div></div>
+    </div>
+
+    <div id="h2" class="tab-panel hooks-grid">
+      <div class="hook-item"><div class="hook-num">1</div><div><div class="hook-type">Pain</div><div class="hook-text">"How many tennis matches do you cancel every year because of Denver's weather? Indoor. Year-round. No excuses."</div></div></div>
+      <div class="hook-item"><div class="hook-num">2</div><div><div class="hook-type">Curiosity</div><div class="hook-text">"The world's best tennis players play padel to improve their game. Do you know why?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">3</div><div><div class="hook-type">Aspiration</div><div class="hook-text">"Imagine mastering a new sport in weeks — using exactly the skills you spent years perfecting."</div></div></div>
+      <div class="hook-item"><div class="hook-num">4</div><div><div class="hook-type">Social Proof</div><div class="hook-text">"Every tennis player who tries padel says the same thing: 'I can't believe it took me this long.'"</div></div></div>
+      <div class="hook-item"><div class="hook-num">5</div><div><div class="hook-type">Urgency</div><div class="hook-text">"Denver's padel community is forming right now. The people who get in first will define the culture of the club."</div></div></div>
+    </div>
+
+    <div id="h3" class="tab-panel hooks-grid">
+      <div class="hook-item"><div class="hook-num">1</div><div><div class="hook-type">Pain</div><div class="hook-text">"Another barre class? Another Peloton ride? Your body needs something different."</div></div></div>
+      <div class="hook-item"><div class="hook-num">2</div><div><div class="hook-type">Curiosity</div><div class="hook-text">"The sport that burns more calories than your best SoulCycle class — and doesn't feel like exercise."</div></div></div>
+      <div class="hook-item"><div class="hook-num">3</div><div><div class="hook-type">Aspiration</div><div class="hook-text">"Imagine a workout where time flies because you're too busy having fun to notice the effort."</div></div></div>
+      <div class="hook-item"><div class="hook-num">4</div><div><div class="hook-type">Social Proof</div><div class="hook-text">"Washington Park's most active women are already on the Studio Arenna Denver list. When are you joining?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">5</div><div><div class="hook-type">Urgency</div><div class="hook-text">"Free introductory classes for founding members are only available to the first 50 sign-ups. X spots remaining."</div></div></div>
+    </div>
+
+    <div id="h4" class="tab-panel hooks-grid">
+      <div class="hook-item"><div class="hook-num">1</div><div><div class="hook-type">Pain</div><div class="hook-text">"Corporate networking events are forced, expensive, and forgettable. There's a better way."</div></div></div>
+      <div class="hook-item"><div class="hook-num">2</div><div><div class="hook-type">Curiosity</div><div class="hook-text">"Why do 80% of partners at major consulting firms in Spain play padel together?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">3</div><div><div class="hook-type">Aspiration</div><div class="hook-text">"Studio Arenna: the place where Denver's leaders build real relationships while staying in shape."</div></div></div>
+      <div class="hook-item"><div class="hook-num">4</div><div><div class="hook-type">Social Proof</div><div class="hook-text">"Studio Arenna Denver's 50 founding corporate members include CEOs, VPs, and senior partners from the city's most important companies."</div></div></div>
+      <div class="hook-item"><div class="hook-num">5</div><div><div class="hook-type">Urgency</div><div class="hook-text">"Only 20 founding corporate memberships available. Once assigned, priority court access and exclusive corporate events won't be available."</div></div></div>
+    </div>
+
+    <div id="h5" class="tab-panel hooks-grid">
+      <div class="hook-item"><div class="hook-num">1</div><div><div class="hook-type">Pain</div><div class="hook-text">"You've been watching padel on your feed for months. Your friends have already tried it. When are you going?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">2</div><div><div class="hook-type">Curiosity</div><div class="hook-text">"What is it about padel that turns absolutely everyone who tries it into an instant addict?"</div></div></div>
+      <div class="hook-item"><div class="hook-num">3</div><div><div class="hook-type">Aspiration</div><div class="hook-text">"Be one of the first people in Denver to master the sport the entire world is discovering."</div></div></div>
+      <div class="hook-item"><div class="hook-num">4</div><div><div class="hook-type">Social Proof</div><div class="hook-text">"More than 25 million people worldwide can't be wrong. Padel is the sport of the 21st century."</div></div></div>
+      <div class="hook-item"><div class="hook-num">5</div><div><div class="hook-type">Urgency</div><div class="hook-text">"FREE introductory class — but only for the first 100 people on the Studio Arenna Denver list. X spots remaining."</div></div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 9: RETARGETING FLOWS -->
+  <div class="section" id="s9">
+    <div class="section-title"><span class="num">9</span>Retargeting Strategy — Complete Flows</div>
+    <div class="section-desc">5 sequential retargeting flows based on audience behavior — from video view to membership purchase.</div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'f1')">Flow 1 — Video Viewer</button>
+      <button class="tab-btn" onclick="switchTab(this,'f2')">Flow 2 — Landing Page</button>
+      <button class="tab-btn" onclick="switchTab(this,'f3')">Flow 3 — Form Opener</button>
+      <button class="tab-btn" onclick="switchTab(this,'f4')">Flow 4 — Lead Completed</button>
+      <button class="tab-btn" onclick="switchTab(this,'f5')">Flow 5 — Member Upsell</button>
+    </div>
+
+    <div id="f1" class="tab-panel active">
+      <div class="flow-box">
+        <p style="font-size:12px;margin-bottom:16px;font-weight:700;">Trigger: User watched video 25%+ · 30-day active window · Max 2 impressions/week</p>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 1–3</div><div class="action">MOFU — Educational carousel "5 things you didn't know about padel"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 4–7 (if no click)</div><div class="action">MOFU — Testimonial video "What someone like you says"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 8–14</div><div class="action">BOFU — Direct offer with urgency "Founding member — X spots left"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 15–30</div><div class="action">BOFU — Last chance + price vs. regular price</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div></div><div class="flow-step-content"><div class="trigger">No conversion in 30d</div><div class="action">Return to TOFU pool or MOFU soft touch every 2 weeks</div></div></div>
+      </div>
+    </div>
+
+    <div id="f2" class="tab-panel">
+      <div class="flow-box">
+        <p style="font-size:12px;margin-bottom:16px;font-weight:700;">Trigger: User visited landing page — didn't complete form</p>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 1</div><div class="action">BOFU Static — "Questions about Studio Arenna? Answers here" → LP with FAQ visible</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 2–4</div><div class="action">BOFU Carousel — Specific founding membership benefits → pricing/membership page</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 5–10</div><div class="action">BOFU Video — "Virtual tour of Studio Arenna Denver" → LP with prominent video</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 11–20</div><div class="action">BOFU — Real urgency "X founding member spots remaining" → waitlist/direct checkout</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div></div><div class="flow-step-content"><div class="trigger">No conversion in 21d</div><div class="action">Pause BOFU — reclassify as warm MOFU — newsletter, events</div></div></div>
+      </div>
+    </div>
+
+    <div id="f3" class="tab-panel">
+      <div class="flow-box">
+        <p style="font-size:12px;margin-bottom:16px;font-weight:700;">Trigger: Opened instant form — did NOT complete · <span style="color:var(--terra)">Highest intent — budget priority</span></p>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Within 24 hours</div><div class="action">"Something stopped you? Complete your registration in 30 seconds." — form takes 30s, founding benefits waiting</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">24–48h (if no completion)</div><div class="action">Same message — different creative (image vs. video)</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">72h</div><div class="action">Urgency — "Founding spots are filling up this week"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div></div><div class="flow-step-content"><div class="trigger">No response in 5 days</div><div class="action">Pause — reclassify as Web Visitor warm audience</div></div></div>
+      </div>
+    </div>
+
+    <div id="f4" class="tab-panel">
+      <div class="flow-box">
+        <p style="font-size:12px;margin-bottom:16px;font-weight:700;">Trigger: Completed lead form — didn't buy membership · Also in email sequence</p>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 1</div><div class="action">Confirmation/welcome — "Thank you for joining the list" — reinforces decision, does NOT sell</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 3–5</div><div class="action">Educational — "What to expect at Studio Arenna Denver?" — visual tour, community, facilities</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 6–10</div><div class="action">Testimonial from founding member matching their persona</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 10–15</div><div class="action">Conversion — "Your founding membership — activate it this week" — price/benefits, CTA to checkout</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 16–25</div><div class="action">Real urgency — "Founding spots being assigned this week"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div></div><div class="flow-step-content"><div class="trigger">Day 25–45</div><div class="action">Soft re-engagement — special event, open house, preview day. After 45d → MOFU long-term nurture</div></div></div>
+      </div>
+    </div>
+
+    <div id="f5" class="tab-panel">
+      <div class="flow-box">
+        <p style="font-size:12px;margin-bottom:16px;font-weight:700;">Trigger: Purchased basic membership</p>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 7–14 after activation</div><div class="action">"Bring a friend for free" — referral program</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 30</div><div class="action">"Upgrade to unlimited membership — free for 2 weeks"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-step-content"><div class="trigger">Day 45–60</div><div class="action">"Private clinics with instructor — take your game further"</div></div></div>
+        <div class="flow-step"><div><div class="flow-dot"></div></div><div class="flow-step-content"><div class="trigger">Day 90 (if inactive/didn't renew)</div><div class="action">Winback — "We miss you on the court" — special re-activation offer</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10: OPTIMIZATION -->
+  <div class="section" id="s10">
+    <div class="section-title"><span class="num">10</span>Optimization &amp; Scaling Rules</div>
+    <div class="section-desc">When to scale, when to pause, automated rules, A/B testing framework, and weekly review checklist.</div>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-title"><div class="rule-icon" style="background:var(--mint);">📈</div>When to Scale an Adset</div>
+        <table style="font-size:11px;">
+          <thead><tr><th>Condition</th><th>Action</th><th>Change</th></tr></thead>
+          <tbody>
+            <tr><td>CPL &lt;$25 + 5 leads/day × 5 days</td><td>Scale budget</td><td>+20% / 3–4 days</td></tr>
+            <tr><td>ROAS &gt;3x × 7 days</td><td>Scale budget</td><td>+30%</td></tr>
+            <tr><td>Frequency &lt;2.0 + good perf.</td><td>Expand audience</td><td>+15–20%</td></tr>
+            <tr><td>CPM drops + CTR rises</td><td>Scale confidently</td><td>+25%</td></tr>
+            <tr><td>CPA stable within target</td><td>Scale slowly</td><td>+10–15%/week</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;margin-top:8px;color:var(--terra);font-weight:600;">⚠ Never scale &gt;30% of budget within 72h — resets learning algorithm</p>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title"><div class="rule-icon" style="background:var(--pink);">⏸</div>When to Pause an Ad</div>
+        <table style="font-size:11px;">
+          <thead><tr><th>Signal</th><th>Threshold</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Feed CTR &lt;0.8%</td><td>3,000+ impressions</td><td>Pause, new variant</td></tr>
+            <tr><td>CPL &gt;$60</td><td>7 days data</td><td>Pause or adjust audience</td></tr>
+            <tr><td>CPC &gt;$4.50</td><td>$50 spend / no leads</td><td>Review + pause</td></tr>
+            <tr><td>Frequency &gt;4.0/week</td><td>Immediately</td><td>Refresh creative</td></tr>
+            <tr><td>VCR &lt;20% TOFU</td><td>2,000 views</td><td>Redo first 3 seconds</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title"><div class="rule-icon" style="background:var(--mint);">⚙️</div>Automated Budget Rules</div>
+        <ul>
+          <li><strong>Stop Loss:</strong> Spend &gt;$50 + 0 conversions in 5 days → auto-disable + email alert</li>
+          <li><strong>Scale Winner:</strong> CPL &lt;$20 + 3+ leads/day → +20% daily budget (max $200/day)</li>
+          <li><strong>Frequency Alert:</strong> Frequency &gt;3.5 in 7 days → notification to refresh creative</li>
+          <li><strong>Weekend Boost:</strong> Fridays 5pm → +15% budget in top-performing adsets</li>
+        </ul>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-title"><div class="rule-icon" style="background:var(--orange);color:#fff;">🧪</div>A/B Testing Framework</div>
+        <p style="font-size:12px;margin-bottom:8px;"><strong>Test ONE element at a time.</strong></p>
+        <p style="font-size:11px;margin-bottom:6px;opacity:.65;">Priority order (highest impact first):</p>
+        <ol style="font-size:12px;padding-left:16px;line-height:1.9;">
+          <li>Audience</li>
+          <li>Offer / Message angle</li>
+          <li>Creative (video vs. image vs. carousel)</li>
+          <li>Hook (first 3s / first line)</li>
+          <li>CTA</li>
+          <li>Headline</li>
+          <li>Colors / Visual palette</li>
+        </ol>
+        <p style="font-size:11px;margin-top:8px;color:var(--green);font-weight:600;">Min $50 spend + 5 conversions per variant · Run 7 days minimum</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 6px rgba(69,74,96,0.07);">
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:.8px;">Monday Review Checklist (Every Monday 9am)</h4>
+      <ul class="checklist">
+        <li>Review total spend for the week vs. plan (±10% acceptable)</li>
+        <li>CPL by campaign and adset — compare against benchmark</li>
+        <li>Lead volume by day — identify peak and low days</li>
+        <li>Frequency by adset — alerts if &gt;3.5</li>
+        <li>CTR by ad — pause any &lt;0.8% with enough data</li>
+        <li>Adsets in "Learning" — do not touch until out of learning phase</li>
+        <li>Top 3 ads of the week — document why they worked</li>
+        <li>Bottom 3 ads — pause or test new variant</li>
+        <li>Review Google negative keywords (new search terms)</li>
+        <li>Lead quality score (sales team closing rate follow-up)</li>
+        <li>Adjust budget based on performance (scale winners, cut losers)</li>
+        <li>Plan 2–3 new creatives for the following week</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 11: LANDING PAGES -->
+  <div class="section" id="s11">
+    <div class="section-title"><span class="num">11</span>Landing Pages</div>
+    <div class="section-desc">Two landing pages — Founding Member Waitlist and First Class Free — with section-by-section structure and copy.</div>
+
+    <div class="tabs">
+      <button class="tab-btn" onclick="switchTab(this,'lp1')">Founding Member Waitlist</button>
+      <button class="tab-btn active" onclick="switchTab(this,'lp2')">First Class Free</button>
+    </div>
+
+    <div id="lp1" class="tab-panel">
+      <p style="font-size:12px;margin-bottom:16px;"><strong>URL:</strong> <span class="code">studioarenna.com/denver</span></p>
+      <div class="lp-section">
+        <div class="lp-section-label">Hero Section</div>
+        <h5>Denver, the world's most addictive sport has arrived.</h5>
+        <p>Studio Arenna. 6 premium indoor padel courts. 2525 W Barberry. Opening soon.<br>Primary CTA: <strong>[Join the list — it's free]</strong> · Secondary CTA: <strong>[See what padel is →]</strong><br>Visual: Autoplay video (no audio) — slow motion rally, Blue Serve/Terracotta palette, Arenna logo visible.</p>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Section 2</div>
+        <h5>Not just a club. Your next obsession.</h5>
+        <p><strong>The space:</strong> 6 indoor padel courts with premium finishes, luxury locker rooms, nutrition bar, professional warm-up zone.<br><strong>The sport:</strong> Padel is walled tennis: more social, more strategic, more addictive. Learn in one session. Won't be able to stop after.<br><strong>The community:</strong> Not an anonymous gym. A curated club where Denver's professionals share a court, a conversation, and ambition.</p>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Section 3 — Founding Member Benefits</div>
+        <h5>The first 100 founding members in Denver get more.</h5>
+        <ul style="font-size:12px;padding-left:16px;line-height:2;">
+          <li>Founding rate locked for life (frozen at opening price)</li>
+          <li>Booking priority: reserve courts 7 days ahead of general public</li>
+          <li>Access to private inaugural session (founding members only)</li>
+          <li>Exclusive Studio Arenna Denver welcome kit</li>
+          <li>Invitation to private community events (quarterly)</li>
+          <li>20% discount on clinics and instruction sessions</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>CTA:</strong> [Lock in my founding membership]</p>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Section 4 — Why Padel</div>
+        <h5>25 million people worldwide can't be wrong.</h5>
+        <div class="stats-row" style="margin-top:12px;">
+          <div class="stat-card"><div class="stat-val">25M+</div><div class="stat-label">Players worldwide</div></div>
+          <div class="stat-card"><div class="stat-val">#1</div><div class="stat-label">Fastest-growing sport globally</div></div>
+          <div class="stat-card"><div class="stat-val">1,000</div><div class="stat-label">Calories/hour max</div></div>
+          <div class="stat-card"><div class="stat-val">30 min</div><div class="stat-label">To play your first match</div></div>
+          <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Players per court</div></div>
+        </div>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Section 5 — Social Proof</div>
+        <h5>What our community says</h5>
+        <div style="display:grid;gap:10px;margin-top:8px;">
+          <div class="persona-quote">"I played tennis for 15 years. Padel gave me back the excitement of learning something new at 43." — M.T., Cherry Creek</div>
+          <div class="persona-quote">"Studio Arenna is the space Denver needed. I came for the padel, I stayed for the community." — S.C., Highlands</div>
+          <div class="persona-quote">"As an executive, padel replaced my golf outings for networking. My clients love it." — D.K., Country Club</div>
+        </div>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Section 6 — FAQ</div>
+        <h5>Frequently Asked Questions</h5>
+        <div style="font-size:12px;line-height:1.9;margin-top:8px;">
+          <p><strong>Do I need experience?</strong> Absolutely not. Our intro class is designed for zero experience. You'll be playing in 60 minutes.</p>
+          <p><strong>What does the founding membership include?</strong> Guaranteed rate, booking priority, inaugural session, welcome kit, and exclusive events.</p>
+          <p><strong>How much does court time cost?</strong> The regular rate is $94/hr. Founding members have their rate frozen at the opening price.</p>
+          <p><strong>Do you have loaner equipment?</strong> Yes. Rackets and balls available. You don't need to buy anything for your first session.</p>
+          <p><strong>Where are you located?</strong> 2525 W Barberry, Denver, CO. Minutes from Highlands and Sloan's Lake.</p>
+          <p><strong>When do you open?</strong> Soon. Founding members receive exclusive access before the general public.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="lp2" class="tab-panel active">
+      <p style="font-size:12px;margin-bottom:16px;"><strong>URL:</strong> <span class="code">studioarenna.com/denver/intro-class</span> · Target: P3 (Wellness Seeker) + P5 (Curious Newcomer)</p>
+      <div class="lp-section">
+        <div class="lp-section-label">Hero</div>
+        <h5>Your first padel class. Completely free.</h5>
+        <p>In 60 minutes you'll be playing your first rally at Studio Arenna Denver. No experience. No equipment. Just show up.</p>
+      </div>
+      <div class="lp-section">
+        <div class="lp-section-label">Form Fields</div>
+        <p>Name · Email · Phone · Experience level (Never played / Some tennis-pickleball / Have racquet experience) · Preferred time (Morning / Midday / Afternoon / Evening)</p>
+        <p style="margin-top:6px;"><strong>CTA:</strong> [Book my free class]</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 12: BUDGET -->
+  <div class="section" id="s12">
+    <div class="section-title"><span class="num">12</span>Budget &amp; Projections</div>
+    <div class="section-desc">$25K/month distribution, CPM/CTR estimates, lead projections, payback period, and scaling plan.</div>
+
+    <div class="subsection">
+      <h4>$25K/Month Budget Distribution</h4>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 6px rgba(69,74,96,0.07);">
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — BOFU Hot Audiences</span><span>$4,500 (18%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:18%;background:var(--terra);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — MOFU Lead Gen Waitlist</span><span>$3,000 (12%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:12%;background:var(--orange);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — TOFU Cold Personas</span><span>$3,300 (13.2%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:13.2%;background:var(--blue);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Creative Production</span><span>$2,500 (10%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:10%;background:var(--green);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — MOFU Video/Engagement Retargeting</span><span>$2,400 (9.6%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:9.6%;background:var(--mint);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Google — Search High Intent</span><span>$1,800 (7.2%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:7.2%;background:var(--orange);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — TOFU Geo Neighborhoods</span><span>$1,500 (6%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:6%;background:var(--blue);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Meta — Retention Winback/Upsell</span><span>$900 (3.6%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:3.6%;background:var(--terra);"></div></div></div>
+        <div class="budget-bar-wrap"><div class="budget-bar-label"><span>Contingency/Testing</span><span>$900 (3.6%)</span></div><div class="budget-bar"><div class="budget-bar-fill" style="width:3.6%;background:var(--pink);"></div></div></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h4>Lead &amp; Conversion Projections (Months 1–3)</h4>
+      <div class="proj-row">
+        <div class="proj-card">
+          <div class="period">Month 1 — Pre-opening</div>
+          <div class="leads">250–350 <span>leads</span></div>
+          <div class="proj-row2" style="margin-top:10px;">
+            <div class="proj-item"><span class="k">Avg. CPL</span><span class="v">$35–45</span></div>
+            <div class="proj-item"><span class="k">Conv. to Membership</span><span class="v">15–20%</span></div>
+            <div class="proj-item"><span class="k">Members</span><span class="v">35–70</span></div>
+            <div class="proj-item"><span class="k">Potential Revenue</span><span class="v">$3.5K–14K</span></div>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="period">Month 2 — Opening</div>
+          <div class="leads">350–500 <span>leads</span></div>
+          <div class="proj-row2" style="margin-top:10px;">
+            <div class="proj-item"><span class="k">Avg. CPL</span><span class="v">$28–38</span></div>
+            <div class="proj-item"><span class="k">Conv. to Membership</span><span class="v">20–30%</span></div>
+            <div class="proj-item"><span class="k">Members</span><span class="v">70–150</span></div>
+            <div class="proj-item"><span class="k">Potential Revenue</span><span class="v">$7K–30K</span></div>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="period">Month 3 — Growth</div>
+          <div class="leads">400–600 <span>leads</span></div>
+          <div class="proj-row2" style="margin-top:10px;">
+            <div class="proj-item"><span class="k">Avg. CPL</span><span class="v">$25–32</span></div>
+            <div class="proj-item"><span class="k">Conv. to Membership</span><span class="v">25–35%</span></div>
+            <div class="proj-item"><span class="k">Members</span><span class="v">100–210</span></div>
+            <div class="proj-item"><span class="k">Potential Revenue</span><span class="v">$10K–42K</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h4>Payback Period by Scenario</h4>
+      <table>
+        <thead><tr><th>Scenario</th><th>Acquisition Cost</th><th>12-month LTV</th><th>Payback Period</th><th>Target ROAS</th></tr></thead>
+        <tbody>
+          <tr><td>Conservative</td><td>$200 CPA</td><td>$2,400</td><td>~1 month</td><td>3:1</td></tr>
+          <tr><td>Base</td><td>$150 CPA</td><td>$3,200</td><td>&lt;1 month</td><td>3:1 → 5:1 at M6</td></tr>
+          <tr><td>Optimistic</td><td>$100 CPA</td><td>$4,500</td><td>&lt;1 month</td><td>5:1+</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <h4>$50K/Month Scaling Plan</h4>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 6px rgba(69,74,96,0.07);font-size:12px;line-height:2;">
+        Double TOFU spend (expand geo to Boulder, Fort Collins) ·
+        Add TikTok Ads $3,000/mo (P3 + P5) ·
+        Add LinkedIn Ads $2,500/mo (P1 + P4) ·
+        Hire local UGC creators 4–6 pieces/mo ($1,500) ·
+        Scale BOFU to $10,000/mo ·
+        Add full YouTube Awareness ($2,000/mo)
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// Sidebar active on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+
+function toggleExpand(trigger) {
+  const content = trigger.nextElementSibling;
+  trigger.classList.toggle('open');
+  content.classList.toggle('open');
+}
+
+function switchTab(btn, panelId) {
+  const parent = btn.closest('.section') || btn.closest('.subsection') || btn.parentElement.parentElement;
+  // deactivate all tabs in scope
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // find all tab panels — look for siblings of parent
+  const container = btn.parentElement.nextElementSibling?.parentElement || btn.parentElement.parentElement;
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId)?.classList.add('active');
+}
+</script>
+
+
+
+
+    <script src="./script.js"></script>
+  
+
+</body></html>tbody tr:hover{background:rgba(69,74,96,0.04);}
 tbody td{padding:10px 14px;font-size:12px;}
 tbody td:first-child{font-weight:600;}
 .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.3px;}
