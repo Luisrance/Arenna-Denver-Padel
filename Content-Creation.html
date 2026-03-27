@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Arenna | Video Ad Scripts</title>
+    
+    <!-- Google Fonts: Red Hat Display & Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&family=Red+Hat+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arenna: {
+                            cream: '#FFF9F3',
+                            blue: '#454A60',
+                            mint: '#B7D7C0',
+                            green: '#718F85',
+                            pink: '#ECCDBC',
+                            orange: '#ED7A42',
+                            terracotta: '#B93700'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Red Hat Display"', 'sans-serif'],
+                        serif: ['"Noto Serif"', 'serif'],
+                    },
+                    letterSpacing: {
+                        tightest: '-.025em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #B7D7C0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718F85;
+        }
+        
+        .brand-italic {
+            font-family: 'Noto Serif', serif;
+            font-style: italic;
+            font-weight: 500;
+            letter-spacing: -0.025em;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(255, 249, 243, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(183, 215, 192, 0.3);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-arenna-cream text-arenna-blue font-sans antialiased h-screen overflow-hidden flex selection:bg-arenna-mint selection:text-arenna-blue">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-72 border-r border-arenna-mint/30 flex flex-col h-full bg-white/40 relative z-10">
+        <!-- Brand Header -->
+        <div class="p-8 border-b border-arenna-mint/30">
+            <h1 class="text-2xl font-bold tracking-tight uppercase leading-none">Studio<br>Arenna</h1>
+            <p class="brand-italic text-sm mt-3 text-arenna-green">Unlock your potential</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-8">
+            
+            <!-- Strategy Section -->
+            <div>
+                <h2 class="text-xs font-bold text-arenna-blue/50 uppercase tracking-widest mb-3 px-4">Overview</h2>
+                <nav class="space-y-1" id="nav-overview">
+                    <button onclick="app.setView('strategy')" id="btn-strategy" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-arenna-mint/20 text-arenna-blue">
+                        <i class="ph ph-map-trifold text-lg"></i>
+                        Master Strategy
+                    </button>
+                    <button onclick="app.setView('production')" id="btn-production" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-arenna-mint/20 text-arenna-blue">
+                        <i class="ph ph-clapperboard text-lg"></i>
+                        Production Notes
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Scripts Section -->
+            <div>
+                <h2 class="text-xs font-bold text-arenna-blue/50 uppercase tracking-widest mb-3 px-4">Video Scripts</h2>
+                <nav class="space-y-1" id="nav-funnel">
+                    <!-- Dynamic Funnel Filters -->
+                </nav>
+            </div>
+        </div>
+
+        <!-- User Profile / Bottom Info -->
+        <div class="p-6 border-t border-arenna-mint/30 text-xs text-arenna-blue/60">
+            <p class="font-semibold uppercase text-arenna-blue">Creative Library</p>
+            <p class="mt-1">March 2026 Edition</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full relative" id="main-content">
+        <!-- Content injected via JS -->
+    </main>
+
+    <!-- App Logic -->
+    <script>
+        // Data Structure matching the provided MD file
+        const videoData = [
+            {
+                id: "01",
+                title: "THIS IS PADEL",
+                stage: "TOFU",
+                objective: "Brand awareness, introduce padel to cold audiences who have never played",
+                duration: "0:28 (Reels) / 0:15 (cut-down)",
+                personas: "Jordan Walsh, Alex Rivera",
+                cta: "Book a Court — studioarenna.com",
+                formats: "9:16 primary / 16:9 for YouTube pre-roll",
+                concept: "Pure sport energy. No narration explaining rules. Just the feeling — the sound of the ball, the reflexes, the rally, the eruption of celebration. End with the brand promise. Padel sells itself visually.",
+                adCopy: "The fastest sport you've never played is now in Denver. Studio Arenna — 6 premium padel courts in the heart of the city. Book your court now.",
+                scenes: [
+                    { time: "0:00–0:02", shot: "ECU", action: "A padel ball bouncing off the glass wall in slow motion. Ball fills frame.", audio: "Music hits on beat 1. Single percussive hit." },
+                    { time: "0:02–0:04", shot: "Medium wide", action: "Two players mid-rally — fast hands, glass wall behind. One player dives.", audio: "Music builds. Crowd ambient SFX under music." },
+                    { time: "0:04–0:05", shot: "ECU", action: "Racket contact — strings vibrate. Shot from below the court level.", audio: "Beat drops." },
+                    { time: "0:05–0:08", shot: "Wide", action: "A perfectly timed lob — ball floats over opponents. Slow motion.", audio: "Music continues. No dialogue." },
+                    { time: "0:08–0:10", shot: "Medium close", action: "Player's face: pure focus. Sweat. Jaw set. Eyes locked.", audio: "Ambient court SFX." },
+                    { time: "0:10–0:13", shot: "Wide", action: "A fast net exchange — both pairs in a rapid volley sequence. Raw speed.", audio: "Music peaks." },
+                    { time: "0:13–0:16", shot: "Medium wide", action: "Point won. Two partners grab each other — real celebration, physical, genuine.", audio: "Crowd cheer SFX mixed in." },
+                    { time: "0:16–0:20", shot: "Aerial", action: "Court from above — 4 players take positions for next point. The glass walls catch the light.", audio: "Music drops to minimal." },
+                    { time: "0:20–0:24", shot: "Montage", action: "4 rapid cuts: Ball hits glass. Overhead smash. Running blur. Racket raised.", audio: "Beat-synced cuts. Each cut is exactly 1 beat." },
+                    { time: "0:24–0:28", shot: "Graphics", action: "Studio Arenna logo fades in. Tagline appears beneath. CTA appears.", audio: "Music fades to tone." }
+                ],
+                text: [
+                    "0:08: THE FASTEST SPORT YOU'VE NEVER PLAYED.",
+                    "0:16: DENVER'S FIRST PREMIUM PADEL CLUB.",
+                    "0:25: \"Unlock your potential\"",
+                    "0:26: Book a court → studioarenna.com"
+                ],
+                voiceover: "No voiceover on this video. Music + ambient court sounds only. The sport speaks for itself.",
+                instructions: [
+                    "Rhythm: Every cut must sync to the music beat. Export the music track first, place your beat markers, then cut to picture.",
+                    "Color grade: Start desaturated cold (first 4 seconds), then warm grade kicks in at the celebration moment (0:13).",
+                    "Slow motion: Shots 01 and 04 at 40% speed. All other shots at real time or 80%.",
+                    "Sound design: Layer real court sounds under the music at 20–30% volume.",
+                    "Cut-down (0:15): Use shots 02, 04, 06, 07, 09, 10. Same rhythm principle applies."
+                ]
+            },
+            {
+                id: "02",
+                title: "YOUR PEOPLE ARE ALREADY HERE",
+                stage: "TOFU",
+                objective: "Lifestyle and community — make Denver's target audience see themselves in the club",
+                duration: "0:30 (Reels) / 0:20 (Stories)",
+                personas: "Sarah Chen, Michael Torres, David Kim",
+                cta: "Book your first session — studioarenna.com",
+                formats: "9:16 primary / 1:1 secondary",
+                concept: "This video is not about the sport. It's about the people. The ones who already know. The laugh after a long rally. The post-game conversation at the bar. FOMO drive: the right Denver crowd has already found this.",
+                adCopy: "The best part of padel isn't the workout. It's what happens after. Denver's padel community is forming right now — and the people showing up are your kind of people. Book your first court.",
+                scenes: [
+                    { time: "0:00–0:03", shot: "Med close", action: "Group of 4 walking off the court, laughing. Real joy.", audio: "Ambient laughter, court sounds. Music eases in warm." },
+                    { time: "0:03–0:06", shot: "Close-up", action: "Two players doing a post-rally fist bump that turns into a full handshake.", audio: "Music up." },
+                    { time: "0:06–0:10", shot: "Wide", action: "Active court: shot from outside looking in through glass. Beautiful reflection.", audio: "Music driving." },
+                    { time: "0:10–0:13", shot: "Handheld", action: "Post-game at F&B area. Animated conversation, drinks in hand.", audio: "Ambient bar sounds layered under music." },
+                    { time: "0:13–0:17", shot: "Split", action: "Cut A: Woman mid-game. Cut B: Man lunging. Fully committed.", audio: "Beat-matched cuts." },
+                    { time: "0:17–0:20", shot: "Medium", action: "Strangers introduced at the net. Coach facilitates. Genuine smiles.", audio: "Natural SFX: voices, laughter." },
+                    { time: "0:20–0:24", shot: "Wide", action: "Overhead view of two courts side by side — both in play.", audio: "Music peak." },
+                    { time: "0:24–0:28", shot: "Close-up", action: "Player holds racket, looks directly into camera. Slight smile. Unscripted feel.", audio: "Music drops." },
+                    { time: "0:28–0:30", shot: "Graphics", action: "Studio Arenna logo. CTA card.", audio: "Single warm musical tone." }
+                ],
+                text: [
+                    "0:06: THIS IS WHAT THURSDAY NIGHTS LOOK LIKE NOW.",
+                    "0:13: COMMUNITY THAT CHALLENGES YOU.",
+                    "0:20: DENVER'S PADEL SCENE STARTS HERE.",
+                    "0:28: Book your first session →"
+                ],
+                voiceover: "Option A (VO): 'There's a sport taking over Denver right now. Not because of the competition. Because of what happens after the last point... Studio Arenna. Denver's home for padel.'\nOption B: Text-on-screen only.",
+                instructions: [
+                    "Handheld feel: Camera should feel slightly alive — use a fluid head with slight operator movement.",
+                    "Grade: Warm, golden, rich. Skin tones priority. Shadows lifted slightly.",
+                    "Pacing: Slower than Video 01. This is about feeling, not action. Let shots breathe 1–2 seconds longer.",
+                    "Sound mix: F&B scene voices audible but unintelligible (20%)."
+                ]
+            },
+            {
+                id: "03",
+                title: "THE WORKOUT THAT DOESN'T FEEL LIKE ONE",
+                stage: "TOFU",
+                objective: "Fitness angle — speak to people tired of the gym, yogis, Peloton riders",
+                duration: "0:28 (Reels) / 0:15 (cut-down)",
+                personas: "Sarah Chen, Alex Rivera",
+                cta: "Book your first session",
+                formats: "9:16 primary / 1:1 secondary",
+                concept: "Padel burns up to 1,000 calories per hour. But nobody playing padel is thinking about calories — they're thinking about the next point. The workout disguised as the best time of your week.",
+                adCopy: "Padel burns up to 1,000 calories an hour. But you won't be counting. You'll be too busy trying to win the next point. Studio Arenna — Denver's home for padel. Book a session.",
+                scenes: [
+                    { time: "0:00–0:03", shot: "Close-up", action: "Sweat dripping down forearm gripping racket. Intimate, tactile.", audio: "Silence. Then music builds from nothing." },
+                    { time: "0:03–0:05", shot: "Wide", action: "Player sprinting across court width. Full extension.", audio: "Music full." },
+                    { time: "0:05–0:08", shot: "Close-up", action: "Wearable showing 158 bpm. Player glances and grins.", audio: "Natural ambient." },
+                    { time: "0:08–0:12", shot: "Medium", action: "Women mid-game. One howls with laughter at a difficult shot. Total joy under effort.", audio: "Laughter SFX. Music under." },
+                    { time: "0:12–0:15", shot: "ECU", action: "Legs: quick lateral movement, stop, direction change.", audio: "Sharp percussion synced to foot movement." },
+                    { time: "0:15–0:18", shot: "Med wide", action: "End of rally. Teams breathing hard, smiling.", audio: "Music drops. Natural laughter." },
+                    { time: "0:18–0:22", shot: "Static CU", action: "Cold water bottle condensing in hand. Visible exhale. Satisfaction.", audio: "Ambient: quiet court." },
+                    { time: "0:22–0:25", shot: "Montage", action: "Serve. Net volley. Point celebration. Beat-matched.", audio: "Music back up." },
+                    { time: "0:25–0:28", shot: "Graphics", action: "Logo + CTA", audio: "Music to tone." }
+                ],
+                text: [
+                    "0:05: UP TO 1,000 CALORIES AN HOUR.",
+                    "0:05: \"You won't be counting.\"",
+                    "0:12: THE MOST FUN YOUR BODY HAS EVER HAD.",
+                    "0:18: PADEL. DENVER'S NEW OBSESSION."
+                ],
+                voiceover: "No voiceover. Text-on-screen with music and natural sound.",
+                instructions: [
+                    "Opening silence: First 1.5s near-silent. Let sweat shot breathe.",
+                    "Heart rate shot: Hold 2 full seconds. The grin is the payoff.",
+                    "Foot movement shot: Add sharp percussive hit to each direction change.",
+                    "Water bottle shot: Grade slightly desaturated. Hold 3 seconds."
+                ]
+            },
+            {
+                id: "04",
+                title: "DENVER, MEET PADEL",
+                stage: "TOFU",
+                objective: "City-specific pride and arrival energy. First-mover energy.",
+                duration: "0:30 (Reels)",
+                personas: "All Personas",
+                cta: "Book a court",
+                formats: "9:16 primary / 16:9 for YouTube",
+                concept: "Padel is the fastest-growing sport in the world. It took over Europe, South America, the coasts. Now it's in Denver. Studio Arenna as the moment Denver joins the movement.",
+                adCopy: "25 million players. The world's fastest-growing sport. It's been everywhere but Denver. Not anymore. Studio Arenna opens at 2525 W Barberry. Book your first court.",
+                scenes: [
+                    { time: "0:00–0:03", shot: "B-roll", action: "Denver skyline or LoHi street. Morning light.", audio: "City morning sounds. Music begins quietly." },
+                    { time: "0:03–0:06", shot: "Wide ext.", action: "Studio Arenna exterior. People arriving with rackets.", audio: "Music builds." },
+                    { time: "0:06–0:10", shot: "Int wide", action: "Courts revealed. High ceilings, glass. Impressive scale.", audio: "Music peak on reveal." },
+                    { time: "0:10–0:14", shot: "Montage", action: "Global padel (WPT clips) -> hard cut to local Denver court.", audio: "Crowd SFX builds then cuts to silence." },
+                    { time: "0:14–0:18", shot: "Medium", action: "Denver group walking onto court first time. Taking it in.", audio: "Natural ambient. Quiet awe." },
+                    { time: "0:18–0:22", shot: "Action", action: "Denver players in full game mode. They belong here.", audio: "Music full." },
+                    { time: "0:22–0:26", shot: "Slow mo", action: "First overhead smash lands perfectly.", audio: "Cinematic swell." },
+                    { time: "0:26–0:30", shot: "Graphics", action: "Logo + CTA", audio: "Music resolves." }
+                ],
+                text: [
+                    "0:00: 25 MILLION PLAYERS.",
+                    "0:00: \"The world's fastest-growing sport.\"",
+                    "0:06: EUROPE HAD IT. -> THE COASTS HAD IT. -> NOW DENVER HAS IT.",
+                    "0:18: 6 COURTS. WORLD-CLASS FACILITY. YOUR CITY."
+                ],
+                voiceover: "VO (for YouTube): 'Padel has 25 million players worldwide... And now, for the first time in Denver — a facility built specifically for this sport. Studio Arenna.'",
+                instructions: [
+                    "Court reveal: The money shot. Go wide. Slow push-in. Hold 1.5–2s.",
+                    "Global montage: Contrast global arena scale with high-quality local court.",
+                    "Sequential text cards: Pop on, hold 1s, hard cut to next. No dissolves.",
+                    "Music: Cinematic swell required on court reveal (0:06) and smash (0:22)."
+                ]
+            },
+            {
+                id: "06",
+                title: "YOUR FIRST COURT IS WAITING",
+                stage: "MOFU",
+                objective: "Direct response — get warm audiences to book their first court session",
+                duration: "0:20 (Reels)",
+                personas: "Engaged audiences",
+                cta: "Book Now — your first session",
+                formats: "9:16 primary / 1:1 secondary",
+                concept: "Remove every last friction point: you don't need equipment, you don't need experience, you can do it this week. Direct, warm, welcoming.",
+                adCopy: "$94/hr. Fits 4. Rackets included. No membership needed to start. Book a court this week at Studio Arenna — Denver's first premium padel club.",
+                scenes: [
+                    { time: "0:00–0:02", shot: "Wide", action: "Pristine court, empty but full of possibility.", audio: "Warm, inviting music." },
+                    { time: "0:02–0:06", shot: "Montage", action: "Player walking on. Racket rental rack. Players calling each other on court.", audio: "Music continuous." },
+                    { time: "0:06–0:10", shot: "Medium", action: "Coach gives 10-second orientation. Players nod, smile.", audio: "Natural ambient." },
+                    { time: "0:10–0:14", shot: "Action", action: "Beginners mid-game, genuinely enjoying it.", audio: "Music builds." },
+                    { time: "0:14–0:17", shot: "Post-game", action: "Group laughing. 'That was insane.'", audio: "Natural laughter." },
+                    { time: "0:17–0:20", shot: "Graphics", action: "Full CTA card with pricing.", audio: "Music resolves warm." }
+                ],
+                text: [
+                    "0:00: YOUR COURT IS READY.",
+                    "0:02: NO EXPERIENCE NEEDED.",
+                    "0:02: \"Rackets provided. Just show up.\"",
+                    "0:10: YOU'LL PLAY YOUR FIRST REAL POINT IN 30 MINUTES.",
+                    "0:18: $94/hr per court · Fits 4 players · No membership required"
+                ],
+                voiceover: "VO: 'You don't need a membership. You don't need to bring anything. Just book a court. We'll handle the rest.'",
+                instructions: [
+                    "Empty court shot: Light like a product. Hero image. 2.5s hold.",
+                    "Racket rack: Clearly show organized rentals to reduce friction.",
+                    "Pricing text: Legible but secondary. CTA button must be the largest element.",
+                    "Music: Warmer, less driving. Signals safety and ease."
+                ]
+            },
+            {
+                id: "07",
+                title: "PADEL VS. EVERYTHING ELSE YOU'VE TRIED",
+                stage: "MOFU",
+                objective: "Differentiation — speaks to tennis, pickleball, or gym players",
+                duration: "0:28",
+                personas: "Michael Torres, Alex Rivera",
+                cta: "Try padel this week",
+                formats: "9:16 primary",
+                concept: "Direct comparison. Padel gives you racket sport skills + social intensity + fitness output. If you live at the gym, you've been missing human connection.",
+                adCopy: "If you play tennis — your skills transfer on day one. If you play pickleball — padel is the next level... Book a session.",
+                scenes: [
+                    { time: "0:00–0:03", shot: "Split/Cuts", action: "Tennis player drilling alone. Gym treadmill isolation.", audio: "Melancholic tone." },
+                    { time: "0:03–0:06", shot: "Contrast", action: "4 players on padel court. Alive. Laughing.", audio: "Music shifts: brighter, energetic." },
+                    { time: "0:06–0:10", shot: "Medium", action: "Tennis player making padel shot. Surprised it worked.", audio: "Natural SFX." },
+                    { time: "0:10–0:14", shot: "3 Cuts", action: "Intense cardio. Strategy discussion. Net technique.", audio: "Beat-matched." },
+                    { time: "0:14–0:18", shot: "Medium", action: "Post-game conversation. Business card is passed.", audio: "Warm voices." },
+                    { time: "0:18–0:22", shot: "CU", action: "Player holds up 4 fingers: 'Four people. One court. One hour.'", audio: "Natural dialog." },
+                    { time: "0:22–0:25", shot: "Overhead", action: "Clean overhead smash.", audio: "Sharp SFX." },
+                    { time: "0:25–0:28", shot: "Graphics", action: "Logo + CTA", audio: "Music resolves." }
+                ],
+                text: [
+                    "0:00: YOU'VE TRIED THE GYM. -> TENNIS. -> PICKLEBALL.",
+                    "0:03: NOW TRY THE SPORT THAT GIVES YOU ALL THREE.",
+                    "0:10: CARDIO. / STRATEGY. / TECHNIQUE.",
+                    "0:14: \"And the people.\""
+                ],
+                voiceover: "VO: 'Tennis is great. Pickleball is fun. The gym works. But none of them give you all three...'",
+                instructions: [
+                    "Opening contrast: Desaturate the 'before' shots (gym/tennis) by 10-15%.",
+                    "Music shift (0:03): Hard transition. Filter sweep or beat drop.",
+                    "Business card moment: Let it happen naturally. Core proof of connection."
+                ]
+            },
+            {
+                id: "09",
+                title: "YOU'VE PLAYED. NOW BELONG.",
+                stage: "BOFU",
+                objective: "Convert first-time court bookers into founding members",
+                duration: "0:30",
+                personas: "Recent Bookers",
+                cta: "Become a Founding Member",
+                formats: "9:16 primary",
+                concept: "You already know what the court feels like. This is about what's waiting on the other side: priority access, your regular group, a place that's yours.",
+                adCopy: "You know what the court feels like. Now imagine it's yours — every week, with your group, on your time. Studio Arenna founding memberships.",
+                scenes: [
+                    { time: "0:00–0:03", shot: "Medium", action: "Member walks in. Front desk knows their name.", audio: "Ambient warm." },
+                    { time: "0:03–0:07", shot: "Wide", action: "Member walks past waiting non-members straight to reserved court.", audio: "Subtle, natural." },
+                    { time: "0:07–0:11", shot: "Montage", action: "Texting court group. Same 4 players take the court seamlessly.", audio: "Music building." },
+                    { time: "0:11–0:15", shot: "Action", action: "Fast, competitive member game.", audio: "Music driving." },
+                    { time: "0:15–0:19", shot: "CU", action: "Phone notification: 'Your regular Tuesday court is confirmed.'", audio: "Music pulls back." },
+                    { time: "0:19–0:23", shot: "Post-game", action: "Group at the bar. At home. Their place.", audio: "Ambient warmth." },
+                    { time: "0:23–0:27", shot: "Direct", action: "Member to camera: 'I tried it once. I was a member the next week.'", audio: "Natural audio." },
+                    { time: "0:27–0:30", shot: "Graphics", action: "Founding member offer.", audio: "Music resolves." }
+                ],
+                text: [
+                    "0:00: YOU'VE PLAYED.",
+                    "0:03: NOW IMAGINE IT'S YOUR COURT.",
+                    "0:07: YOUR CREW. YOUR TIME. EVERY WEEK.",
+                    "0:15: MEMBERS GET PRIORITY BOOKING.",
+                    "0:27: STUDIO ARENNA FOUNDING MEMBERSHIP"
+                ],
+                voiceover: "Member testimonial: 'Honestly? I tried it once, just to see what all the hype was. I was a member the next week...'",
+                instructions: [
+                    "Assumption: Audience already played. No beginner shots.",
+                    "Priority access: Do NOT make non-members look excluded. Keep it seamless.",
+                    "F&B scene: Aspirational lifestyle anchor. Style beautifully.",
+                    "Testimonial: Recruit actual founding member. Genuine delivery."
+                ]
+            },
+            {
+                id: "10",
+                title: "THE FOUNDING MEMBER OFFER",
+                stage: "BOFU",
+                objective: "Convert qualified leads with a time-limited founding member offer",
+                duration: "0:35",
+                personas: "High Intent (Alex, David)",
+                cta: "Claim your founding membership",
+                formats: "9:16 primary",
+                concept: "Less lifestyle, more direct value proposition. Premium tone. An exclusive moment. Founding members helped build this club.",
+                adCopy: "Founding memberships are open now. Your rate is locked for as long as you're a member. Limited availability. Claim yours.",
+                scenes: [
+                    { time: "0:00–0:04", shot: "Wide ext", action: "Studio doors. Sign: FOUNDING MEMBER ENROLLMENT OPEN.", audio: "Confident music." },
+                    { time: "0:04–0:08", shot: "Montage", action: "Courts. Pro shop. Locker room. Premium proof.", audio: "Music under." },
+                    { time: "0:08–0:13", shot: "Medium", action: "Member playing with confidence. Court to themselves.", audio: "Music peaks." },
+                    { time: "0:13–0:20", shot: "Graphics", action: "Benefits listed one by one over court blur.", audio: "Music drops." },
+                    { time: "0:20–0:25", shot: "Medium", action: "Member to camera: 'This rate doesn't come back.'", audio: "Natural audio." },
+                    { time: "0:25–0:30", shot: "Graphics", action: "Rate, deadline, URL.", audio: "Music resolves." }
+                ],
+                text: [
+                    "0:13: UNLIMITED COURT ACCESS / PRIORITY BOOKING / LOCKED RATE",
+                    "0:25: [RATE] / MONTH",
+                    "0:25: \"Rate locked for as long as you're a member.\""
+                ],
+                voiceover: "VO: 'Studio Arenna is Denver's first premium padel club... Founding members lock in their rate for life...'",
+                instructions: [
+                    "Pacing: Most direct response video. Efficient, premium.",
+                    "Benefits card: Pop on with subtle opacity fade over 6 frames. Stacked list.",
+                    "Rate display: Must be the largest text element. White space equals premium."
+                ]
+            }
+        ];
+
+        // Global State
+        const app = {
+            currentView: 'strategy', // 'strategy', 'production', or 'video'
+            currentVideoId: null,
+            activeFilter: 'ALL',
+            
+            init() {
+                this.renderNav();
+                this.setView('strategy');
+            },
+
+            setView(view, videoId = null) {
+                this.currentView = view;
+                this.currentVideoId = videoId;
+                
+                // Update Nav Active States
+                document.querySelectorAll('#nav-overview button').forEach(btn => {
+                    btn.classList.remove('bg-arenna-mint/30', 'font-bold');
+                });
+                if (view === 'strategy') document.getElementById('btn-strategy').classList.add('bg-arenna-mint/30', 'font-bold');
+                if (view === 'production') document.getElementById('btn-production').classList.add('bg-arenna-mint/30', 'font-bold');
+
+                this.renderNav(); // Re-render to update selected video styles
+                this.renderContent();
+            },
+
+            setFilter(stage) {
+                this.activeFilter = stage;
+                this.renderNav();
+            },
+
+            getStageColor(stage) {
+                switch(stage) {
+                    case 'TOFU': return 'bg-arenna-mint text-arenna-blue';
+                    case 'MOFU': return 'bg-arenna-pink text-arenna-blue';
+                    case 'BOFU': return 'bg-arenna-green text-white';
+                    default: return 'bg-arenna-mint text-arenna-blue';
+                }
+            },
+
+            renderNav() {
+                const nav = document.getElementById('nav-funnel');
+                let html = `
+                    <div class="flex gap-2 px-4 mb-4">
+                        <button onclick="app.setFilter('ALL')" class="px-3 py-1 text-xs rounded-full font-bold transition-colors ${this.activeFilter === 'ALL' ? 'bg-arenna-blue text-white' : 'bg-white text-arenna-blue border border-arenna-mint/50'}">All</button>
+                        <button onclick="app.setFilter('TOFU')" class="px-3 py-1 text-xs rounded-full font-bold transition-colors ${this.activeFilter === 'TOFU' ? 'bg-arenna-mint text-arenna-blue' : 'bg-white text-arenna-blue border border-arenna-mint/50'}">TOFU</button>
+                        <button onclick="app.setFilter('MOFU')" class="px-3 py-1 text-xs rounded-full font-bold transition-colors ${this.activeFilter === 'MOFU' ? 'bg-arenna-pink text-arenna-blue' : 'bg-white text-arenna-blue border border-arenna-mint/50'}">MOFU</button>
+                        <button onclick="app.setFilter('BOFU')" class="px-3 py-1 text-xs rounded-full font-bold transition-colors ${this.activeFilter === 'BOFU' ? 'bg-arenna-green text-white' : 'bg-white text-arenna-blue border border-arenna-mint/50'}">BOFU</button>
+                    </div>
+                `;
+
+                const filteredVideos = this.activeFilter === 'ALL' 
+                    ? videoData 
+                    : videoData.filter(v => v.stage === this.activeFilter);
+
+                filteredVideos.forEach(v => {
+                    const isActive = this.currentView === 'video' && this.currentVideoId === v.id;
+                    const stageBadge = `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${this.getStageColor(v.stage)}">${v.stage}</span>`;
+                    
+                    html += `
+                        <button onclick="app.setView('video', '${v.id}')" class="w-full text-left px-4 py-3 border-l-4 transition-all hover:bg-white/60 ${isActive ? 'border-arenna-orange bg-white shadow-sm' : 'border-transparent'}">
+                            <div class="flex items-center gap-2 mb-1">
+                                ${stageBadge}
+                                <span class="text-xs text-arenna-blue/60 font-medium">Vol. ${v.id}</span>
+                            </div>
+                            <h3 class="text-sm font-bold leading-tight ${isActive ? 'text-arenna-blue' : 'text-arenna-blue/80'}">${v.title}</h3>
+                        </button>
+                    `;
+                });
+
+                nav.innerHTML = html;
+            },
+
+            renderContent() {
+                const main = document.getElementById('main-content');
+                
+                if (this.currentView === 'strategy') {
+                    main.innerHTML = this.templateStrategy();
+                } else if (this.currentView === 'production') {
+                    main.innerHTML = this.templateProduction();
+                } else if (this.currentView === 'video') {
+                    const video = videoData.find(v => v.id === this.currentVideoId);
+                    main.innerHTML = this.templateVideo(video);
+                }
+            },
+
+            templateStrategy() {
+                return `
+                    <div class="p-10 overflow-y-auto h-full fade-in">
+                        <div class="max-w-4xl mx-auto">
+                            <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-2">Master Strategy</h2>
+                            <h1 class="text-4xl font-extrabold tracking-tight mb-4">The Funnel Map</h1>
+                            <p class="text-lg brand-italic text-arenna-blue/80 mb-10">The non-member booking is the entry point to the funnel — not the end of it.</p>
+                            
+                            <div class="grid grid-cols-3 gap-6 mb-12">
+                                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-arenna-mint"></div>
+                                    <h3 class="font-bold text-xl mb-1">TOFU</h3>
+                                    <p class="text-sm text-arenna-blue/70 mb-4">Awareness / Discovery</p>
+                                    <p class="text-2xl font-black mb-1">5 Videos</p>
+                                    <p class="text-sm text-arenna-blue/80 mb-4 brand-italic">Cold Audiences</p>
+                                    <div class="inline-block bg-arenna-blue text-white text-xs font-bold px-3 py-1 rounded-full">CTA: Book a Court</div>
+                                </div>
+                                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-arenna-pink"></div>
+                                    <h3 class="font-bold text-xl mb-1">MOFU</h3>
+                                    <p class="text-sm text-arenna-blue/70 mb-4">Consideration / Retarget</p>
+                                    <p class="text-2xl font-black mb-1">3 Videos</p>
+                                    <p class="text-sm text-arenna-blue/80 mb-4 brand-italic">Warm Audiences</p>
+                                    <div class="inline-block bg-arenna-blue text-white text-xs font-bold px-3 py-1 rounded-full">CTA: Play Your First Session</div>
+                                </div>
+                                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-arenna-green"></div>
+                                    <h3 class="font-bold text-xl mb-1">BOFU</h3>
+                                    <p class="text-sm text-arenna-blue/70 mb-4">Conversion / Retention</p>
+                                    <p class="text-2xl font-black mb-1">4 Videos</p>
+                                    <p class="text-sm text-arenna-blue/80 mb-4 brand-italic">Hot Leads + Bookers</p>
+                                    <div class="inline-block bg-arenna-blue text-white text-xs font-bold px-3 py-1 rounded-full">CTA: Become a Member</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-2xl p-8 shadow-sm border border-arenna-mint/20">
+                                <h3 class="text-lg font-bold mb-4">Post-Booking Flow (Upsell)</h3>
+                                <div class="flex flex-col gap-4">
+                                    <div class="flex gap-4 items-start">
+                                        <div class="w-8 h-8 rounded-full bg-arenna-mint flex items-center justify-center font-bold text-sm shrink-0">0</div>
+                                        <div><p class="font-bold">User Books Session</p><p class="text-sm text-arenna-blue/70">Email: Welcome to the court</p></div>
+                                    </div>
+                                    <div class="w-0.5 h-6 bg-arenna-mint/50 ml-4"></div>
+                                    <div class="flex gap-4 items-start">
+                                        <div class="w-8 h-8 rounded-full bg-arenna-pink flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                                        <div><p class="font-bold">Retargeting Ad (Days 1-3)</p><p class="text-sm text-arenna-blue/70">Video 09: You've Played. Now Belong.</p></div>
+                                    </div>
+                                    <div class="w-0.5 h-6 bg-arenna-pink/50 ml-4"></div>
+                                    <div class="flex gap-4 items-start">
+                                        <div class="w-8 h-8 rounded-full bg-arenna-green text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                                        <div><p class="font-bold">Retargeting Ad (Days 7-10)</p><p class="text-sm text-arenna-blue/70">Video 10: The Founding Member Offer</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            templateProduction() {
+                return `
+                    <div class="p-10 overflow-y-auto h-full fade-in">
+                        <div class="max-w-4xl mx-auto">
+                            <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-2">Guidelines</h2>
+                            <h1 class="text-4xl font-extrabold tracking-tight mb-8">Production Notes</h1>
+                            
+                            <div class="grid grid-cols-2 gap-8">
+                                <div class="space-y-6">
+                                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-arenna-mint/20">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <i class="ph ph-aperture text-2xl text-arenna-orange"></i>
+                                            <h3 class="font-bold text-lg">Aesthetic</h3>
+                                        </div>
+                                        <ul class="space-y-2 text-sm text-arenna-blue/80">
+                                            <li>• Warm-toned, golden hour when possible. Rich contrast. Not oversaturated.</li>
+                                            <li>• Court glass reflections, athletic movement, human connection.</li>
+                                            <li>• Interiors feel premium: high ceilings, clean lines, soft light.</li>
+                                            <li>• People are real — diverse (35–55), aspirational but relatable.</li>
+                                            <li>• <strong>No stock footage feel.</strong> Everything is raw, alive, kinetic.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-arenna-mint/20">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <i class="ph ph-text-t text-2xl text-arenna-orange"></i>
+                                            <h3 class="font-bold text-lg">Text Treatment</h3>
+                                        </div>
+                                        <ul class="space-y-2 text-sm text-arenna-blue/80">
+                                            <li>• Font: <strong>Red Hat Display</strong> (caps for headlines).</li>
+                                            <li>• Emphasis: <span class="brand-italic">Noto Serif Italic</span> (reduced opacity).</li>
+                                            <li>• Never more than 6 words on screen at once during action.</li>
+                                            <li>• Lower-thirds: Blue Serve background, Cream Arenna text.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-arenna-mint/20">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <i class="ph ph-music-notes text-2xl text-arenna-orange"></i>
+                                            <h3 class="font-bold text-lg">Music Direction</h3>
+                                        </div>
+                                        <ul class="space-y-3 text-sm text-arenna-blue/80">
+                                            <li><strong class="text-arenna-blue">TOFU:</strong> Driving, modern, slightly moody electronic (Glass Animals).</li>
+                                            <li><strong class="text-arenna-blue">MOFU:</strong> Energetic, percussive. Builds. Indie electronic.</li>
+                                            <li><strong class="text-arenna-blue">BOFU:</strong> Warm, triumphant, cinematic. Strings + synth.</li>
+                                            <li><strong class="text-arenna-blue">Member:</strong> Elevated, emotional, full feel. Signals belonging.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-arenna-mint/20">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <i class="ph ph-palette text-2xl text-arenna-orange"></i>
+                                            <h3 class="font-bold text-lg">Brand Voice Check</h3>
+                                        </div>
+                                        <ul class="space-y-2 text-sm text-arenna-blue/80">
+                                            <li>• Motivational, energetic, close/friendly.</li>
+                                            <li>• <strong class="text-arenna-terracotta">No emojis.</strong></li>
+                                            <li>• No elitist tone. No sports clichés.</li>
+                                            <li>• Core Phrase: <span class="brand-italic">"Unlock your potential"</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            templateVideo(v) {
+                const scenesHtml = v.scenes.map((s, i) => `
+                    <tr class="border-b border-arenna-mint/20 hover:bg-white/50 transition-colors">
+                        <td class="py-3 px-4 text-xs font-bold text-arenna-blue/50">${String(i + 1).padStart(2, '0')}</td>
+                        <td class="py-3 px-4 text-xs font-mono bg-arenna-mint/10 whitespace-nowrap">${s.time}</td>
+                        <td class="py-3 px-4 text-sm font-semibold">${s.shot}</td>
+                        <td class="py-3 px-4 text-sm text-arenna-blue/80">${s.action}</td>
+                        <td class="py-3 px-4 text-sm text-arenna-blue/80 italic">${s.audio}</td>
+                    </tr>
+                `).join('');
+
+                const textHtml = v.text.map(t => `<li class="mb-2"><span class="bg-arenna-blue text-white px-2 py-0.5 rounded text-xs font-mono mr-2">${t.split(':')[0]}</span><span class="font-bold tracking-wide">${t.split(':')[1]}</span></li>`).join('');
+                const instrHtml = v.instructions.map(i => `<li class="mb-2 text-sm flex gap-2"><i class="ph ph-check-circle text-arenna-orange mt-0.5"></i> <span>${i}</span></li>`).join('');
+
+                return `
+                    <div class="overflow-y-auto h-full fade-in pb-20">
+                        <!-- Hero Section -->
+                        <div class="bg-white border-b border-arenna-mint/30 p-10 pt-12">
+                            <div class="max-w-5xl mx-auto">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="text-xs font-bold px-2 py-1 rounded ${this.getStageColor(v.stage)}">${v.stage}</span>
+                                    <span class="text-sm font-medium text-arenna-blue/60 border border-arenna-blue/20 px-2 py-0.5 rounded-full">${v.formats}</span>
+                                </div>
+                                <h1 class="text-4xl font-extrabold tracking-tight uppercase mb-4 text-arenna-blue">
+                                    <span class="text-arenna-blue/30 mr-2">V${v.id}</span>${v.title}
+                                </h1>
+                                <p class="text-xl brand-italic text-arenna-blue/80 max-w-3xl leading-relaxed">${v.concept}</p>
+                            </div>
+                        </div>
+
+                        <div class="p-10 max-w-5xl mx-auto space-y-8">
+                            
+                            <!-- Meta Grid -->
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="glass-panel p-5 rounded-xl">
+                                    <p class="text-[10px] uppercase font-bold text-arenna-blue/50 tracking-widest mb-1">Objective</p>
+                                    <p class="text-sm font-medium leading-snug">${v.objective}</p>
+                                </div>
+                                <div class="glass-panel p-5 rounded-xl">
+                                    <p class="text-[10px] uppercase font-bold text-arenna-blue/50 tracking-widest mb-1">Target Personas</p>
+                                    <p class="text-sm font-medium leading-snug">${v.personas}</p>
+                                </div>
+                                <div class="bg-arenna-blue text-white p-5 rounded-xl relative overflow-hidden">
+                                    <i class="ph ph-cursor-click absolute -right-4 -bottom-4 text-6xl text-white/10"></i>
+                                    <p class="text-[10px] uppercase font-bold text-white/50 tracking-widest mb-1">Call to Action</p>
+                                    <p class="text-sm font-bold text-arenna-orange">${v.cta}</p>
+                                </div>
+                            </div>
+
+                            <!-- Scene Breakdown -->
+                            <div>
+                                <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-4 flex items-center gap-2">
+                                    <i class="ph ph-film-strip text-lg"></i> Scene Breakdown
+                                </h2>
+                                <div class="bg-white rounded-xl shadow-sm border border-arenna-mint/30 overflow-hidden">
+                                    <table class="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr class="bg-arenna-cream border-b border-arenna-mint/30">
+                                                <th class="py-3 px-4 text-xs font-bold text-arenna-blue/50 uppercase w-12">#</th>
+                                                <th class="py-3 px-4 text-xs font-bold text-arenna-blue/50 uppercase w-24">Time</th>
+                                                <th class="py-3 px-4 text-xs font-bold text-arenna-blue/50 uppercase w-32">Shot</th>
+                                                <th class="py-3 px-4 text-xs font-bold text-arenna-blue/50 uppercase">Action</th>
+                                                <th class="py-3 px-4 text-xs font-bold text-arenna-blue/50 uppercase w-1/4">Audio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${scenesHtml}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Layout Grid for Details -->
+                            <div class="grid grid-cols-2 gap-8">
+                                <div>
+                                    <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-4">On-Screen Text</h2>
+                                    <ul class="bg-white p-6 rounded-xl border border-arenna-mint/30 shadow-sm">
+                                        ${textHtml}
+                                    </ul>
+
+                                    <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-4 mt-8">Voiceover Script</h2>
+                                    <div class="bg-white p-6 rounded-xl border border-arenna-mint/30 shadow-sm">
+                                        <p class="brand-italic text-lg text-arenna-blue leading-relaxed border-l-4 border-arenna-orange pl-4">${v.voiceover}</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-4">Edit Instructions</h2>
+                                    <ul class="bg-arenna-blue text-arenna-cream p-6 rounded-xl shadow-sm">
+                                        ${instrHtml}
+                                    </ul>
+
+                                    <h2 class="text-sm font-bold tracking-widest uppercase text-arenna-terracotta mb-4 mt-8">Ad Copy Library</h2>
+                                    <div class="glass-panel p-6 rounded-xl border-arenna-orange/30 border">
+                                        <p class="text-sm text-arenna-blue/90 mb-3 text-xs uppercase tracking-widest font-bold">Primary Meta/IG Copy</p>
+                                        <p class="text-sm font-medium leading-relaxed">${v.adCopy}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>
