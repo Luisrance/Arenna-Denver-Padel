@@ -1,0 +1,1172 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arenna Denver Padel — Weekly Programming Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&amp;family=Noto+Serif:ital,wght@1,500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF9F3;
+    --blue:#454A60;
+    --mint:#B7D7C0;
+    --green:#718F85;
+    --pink:#ECCDBC;
+    --orange:#ED7A42;
+    --terracotta:#B93700;
+    --grey:#8a8a86;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--blue);
+    font-family:'Red Hat Display', -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .wrap{max-width:1320px;margin:0 auto;padding:32px 28px 80px;}
+  header.top{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:2px solid var(--blue); padding-bottom:18px; margin-bottom:28px; flex-wrap:wrap; gap:12px;
+  }
+  .brand-name{font-size:30px; font-weight:800; letter-spacing:0.5px; margin:0;}
+  .brand-tag{font-family:'Noto Serif', Georgia, serif; font-style:italic; color:var(--orange); font-size:15px; margin:2px 0 0;}
+  .doc-title{font-size:18px; font-weight:600; color:var(--terracotta); margin:0; text-align:right;}
+  .doc-sub{font-size:13px; color:var(--blue); opacity:0.75; text-align:right; margin:2px 0 0;}
+  nav.jump{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px;}
+  nav.jump a{
+    font-size:13px; font-weight:600; text-decoration:none; color:var(--blue);
+    background:#fff; border:1px solid var(--blue); border-radius:20px; padding:7px 16px;
+  }
+  nav.jump a:hover{background:var(--blue); color:var(--cream);}
+  section{margin-bottom:52px;}
+  h2.section-title{
+    font-size:22px; font-weight:700; color:var(--blue); margin:0 0 6px;
+    border-left:5px solid var(--terracotta); padding-left:12px;
+  }
+  h3.sub-title{font-size:16px; font-weight:700; color:var(--terracotta); margin:26px 0 12px;}
+  p.section-note{font-size:14px; color:var(--blue); opacity:0.8; margin:0 0 20px; max-width:920px; line-height:1.5;}
+
+  /* legend */
+  .legend{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;}
+  .chip{
+    display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600;
+    background:#fff; border:1px solid #e4ded6; border-radius:20px; padding:6px 12px 6px 8px;
+    cursor:pointer; user-select:none; transition:opacity .15s;
+  }
+  .chip .dot{width:13px; height:13px; border-radius:50%; flex:0 0 auto;}
+  .chip.off{opacity:0.35;}
+  .levels-key{display:flex; gap:16px; font-size:12.5px; font-weight:600; margin:0 0 20px; flex-wrap:wrap;}
+  .levels-key span.lv{display:inline-flex; align-items:center; gap:6px;}
+  .levels-key .lvdot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+  /* calendar */
+  .cal-scroll{overflow-x:auto; background:#fff; border:1px solid #ece5db; border-radius:14px; padding:16px 16px 20px;}
+  .cal-grid{
+    display:grid;
+    grid-template-columns: 64px repeat(7, minmax(320px,1fr));
+    grid-auto-rows: 19px;
+    min-width:2340px;
+    position:relative;
+    row-gap:0; column-gap:6px;
+  }
+  .daylabel{
+    grid-row:1; font-size:13px; font-weight:700; text-align:center; padding:6px 0 10px;
+    color:var(--cream); background:var(--blue); border-radius:8px; position:sticky; top:0;
+  }
+  .timelabel{
+    font-size:11px; color:var(--grey); text-align:right; padding-right:8px; font-weight:600;
+    border-top:1px solid #f0ece5;
+  }
+  .hourline{grid-column:2 / -1; border-top:1px solid #f0ece5;}
+  /* concurrent activities sit side by side (horizontally), each spanning the full slot height —
+     so the top/bottom edges of every block line up exactly with the shared start/end time on the axis */
+  .lanewrap{display:flex; flex-direction:row; gap:4px; width:100%; height:100%;}
+  .block{
+    border-radius:8px; padding:8px 8px; font-size:10.8px; line-height:1.28; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:center; gap:2px;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.04);
+    height:100%; min-width:0; min-height:0;
+  }
+  .block{overflow-wrap:break-word; word-break:break-word;}
+  .block .t1{font-weight:700; font-size:11.8px;}
+  .block .t2{font-weight:500; opacity:0.92;}
+  .block .t3{font-weight:600; font-size:10.3px; opacity:0.85;}
+  .block.dim{opacity:0.12;}
+
+  /* narrower columns when 2–3 activities share one time slot — height is unchanged (still the full
+     slot), only width shrinks, so type comes down a touch to keep labels from over-wrapping */
+  .lanewrap.lanes-2 .block{padding:7px 7px;}
+  .lanewrap.lanes-2 .t1{font-size:11px;}
+  .lanewrap.lanes-2 .t2{font-size:10px;}
+  .lanewrap.lanes-2 .t3{font-size:9.4px;}
+  .lanewrap.lanes-3 .block{padding:6px 6px; gap:1px;}
+  .lanewrap.lanes-3 .t1{font-size:10px; line-height:1.15;}
+  .lanewrap.lanes-3 .t2{font-size:9px; line-height:1.15;}
+  .lanewrap.lanes-3 .t3{font-size:8.4px; line-height:1.15;}
+
+  .cat-clinicA{background:var(--mint); color:var(--blue);}
+  .cat-clinicB{background:var(--green); color:var(--cream);}
+  .cat-clinicC{background:var(--blue); color:var(--cream);}
+  .cat-mixed{background:#e7e2d8; color:var(--blue);}
+  .cat-seasonal{background:var(--pink); color:var(--blue); box-shadow:inset 0 0 0 2px var(--terracotta);}
+  .cat-trio{background:var(--pink); color:var(--blue); box-shadow:none; border:2px dashed var(--blue);}
+  .cat-social{background:var(--orange); color:var(--cream);}
+  .cat-league{background:var(--terracotta); color:var(--cream);}
+  .cat-purpose{background:var(--mint); color:var(--blue); box-shadow:inset 0 0 0 2px var(--orange);}
+  .cat-activation{background:#fff; color:var(--terracotta); box-shadow:inset 0 0 0 2px var(--orange); border:1px dashed var(--orange);}
+
+  /* pricing tables */
+  table.price{width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; font-size:13.5px;}
+  table.price th{background:var(--blue); color:var(--cream); text-align:left; padding:10px 12px; font-weight:700;}
+  table.price td{padding:9px 12px; border-bottom:1px solid #f0ece5;}
+  table.price tr:nth-child(even) td{background:#fbf7f1;}
+  table.price td.num, table.price th.num{text-align:right;}
+  table.price td.hi{font-weight:700; color:var(--terracotta);}
+  .table-wrap{margin-bottom:26px; overflow-x:auto;}
+  .table-cap{font-size:13px; font-weight:700; color:var(--terracotta); margin:0 0 8px;}
+
+  .cards3{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-bottom:10px;}
+  .gcard{background:#fff; border-radius:12px; padding:18px; border-top:5px solid var(--blue);}
+  .gcard.b{border-top-color:var(--green);}
+  .gcard.c{border-top-color:var(--terracotta);}
+  .gcard.d{border-top-color:var(--orange);}
+  .gcard h3{margin:0 0 4px; font-size:16px; color:var(--blue);}
+  .gcard .lvl{font-size:12px; font-weight:700; color:var(--terracotta); margin-bottom:10px; display:block;}
+  .gcard ul{margin:0; padding-left:18px; font-size:13px; line-height:1.6;}
+  .gcard .price{font-size:20px; font-weight:800; color:var(--terracotta); margin-top:10px;}
+  .gcard .price span{font-size:12px; font-weight:600; color:var(--blue); opacity:0.7;}
+
+  /* playbook cards */
+  .pgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-bottom:8px;}
+  .pcard{background:#fff; border-radius:12px; padding:16px; border-left:5px solid var(--blue);}
+  .pcard.clinic{border-left-color:var(--green);}
+  .pcard.seasonal{border-left-color:var(--terracotta);}
+  .pcard.social{border-left-color:var(--orange);}
+  .pcard.league{border-left-color:var(--blue);}
+  .pcard h4{margin:0 0 6px; font-size:14.5px; color:var(--blue);}
+  .pcard .fmt{font-size:11.5px; font-weight:700; color:var(--terracotta); margin-bottom:6px; display:block;}
+  .pcard .target{font-size:11.5px; font-weight:700; color:var(--blue); background:var(--mint); border-radius:5px; padding:2px 7px; display:inline-block; margin-bottom:8px;}
+  .pcard p{font-size:12.5px; line-height:1.55; margin:0 0 8px;}
+  .pcard p b{color:var(--blue);}
+  .pcard p.market{color:var(--blue); opacity:0.8;}
+
+  /* day-by-day agenda list */
+  .daygrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-bottom:8px;}
+  .daycard{background:#fff; border-radius:12px; padding:14px 16px; border-top:5px solid var(--terracotta);}
+  .daycard h4{margin:0 0 4px; font-size:15px; color:var(--blue);}
+  .daycard .daymeta{font-size:11px; font-weight:700; color:var(--terracotta); margin-bottom:10px; display:block;}
+  .daycard ul{list-style:none; margin:0; padding:0;}
+  .daycard li{padding:7px 0; border-top:1px solid #f0ece5; font-size:12px; line-height:1.45;}
+  .daycard li:first-child{border-top:none;}
+  .daycard li .time{display:block; font-weight:700; color:var(--terracotta); font-size:11px; margin-bottom:2px;}
+  .daycard li .act{color:var(--blue); font-weight:600;}
+  .daycard li .sub{display:block; color:var(--blue); opacity:0.75; font-size:11px; margin-top:1px;}
+
+  /* curriculum tables */
+  table.curric{width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; font-size:13px; margin-bottom:8px;}
+  table.curric th{background:var(--terracotta); color:var(--cream); text-align:left; padding:9px 12px; font-weight:700;}
+  table.curric td{padding:9px 12px; border-bottom:1px solid #f0ece5; vertical-align:top;}
+  table.curric tr:nth-child(even) td{background:#fbf7f1;}
+  table.curric td.wk{font-weight:700; color:var(--terracotta); white-space:nowrap;}
+
+  /* staffing stats */
+  .stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:22px;}
+  .stat{background:#fff; border-radius:12px; padding:16px; text-align:center;}
+  .stat .num{font-size:26px; font-weight:800; color:var(--terracotta);}
+  .stat .lbl{font-size:12px; font-weight:600; color:var(--blue); opacity:0.8; margin-top:4px; line-height:1.4;}
+
+  .checklist{list-style:none; margin:0; padding:0;}
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.5;
+    padding:8px 0; border-bottom:1px solid #f0ece5;
+  }
+  .checklist li::before{content:"☐"; color:var(--terracotta); font-weight:700; font-size:15px; flex:0 0 auto;}
+  .checklist li b{color:var(--blue);}
+
+  .foot-note{font-size:12px; color:var(--grey); border-top:1px solid #e4ded6; padding-top:14px; margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <p class="brand-name">ARENNA <span style="color:var(--orange)">DENVER PADEL</span></p>
+      <p class="brand-tag">Unlock your potential</p>
+    </div>
+    <div>
+      <p class="doc-title">Weekly Programming Calendar</p>
+      <p class="doc-sub">6-court model · pathways, seasons, playbook &amp; staffing — v2, July 2026</p>
+    </div>
+  </header>
+
+  <nav class="jump">
+    <a href="#calendar">Weekly calendar</a>
+    <a href="#daylist">Day-by-day program list</a>
+    <a href="#generations">Levels &amp; seasonal programs</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#membership">Membership tiers</a>
+    <a href="#targets">Enrollment targets</a>
+    <a href="#leagues">Leagues &amp; formats</a>
+    <a href="#playbook">Program playbook</a>
+    <a href="#curriculum">Seasonal curriculum guide</a>
+    <a href="#staffing">Staffing &amp; implementation</a>
+    <a href="#activations">Activations &amp; vendor partnerships</a>
+    <a href="#corporate">Corporate partnerships</a>
+  </nav>
+
+  <section id="calendar">
+    <h2 class="section-title">Weekly programming calendar — 6 courts</h2>
+    <p class="section-note">6:00am–10:00pm, every day, across all 6 courts. When two or three activities share the same time slot, they sit side by side rather than stacked, so every block's top and bottom edge lines up exactly with its real start and end time on the hour axis — nothing is left looking shorter than it actually runs. The exact court split is still stated in the label (e.g. "2/6 courts"). Unprogrammed courts in that same slot are simply not labeled — they stay available for private lessons, court rental, or casual play. Long blank stretches (early morning, mid-afternoon) are fully open across all 6 courts on purpose.</p>
+    <p class="section-note"><b>Social play is level-specific Mon–Thu, using courts the leagues aren't on:</b> Mon &amp; Wed evenings run Level A and Level B as two separate groups; Tue &amp; Thu evenings (on the courts Women's League and Box League leave free) run Level C. Friday, Saturday, and Sunday socials open all three level groups at once instead of one all-levels block — that's deliberate, to measure real demand per level before deciding whether to make those level-specific too. Every level group gets the same amount of social time each night — the split happens by court, never by shortening one group's hours. The format itself (Americano, Mexicano, King of the Court, etc.) rotates — see the Social Play style menu in the Program Playbook below. Friday nights also rotate a themed dynamic on top of that format rotation — Ladies Night, Industry Night, Couples/Date Night, Trivia Night, and more, drawn from what already works at other padel clubs, Topgolf, bars, and hotels (see the Program Playbook below). Click a legend chip to isolate a program type.</p>
+    <p class="section-note"><b>Intro to Padel is now on-demand, not a fixed slot</b> — booked like a private lesson whenever a newcomer wants it. Saturday and Sunday mornings also push King of the Court and Ladder Challenge Play earlier and split them by court instead of running one at a time (e.g. Ladder Challenge on 2 courts while a Trio Pod cohort uses 1, at the same time). Each weekend day adds one vendor-partnered <b>Activation</b> slot — breakfast &amp; padel, recovery/wellness, and similar — built as a 30-minute session followed by 60–90 minutes of play.</p>
+    <p class="section-note"><b>Developmental Clinics — two days a week per level, at a real 4:1 ratio:</b> Level A meets Monday morning and Wednesday evening, Level B meets Wednesday morning and Friday evening, Level C meets Thursday morning and Saturday late-morning. Every clinic runs at a 4:1 coach-to-player ratio now, not 6:1 — that tighter ratio is reserved for these developmental sessions only. A 4-week technical rotation (footwork &amp; positioning → wall &amp; glass play → bandeja/vibora/smash → doubles positioning &amp; shot selection) repeats on both of a level's days, but the second day is offset two weeks into the cycle, so it never teaches the same theme as the first day in the same week. A player who only ever comes on one of the two days still completes the full 4-theme curriculum in 4 weeks; a player who comes both days completes it in 2 and gets extra reps on each theme over the full month. See the Seasonal curriculum guide below for the exact rotation table. <b>Purpose Clinic</b> is now three fixed, level-open sessions — Cardio Padel (Friday), Strength Padel (Saturday), HIIT Padel (Sunday) — and keeps the more flexible 6:1 ratio since it's fitness-framed rather than technical.</p>
+    <p class="section-note"><b>Foundations, Progression, and Performance now each run two generations a week, both on weekdays</b> — Level A: Monday + Wednesday 5:30–7pm; Level B: Tuesday + Friday 5:30–7pm; Level C: Thursday + Tuesday 5:30–7pm. Both generations of a level teach the identical week's curriculum (this is a sequential season, not a repeating rotation, so there's nothing to offset) — a player picks whichever day suits their schedule, or pays the discounted "double-pace" add-on to attend both and finish the season in half the calendar weeks. This doubles sellable seats per level per season without requiring anyone to add a new day to their week.</p>
+    <p class="section-note"><b>Three leagues — Bronze (Level A), Silver (Level B), Gold (Level C) — each run two nights a week</b> instead of one: Bronze Fri 8:30–10pm + Sat 7:30–9pm; Silver Mon 8:30–10pm + Thu 8:30–10pm; Gold Tue 8:30–10pm + Sun 7–8:30pm. Every league night is deliberately scheduled opposite that level's two Developmental Clinic days, never on top of them. These league nights also replace the generic "Extended Social Play" filler blocks that previously sat in those same evening windows — the same court time now sells as structured league play instead of unstructured drop-in social.</p>
+
+    <div class="legend" id="legend">
+      <div class="chip" data-cat="clinicA"><span class="dot" style="background:var(--mint)"></span>Clinic — Level A (Beginner)</div>
+      <div class="chip" data-cat="clinicB"><span class="dot" style="background:var(--green)"></span>Clinic — Level B (Intermediate)</div>
+      <div class="chip" data-cat="clinicC"><span class="dot" style="background:var(--blue)"></span>Clinic — Level C (Advanced)</div>
+      <div class="chip" data-cat="mixed"><span class="dot" style="background:#e7e2d8"></span>Clinic — Mixed / All levels</div>
+      <div class="chip" data-cat="seasonal"><span class="dot" style="background:var(--pink)"></span>Seasonal development (6–8 wk cohort)</div>
+      <div class="chip" data-cat="trio"><span class="dot" style="background:var(--pink);box-shadow:inset 0 0 0 2px var(--blue)"></span>Trio Pod (3+1, 4-session)</div>
+      <div class="chip" data-cat="social"><span class="dot" style="background:var(--orange)"></span>Social (rotating format — see style menu)</div>
+      <div class="chip" data-cat="league"><span class="dot" style="background:var(--terracotta)"></span>League / ladder / tournament</div>
+      <div class="chip" data-cat="purpose"><span class="dot" style="background:var(--mint);box-shadow:inset 0 0 0 2px var(--orange)"></span>Purpose Clinic (Cardio/Strength/HIIT Padel)</div>
+      <div class="chip" data-cat="activation"><span class="dot" style="background:#fff;box-shadow:inset 0 0 0 2px var(--orange)"></span>Vendor Activation (guest partner)</div>
+      <div class="chip" data-cat="all" style="font-weight:700;">Show all</div>
+    </div>
+    <div class="levels-key">
+      <span class="lv"><span class="lvdot" style="background:var(--mint)"></span>Level A · 1.0–2.2</span>
+      <span class="lv"><span class="lvdot" style="background:var(--green)"></span>Level B · 2.2–3.2</span>
+      <span class="lv"><span class="lvdot" style="background:var(--blue)"></span>Level C · 3.2+</span>
+      <span class="lv">Club has 6 total courts</span>
+    </div>
+
+    <div class="cal-scroll">
+      <div class="cal-grid" id="calGrid" style="grid-template-rows: repeat(66, 15px);"><div class="daylabel" style="grid-column: 2;">Mon</div><div class="daylabel" style="grid-column: 3;">Tue</div><div class="daylabel" style="grid-column: 4;">Wed</div><div class="daylabel" style="grid-column: 5;">Thu</div><div class="daylabel" style="grid-column: 6;">Fri</div><div class="daylabel" style="grid-column: 7;">Sat</div><div class="daylabel" style="grid-column: 8;">Sun</div><div class="timelabel" style="grid-area: 2 / 1 / 6;">6:00am</div><div class="hourline" style="grid-row: 2;"></div><div class="timelabel" style="grid-area: 6 / 1 / 10;">7am</div><div class="hourline" style="grid-row: 6;"></div><div class="timelabel" style="grid-area: 10 / 1 / 14;">8am</div><div class="hourline" style="grid-row: 10;"></div><div class="timelabel" style="grid-area: 14 / 1 / 18;">9am</div><div class="hourline" style="grid-row: 14;"></div><div class="timelabel" style="grid-area: 18 / 1 / 22;">10am</div><div class="hourline" style="grid-row: 18;"></div><div class="timelabel" style="grid-area: 22 / 1 / 26;">11am</div><div class="hourline" style="grid-row: 22;"></div><div class="timelabel" style="grid-area: 26 / 1 / 30;">12pm</div><div class="hourline" style="grid-row: 26;"></div><div class="timelabel" style="grid-area: 30 / 1 / 34;">1pm</div><div class="hourline" style="grid-row: 30;"></div><div class="timelabel" style="grid-area: 34 / 1 / 38;">2pm</div><div class="hourline" style="grid-row: 34;"></div><div class="timelabel" style="grid-area: 38 / 1 / 42;">3pm</div><div class="hourline" style="grid-row: 38;"></div><div class="timelabel" style="grid-area: 42 / 1 / 46;">4pm</div><div class="hourline" style="grid-row: 42;"></div><div class="timelabel" style="grid-area: 46 / 1 / 50;">5pm</div><div class="hourline" style="grid-row: 46;"></div><div class="timelabel" style="grid-area: 50 / 1 / 54;">6pm</div><div class="hourline" style="grid-row: 50;"></div><div class="timelabel" style="grid-area: 54 / 1 / 58;">7pm</div><div class="hourline" style="grid-row: 54;"></div><div class="timelabel" style="grid-area: 58 / 1 / 62;">8pm</div><div class="hourline" style="grid-row: 58;"></div><div class="timelabel" style="grid-area: 62 / 1 / 66;">9pm</div><div class="hourline" style="grid-row: 62;"></div><div class="timelabel" style="grid-area: 66 / 1 / 70;">10pm</div><div class="hourline" style="grid-row: 66;"></div><div class="lanewrap lanes-2" style="grid-area: 14 / 2 / 20;"><div class="block cat-clinicA" data-cat="clinicA" title="Developmental Clinic — Level A · Day 1/2 · 4:1 ratio (09:00–10:30 · $25 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level A · Day 1/2 · 4:1 ratio</div><div class="t3">09:00–10:30 · $25 off-peak · 2/6 courts</div></div><div class="block cat-trio" data-cat="trio" title="Trio Pod 3+1 — Group 1 trio (09:00–10:30 · $56/session · 1/6 courts)" style="flex: 1 1 0px;"><div class="t1">Trio Pod 3+1</div><div class="t2">Group 1 trio</div><div class="t3">09:00–10:30 · $56/session · 1/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 26 / 2 / 30;"><div class="block cat-mixed" data-cat="mixed" title="Corporate Lunch Clinic — Level B/C · 4:1 ratio (12:00–13:00 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Corporate Lunch Clinic</div><div class="t2">Level B/C · 4:1 ratio</div><div class="t3">12:00–13:00 · $20 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 48 / 2 / 54;"><div class="block cat-seasonal" data-cat="seasonal" title="Foundations — Level A · Generation 1 of 2 · 6-wk cohort (17:30–19:00 · $229/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Foundations</div><div class="t2">Level A · Generation 1 of 2 · 6-wk cohort</div><div class="t3">17:30–19:00 · $229/season · 2/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 54 / 2 / 60;"><div class="block cat-social" data-cat="social" title="Social — Level A — 1.0–2.2 · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level A</div><div class="t2">1.0–2.2 · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level B — 2.2–3.2 · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level B</div><div class="t2">2.2–3.2 · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 60 / 2 / 66;"><div class="block cat-league" data-cat="league" title="Silver League — Level B (2.2–3.2) · Night 1 of 2 · new (20:30–22:00 · $150/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Silver League</div><div class="t2">Level B (2.2–3.2) · Night 1 of 2 · new</div><div class="t3">20:30–22:00 · $150/season · 3/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 14 / 3 / 20;"><div class="block cat-mixed" data-cat="mixed" title="Cardio Padel — All levels · Fitness-framed (09:00–10:30 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Cardio Padel</div><div class="t2">All levels · Fitness-framed</div><div class="t3">09:00–10:30 · $20 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 20 / 3 / 26;"><div class="block cat-league" data-cat="league" title="Industry League — Service pros · new (10:30–12:00 · $140/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Industry League</div><div class="t2">Service pros · new</div><div class="t3">10:30–12:00 · $140/season · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 26 / 3 / 31;"><div class="block cat-league" data-cat="league" title="Corporate League — Team match play · 8-wk season (12:00–13:15 · $600/team · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Corporate League</div><div class="t2">Team match play · 8-wk season</div><div class="t3">12:00–13:15 · $600/team · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 34 / 3 / 40;"><div class="block cat-league" data-cat="league" title="Retiree League — Daytime · new (14:00–15:30 · $140/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Retiree League</div><div class="t2">Daytime · new</div><div class="t3">14:00–15:30 · $140/season · 2/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 48 / 3 / 54;"><div class="block cat-seasonal" data-cat="seasonal" title="Progression — Level B · Generation 1 of 2 · 8-wk cohort (17:30–19:00 · $299/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Progression</div><div class="t2">Level B · Generation 1 of 2 · 8-wk cohort</div><div class="t3">17:30–19:00 · $299/season · 2/6 courts</div></div><div class="block cat-seasonal" data-cat="seasonal" title="Performance — Level C · Generation 2 of 2 · 8-wk cohort (17:30–19:00 · $299/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Performance</div><div class="t2">Level C · Generation 2 of 2 · 8-wk cohort</div><div class="t3">17:30–19:00 · $299/season · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 54 / 3 / 60;"><div class="block cat-social" data-cat="social" title="Social — Level C — 3.2+ · rotating format (19:00–20:30 · $25 peak · 4/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level C</div><div class="t2">3.2+ · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 4/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 60 / 3 / 66;"><div class="block cat-league" data-cat="league" title="Gold League — Level C (3.2+) · Night 1 of 2 · new (20:30–22:00 · $150/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Gold League</div><div class="t2">Level C (3.2+) · Night 1 of 2 · new</div><div class="t3">20:30–22:00 · $150/season · 3/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 14 / 4 / 20;"><div class="block cat-league" data-cat="league" title="Ladies Ladder Tournament — Women-only · weekly standings (09:00–10:30 · new · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Ladies Ladder Tournament</div><div class="t2">Women-only · weekly standings</div><div class="t3">09:00–10:30 · new · 3/6 courts</div></div><div class="block cat-clinicB" data-cat="clinicB" title="Developmental Clinic — Level B · Day 1/2 · 4:1 ratio (09:00–10:30 · $25 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level B · Day 1/2 · 4:1 ratio</div><div class="t3">09:00–10:30 · $25 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 48 / 4 / 54;"><div class="block cat-clinicA" data-cat="clinicA" title="Developmental Clinic — Level A · Day 2/2 · 4:1 ratio (17:30–19:00 · $50 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level A · Day 2/2 · 4:1 ratio</div><div class="t3">17:30–19:00 · $50 peak · 2/6 courts</div></div><div class="block cat-trio" data-cat="trio" title="Trio Pod 3+1 — Group 2 trio (17:30–19:00 · $56/session · 1/6 courts)" style="flex: 1 1 0px;"><div class="t1">Trio Pod 3+1</div><div class="t2">Group 2 trio</div><div class="t3">17:30–19:00 · $56/session · 1/6 courts</div></div><div class="block cat-seasonal" data-cat="seasonal" title="Foundations — Level A · Generation 2 of 2 · 6-wk cohort (17:30–19:00 · $229/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Foundations</div><div class="t2">Level A · Generation 2 of 2 · 6-wk cohort</div><div class="t3">17:30–19:00 · $229/season · 2/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 54 / 4 / 60;"><div class="block cat-league" data-cat="league" title="Women's League — Round robin · Prime time · 8-wk (19:00–20:30 · $160/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Women's League</div><div class="t2">Round robin · Prime time · 8-wk</div><div class="t3">19:00–20:30 · $160/season · 3/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level A — 1.0–2.2 · rotating format (19:00–20:30 · $25 peak · 1/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level A</div><div class="t2">1.0–2.2 · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 1/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level B — 2.2–3.2 · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level B</div><div class="t2">2.2–3.2 · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 14 / 5 / 20;"><div class="block cat-clinicC" data-cat="clinicC" title="Developmental Clinic — Level C · Day 1/2 · 4:1 ratio (09:00–10:30 · $25 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level C · Day 1/2 · 4:1 ratio</div><div class="t3">09:00–10:30 · $25 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 20 / 5 / 26;"><div class="block cat-league" data-cat="league" title="Industry League — Service pros · new (10:30–12:00 · $140/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Industry League</div><div class="t2">Service pros · new</div><div class="t3">10:30–12:00 · $140/season · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 26 / 5 / 30;"><div class="block cat-clinicA" data-cat="clinicA" title="Corporate Lunch Clinic — Level A/B · 4:1 ratio (12:00–13:00 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Corporate Lunch Clinic</div><div class="t2">Level A/B · 4:1 ratio</div><div class="t3">12:00–13:00 · $20 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 34 / 5 / 40;"><div class="block cat-league" data-cat="league" title="Retiree League — Daytime · new (14:00–15:30 · $140/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Retiree League</div><div class="t2">Daytime · new</div><div class="t3">14:00–15:30 · $140/season · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 48 / 5 / 54;"><div class="block cat-seasonal" data-cat="seasonal" title="Performance — Level C · Generation 1 of 2 · 8-wk cohort (17:30–19:00 · $299/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Performance</div><div class="t2">Level C · Generation 1 of 2 · 8-wk cohort</div><div class="t3">17:30–19:00 · $299/season · 2/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 54 / 5 / 60;"><div class="block cat-league" data-cat="league" title="Box League — In-house co-ed · Level flights (19:00–20:30 · $175/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Box League</div><div class="t2">In-house co-ed · Level flights</div><div class="t3">19:00–20:30 · $175/season · 3/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level C — 3.2+ · rotating format (19:00–20:30 · $25 peak · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level C</div><div class="t2">3.2+ · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 3/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 60 / 5 / 66;"><div class="block cat-league" data-cat="league" title="Silver League — Level B (2.2–3.2) · Night 2 of 2 · new (20:30–22:00 · $150/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Silver League</div><div class="t2">Level B (2.2–3.2) · Night 2 of 2 · new</div><div class="t3">20:30–22:00 · $150/season · 3/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 38 / 6 / 44;"><div class="block cat-purpose" data-cat="purpose" title="Purpose Clinic — Cardio Padel · All levels (15:00–16:30 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Purpose Clinic</div><div class="t2">Cardio Padel · All levels</div><div class="t3">15:00–16:30 · $20 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 48 / 6 / 54;"><div class="block cat-clinicB" data-cat="clinicB" title="Developmental Clinic — Level B · Day 2/2 · 4:1 ratio (17:30–19:00 · $50 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level B · Day 2/2 · 4:1 ratio</div><div class="t3">17:30–19:00 · $50 peak · 2/6 courts</div></div><div class="block cat-seasonal" data-cat="seasonal" title="Progression — Level B · Generation 2 of 2 · 8-wk cohort (17:30–19:00 · $299/season · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Progression</div><div class="t2">Level B · Generation 2 of 2 · 8-wk cohort</div><div class="t3">17:30–19:00 · $299/season · 2/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 54 / 6 / 60;"><div class="block cat-social" data-cat="social" title="Social — Level A — Demand test · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level A</div><div class="t2">Demand test · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level B — Demand test · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level B</div><div class="t2">Demand test · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level C — Demand test · rotating format (19:00–20:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level C</div><div class="t2">Demand test · rotating format</div><div class="t3">19:00–20:30 · $25 peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 60 / 6 / 66;"><div class="block cat-league" data-cat="league" title="Bronze League — Level A (1.0–2.2) · Night 1 of 2 · new (20:30–22:00 · $150/season · 3/6 courts)" style="flex: 1 1 0px;"><div class="t1">Bronze League</div><div class="t2">Level A (1.0–2.2) · Night 1 of 2 · new</div><div class="t3">20:30–22:00 · $150/season · 3/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 10 / 7 / 16;"><div class="block cat-purpose" data-cat="purpose" title="Purpose Clinic — Strength Padel · All levels (08:00–09:30 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Purpose Clinic</div><div class="t2">Strength Padel · All levels</div><div class="t3">08:00–09:30 · $20 off-peak · 2/6 courts</div></div><div class="block cat-league" data-cat="league" title="Ladder Challenge Play — Open · App-based ranking (08:00–09:30 · $45/quarter · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Ladder Challenge Play</div><div class="t2">Open · App-based ranking</div><div class="t3">08:00–09:30 · $45/quarter · 2/6 courts</div></div><div class="block cat-trio" data-cat="trio" title="Trio Pod 3+1 — Group 3 trio (08:00–09:30 · $56/session · 1/6 courts)" style="flex: 1 1 0px;"><div class="t1">Trio Pod 3+1</div><div class="t2">Group 3 trio</div><div class="t3">08:00–09:30 · $56/session · 1/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 16 / 7 / 22;"><div class="block cat-clinicC" data-cat="clinicC" title="Developmental Clinic — Level C · Day 2/2 · 4:1 ratio (09:30–11:00 · $35 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Developmental Clinic</div><div class="t2">Level C · Day 2/2 · 4:1 ratio</div><div class="t3">09:30–11:00 · $35 peak · 2/6 courts</div></div><div class="block cat-league" data-cat="league" title="King of the Court — Weekly event (Mexicano alt. weeks) (09:30–11:00 · $30/event · 4/6 courts)" style="flex: 1 1 0px;"><div class="t1">King of the Court</div><div class="t2">Weekly event (Mexicano alt. weeks)</div><div class="t3">09:30–11:00 · $30/event · 4/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 26 / 7 / 32;"><div class="block cat-activation" data-cat="activation" title="Breakfast &amp; Padel Activation — Guest vendor · 30-min lesson + 60–90 min play (12:00–13:30 · rotating partner · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Breakfast &amp; Padel Activation</div><div class="t2">Guest vendor · 30-min lesson + 60–90 min play</div><div class="t3">12:00–13:30 · rotating partner · 2/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 50 / 7 / 56;"><div class="block cat-social" data-cat="social" title="Social — Level A — Demand test · rotating format (18:00–19:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level A</div><div class="t2">Demand test · rotating format</div><div class="t3">18:00–19:30 · $25 peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level B — Demand test · rotating format (18:00–19:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level B</div><div class="t2">Demand test · rotating format</div><div class="t3">18:00–19:30 · $25 peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level C — Demand test · rotating format (18:00–19:30 · $25 peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level C</div><div class="t2">Demand test · rotating format</div><div class="t3">18:00–19:30 · $25 peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 56 / 7 / 62;"><div class="block cat-league" data-cat="league" title="Bronze League — Level A (1.0–2.2) · Night 2 of 2 · new (19:30–21:00 · $150/season · 4/6 courts)" style="flex: 1 1 0px;"><div class="t1">Bronze League</div><div class="t2">Level A (1.0–2.2) · Night 2 of 2 · new</div><div class="t3">19:30–21:00 · $150/season · 4/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 10 / 8 / 16;"><div class="block cat-purpose" data-cat="purpose" title="Purpose Clinic — HIIT Padel · All levels (08:00–09:30 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Purpose Clinic</div><div class="t2">HIIT Padel · All levels</div><div class="t3">08:00–09:30 · $20 off-peak · 2/6 courts</div></div><div class="block cat-league" data-cat="league" title="Ladder Challenge Play — 2nd weekly session · App-based ranking (08:00–09:30 · $45/quarter · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Ladder Challenge Play</div><div class="t2">2nd weekly session · App-based ranking</div><div class="t3">08:00–09:30 · $45/quarter · 2/6 courts</div></div></div><div class="lanewrap lanes-2" style="grid-area: 16 / 8 / 22;"><div class="block cat-league" data-cat="league" title="Round Robin Mixer — Social · Every pair plays once (09:30–11:00 · $20 · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Round Robin Mixer</div><div class="t2">Social · Every pair plays once</div><div class="t3">09:30–11:00 · $20 · 2/6 courts</div></div><div class="block cat-league" data-cat="league" title="King of the Court — 2nd weekly session · smaller scale (09:30–11:00 · $30/event · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">King of the Court</div><div class="t2">2nd weekly session · smaller scale</div><div class="t3">09:30–11:00 · $30/event · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 22 / 8 / 28;"><div class="block cat-mixed" data-cat="mixed" title="Masters / 50+ — Clinic &amp; ladder · Lower intensity (11:00–12:30 · $20 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Masters / 50+</div><div class="t2">Clinic &amp; ladder · Lower intensity</div><div class="t3">11:00–12:30 · $20 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 28 / 8 / 34;"><div class="block cat-activation" data-cat="activation" title="Recovery &amp; Wellness Activation — Guest vendor · 30-min session + 60–90 min play (12:30–14:00 · rotating partner · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Recovery &amp; Wellness Activation</div><div class="t2">Guest vendor · 30-min session + 60–90 min play</div><div class="t3">12:30–14:00 · rotating partner · 2/6 courts</div></div></div><div class="lanewrap lanes-3" style="grid-area: 48 / 8 / 54;"><div class="block cat-social" data-cat="social" title="Social — Level A — Demand test · rotating format (17:30–19:00 · $18 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level A</div><div class="t2">Demand test · rotating format</div><div class="t3">17:30–19:00 · $18 off-peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level B — Demand test · rotating format (17:30–19:00 · $18 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level B</div><div class="t2">Demand test · rotating format</div><div class="t3">17:30–19:00 · $18 off-peak · 2/6 courts</div></div><div class="block cat-social" data-cat="social" title="Social — Level C — Demand test · rotating format (17:30–19:00 · $18 off-peak · 2/6 courts)" style="flex: 1 1 0px;"><div class="t1">Social — Level C</div><div class="t2">Demand test · rotating format</div><div class="t3">17:30–19:00 · $18 off-peak · 2/6 courts</div></div></div><div class="lanewrap lanes-1" style="grid-area: 54 / 8 / 60;"><div class="block cat-league" data-cat="league" title="Gold League — Level C (3.2+) · Night 2 of 2 · new (19:00–20:30 · $150/season · 4/6 courts)" style="flex: 1 1 0px;"><div class="t1">Gold League</div><div class="t2">Level C (3.2+) · Night 2 of 2 · new</div><div class="t3">19:00–20:30 · $150/season · 4/6 courts</div></div></div></div>
+    </div>
+  </section>
+
+  <section id="daylist">
+    <h2 class="section-title">Day-by-day program list</h2>
+    <p class="section-note">The same week as the calendar grid above, read top to bottom instead of left to right — every scheduled block, in order, for each day. Courts shown are "of 6." Use this view to sanity-check a single day's flow, or the calendar view above to compare across days and levels.</p>
+    <div class="daygrid">
+
+      <div class="daycard">
+        <h4>Monday</h4>
+        <span class="daymeta">6 scheduled blocks · peak evening load: 5/6 courts</span>
+        <ul>
+          <li><span class="time">9:00–10:30am</span><span class="act">Developmental Clinic — Level A</span><span class="sub">Day 1/2 · 4:1 ratio · 2 courts</span><span class="sub">+ Trio Pod 3+1 (Group 1) · 1 court</span></li>
+          <li><span class="time">12:00–1:00pm</span><span class="act">Corporate Lunch Clinic — Level B/C</span><span class="sub">4:1 ratio · 2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Foundations — Level A, Generation 1 of 2</span><span class="sub">6-wk seasonal cohort · 2 courts</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Social Play — Level A + Level B</span><span class="sub">2 courts each, side by side · 4 courts total</span></li>
+          <li><span class="time">8:30–10:00pm</span><span class="act">Silver League — Night 1 of 2 — new</span><span class="sub">Level B (2.2–3.2) · offset from Level B's own clinic days · 3 courts</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Tuesday</h4>
+        <span class="daymeta">7 scheduled blocks · peak evening load: 4/6 courts</span>
+        <ul>
+          <li><span class="time">9:00–10:30am</span><span class="act">Cardio Padel (fitness class)</span><span class="sub">All levels · 2 courts</span></li>
+          <li><span class="time">10:30am–12:00pm</span><span class="act">Industry League — new</span><span class="sub">Service industry pros · 2 courts</span></li>
+          <li><span class="time">12:00–1:15pm</span><span class="act">Corporate League</span><span class="sub">Team match play · 8-wk season · 2 courts</span></li>
+          <li><span class="time">2:00–3:30pm</span><span class="act">Retiree League — new</span><span class="sub">Daytime · 2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Progression — Level B, Generation 1 of 2</span><span class="sub">8-wk seasonal cohort · 2 courts</span><span class="sub">+ Performance — Level C, Generation 2 of 2 · 2 courts</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Social Play — Level C</span><span class="sub">4 courts</span></li>
+          <li><span class="time">8:30–10:00pm</span><span class="act">Gold League — Night 1 of 2 — new</span><span class="sub">Level C (3.2+) · offset from Level C's own clinic days · 3 courts</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Wednesday</h4>
+        <span class="daymeta">6 scheduled blocks · peak evening load: 6/6 courts</span>
+        <ul>
+          <li><span class="time">9:00–10:30am</span><span class="act">Ladies Ladder Tournament</span><span class="sub">Women-only · weekly standings · 3 courts</span><span class="sub">+ Developmental Clinic — Level B, Day 1/2 · 4:1 ratio · 2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Developmental Clinic — Level A</span><span class="sub">Day 2/2 · 4:1 ratio · 2 courts</span><span class="sub">+ Trio Pod 3+1 (Group 2) · 1 court</span><span class="sub">+ Foundations — Level A, Generation 2 of 2 · 2 courts</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Women's League</span><span class="sub">Round robin · prime time · 8-wk · 3 courts</span><span class="sub">+ Social Play — Level A (1 court) + Level B (2 courts)</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Thursday</h4>
+        <span class="daymeta">7 scheduled blocks · peak evening load: 6/6 courts</span>
+        <ul>
+          <li><span class="time">9:00–10:30am</span><span class="act">Developmental Clinic — Level C</span><span class="sub">Day 1/2 · 4:1 ratio · 2 courts</span></li>
+          <li><span class="time">10:30am–12:00pm</span><span class="act">Industry League</span><span class="sub">2 courts</span></li>
+          <li><span class="time">12:00–1:00pm</span><span class="act">Corporate Lunch Clinic — Level A/B</span><span class="sub">4:1 ratio · 2 courts</span></li>
+          <li><span class="time">2:00–3:30pm</span><span class="act">Retiree League</span><span class="sub">2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Performance — Level C, Generation 1 of 2</span><span class="sub">8-wk seasonal cohort · 2 courts</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Box League</span><span class="sub">In-house co-ed · level flights · 3 courts</span><span class="sub">+ Social Play — Level C · 3 courts</span></li>
+          <li><span class="time">8:30–10:00pm</span><span class="act">Silver League — Night 2 of 2 — new</span><span class="sub">Level B (2.2–3.2) · 3 courts</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Friday</h4>
+        <span class="daymeta">5 scheduled blocks · peak evening load: 6/6 courts</span>
+        <ul>
+          <li><span class="time">3:00–4:30pm</span><span class="act">Purpose Clinic — Cardio Padel</span><span class="sub">All levels · 6:1 ratio · 2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Developmental Clinic — Level B</span><span class="sub">Day 2/2 · 4:1 ratio · 2 courts</span><span class="sub">+ Progression — Level B, Generation 2 of 2 · 2 courts</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Social Play — Level A + B + C, themed night</span><span class="sub">Rotates Ladies Night, Industry Night, Couples/Date Night, Trivia, etc. · 2 courts each · 6 courts total</span></li>
+          <li><span class="time">8:30–10:00pm</span><span class="act">Bronze League — Night 1 of 2 — new</span><span class="sub">Level A (1.0–2.2), offset from Level A's own clinic days · 3 courts</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Saturday</h4>
+        <span class="daymeta">5 scheduled blocks · peak evening load: 6/6 courts</span>
+        <ul>
+          <li><span class="time">8:00–9:30am</span><span class="act">Purpose Clinic — Strength Padel</span><span class="sub">All levels · 6:1 ratio · 2 courts</span><span class="sub">+ Ladder Challenge Play · 2 courts &nbsp;+&nbsp; Trio Pod 3+1 (Group 3) · 1 court</span></li>
+          <li><span class="time">9:30–11:00am</span><span class="act">Developmental Clinic — Level C</span><span class="sub">Day 2/2 · 4:1 ratio · 2 courts</span><span class="sub">+ King of the Court · 4 courts</span></li>
+          <li><span class="time">12:00–1:30pm</span><span class="act">Breakfast &amp; Padel Activation</span><span class="sub">Guest vendor · 30-min lesson + 60–90 min play · 2 courts</span></li>
+          <li><span class="time">6:00–7:30pm</span><span class="act">Social Play — Level A + B + C</span><span class="sub">2 courts each · 6 courts total</span></li>
+          <li><span class="time">7:30–9:00pm</span><span class="act">Bronze League — Night 2 of 2 — new</span><span class="sub">Level A (1.0–2.2) · 4 courts</span></li>
+        </ul>
+      </div>
+
+      <div class="daycard">
+        <h4>Sunday</h4>
+        <span class="daymeta">6 scheduled blocks · peak evening load: 6/6 courts</span>
+        <ul>
+          <li><span class="time">8:00–9:30am</span><span class="act">Purpose Clinic — HIIT Padel</span><span class="sub">All levels · 6:1 ratio · 2 courts</span><span class="sub">+ Ladder Challenge Play, 2nd weekly session · 2 courts</span></li>
+          <li><span class="time">9:30–11:00am</span><span class="act">Round Robin Mixer</span><span class="sub">Every pair plays once · 2 courts</span><span class="sub">+ King of the Court, 2nd weekly session · 2 courts</span></li>
+          <li><span class="time">11:00am–12:30pm</span><span class="act">Masters / 50+</span><span class="sub">Clinic &amp; ladder · lower intensity · 2 courts</span></li>
+          <li><span class="time">12:30–2:00pm</span><span class="act">Recovery &amp; Wellness Activation</span><span class="sub">Guest vendor · 30-min session + 60–90 min play · 2 courts</span></li>
+          <li><span class="time">5:30–7:00pm</span><span class="act">Social Play — Level A + B + C</span><span class="sub">2 courts each · 6 courts total</span></li>
+          <li><span class="time">7:00–8:30pm</span><span class="act">Gold League — Night 2 of 2 — new</span><span class="sub">Level C (3.2+) · 4 courts</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="generations">
+    <h2 class="section-title">Levels &amp; seasonal development programs ("Generations")</h2>
+    <p class="section-note">Every player sits in one of three level bands. Regular weekly clinics are always available at each level; the three seasonal cohorts below are a 6–8 week committed group — same coach, same group, every week — designed to build a real "generation" of players who graduate together. <b>Each cohort now runs as two separate generations per week</b> — Generation 1 and Generation 2 meet on different days, same curriculum, same price — so a player picks whichever day fits their schedule, and the club can enroll two full cohorts per level instead of one. Players who want extra reps can join both generations for a discounted "double-pace" add-on, finishing the same season in half the calendar weeks with double the court time. The Trio Pod is a fourth, smaller Generations format: a self-formed group of 3 committing to each other and one coach for 4 sessions.</p>
+    <div class="cards3">
+      <div class="gcard a">
+        <span class="lvl">LEVEL A · 1.0–2.2</span>
+        <h3>Foundations Cohort</h3>
+        <ul>
+          <li>6-week season · 2 generations/week</li>
+          <li>Generation 1: Monday, 5:30–7:00pm</li>
+          <li>Generation 2: Wednesday, 5:30–7:00pm</li>
+          <li>2 of 6 courts per generation, max 4:1 ratio</li>
+          <li>Graduates into: Beginner Open Play, Bronze League</li>
+        </ul>
+        <div class="price">$229 <span>/ generation, 6-wk season</span></div>
+        <div class="price" style="font-size:13px; opacity:0.75; margin-top:-6px;">$349 <span>double-pace (both generations)</span></div>
+      </div>
+      <div class="gcard b">
+        <span class="lvl">LEVEL B · 2.2–3.2</span>
+        <h3>Progression Cohort</h3>
+        <ul>
+          <li>8-week season · 2 generations/week</li>
+          <li>Generation 1: Tuesday, 5:30–7:00pm</li>
+          <li>Generation 2: Friday, 5:30–7:00pm</li>
+          <li>2 of 6 courts per generation, max 4:1 ratio</li>
+          <li>Graduates into: Box League (Intermediate flight), Silver League</li>
+        </ul>
+        <div class="price">$299 <span>/ generation, 8-wk season</span></div>
+        <div class="price" style="font-size:13px; opacity:0.75; margin-top:-6px;">$449 <span>double-pace (both generations)</span></div>
+      </div>
+      <div class="gcard c">
+        <span class="lvl">LEVEL C · 3.2+</span>
+        <h3>Performance Cohort</h3>
+        <ul>
+          <li>8-week season · 2 generations/week</li>
+          <li>Generation 1: Thursday, 5:30–7:00pm</li>
+          <li>Generation 2: Tuesday, 5:30–7:00pm</li>
+          <li>2 of 6 courts per generation, max 4:1 ratio</li>
+          <li>Graduates into: Box League (Advanced flight), Gold League, tournaments</li>
+        </ul>
+        <div class="price">$299 <span>/ generation, 8-wk season</span></div>
+        <div class="price" style="font-size:13px; opacity:0.75; margin-top:-6px;">$449 <span>double-pace (both generations)</span></div>
+      </div>
+      <div class="gcard d">
+        <span class="lvl">ANY LEVEL · SELF-FORMED TRIO</span>
+        <h3>Trio Pod (3+1)</h3>
+        <ul>
+          <li>4-session commitment</li>
+          <li>Mon 9am, Wed 5:30pm, or Sat 8am</li>
+          <li>1 of 6 courts, 3 players + 1 coach</li>
+          <li>Graduates into: a repeat 4-session pod, or a seasonal cohort at their level</li>
+        </ul>
+        <div class="price">$199 <span>/ person, 4-session pkg</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2 class="section-title">Pricing — reverse-engineered from the private lesson anchor</h2>
+    <p class="section-note">Anchor: 1:1 private lesson = <strong>$100/hr peak</strong> (weekdays 5–9pm, weekends 8am–1pm) / <strong>$70/hr off-peak</strong> (all other hours). Every other price below is derived from that anchor using the group-size decay and category ratios seen across Denver's padel operators. Developmental Clinics moved from a ~4–6:1 ratio to a real 4:1 ratio — fewer players share the coach's hourly cost, so those prices step up accordingly; Purpose Clinics keep the looser 6:1 ratio and stay at the old price point.</p>
+
+    <div class="table-wrap">
+      <p class="table-cap">Coaching &amp; court — per person, unless noted</p>
+      <table class="price">
+        <tbody><tr><th>Format</th><th class="num">Peak</th><th class="num">Off-peak</th><th>Notes</th></tr>
+        <tr><td>Private lesson (1:1)</td><td class="num hi">$100</td><td class="num">$70</td><td>Anchor rate</td></tr>
+        <tr><td>Semi-private (2 players)</td><td class="num">$55 pp</td><td class="num">$38 pp</td><td>55% of anchor</td></tr>
+        <tr><td>Small group / Trio (3 players), per hour</td><td class="num">$37 pp</td><td class="num">$26 pp</td><td>37% of anchor</td></tr>
+        <tr><td>Trio Pod (3+1), 1.5 hr session</td><td class="num hi">$56 pp</td><td class="num">$39 pp</td><td>Sold as 4-session package, $199pp</td></tr>
+        <tr><td>Court rental (per court/hr, up to 4)</td><td class="num">$80 court<br>($20 pp)</td><td class="num">$56 court<br>($14 pp)</td><td>No coaching, space only</td></tr>
+        <tr><td>Developmental Clinic — weekday morning (90 min, 4:1)</td><td class="num">—</td><td class="num">$25</td><td>Level A/B/C Day 1, Mon/Wed/Thu AM</td></tr>
+        <tr><td>Developmental Clinic — weekday evening (90 min, 4:1)</td><td class="num hi">$50</td><td class="num">—</td><td>Level A/B Day 2, Wed/Fri PM</td></tr>
+        <tr><td>Developmental Clinic — Saturday (90 min, 4:1)</td><td class="num">$35</td><td class="num">—</td><td>Level C Day 2, Sat late-AM</td></tr>
+        <tr><td>Corporate Lunch Clinic (1 hr, 4:1)</td><td class="num">$25</td><td class="num">$20</td><td>Weekday lunch hour only</td></tr>
+        <tr><td>Social play (1.5 hr)</td><td class="num">$25</td><td class="num">$18</td><td>Level-matched rotation</td></tr>
+        <tr><td>Purpose Clinic (90 min, 6:1)</td><td class="num">$20</td><td class="num">$20</td><td>Same both peak/off-peak; Cardio/Strength/HIIT Padel, one fixed slot each</td></tr>
+        <tr><td>Intro to Padel (60–75 min, first-timer)</td><td class="num" colspan="2" style="text-align:center;">$25 flat</td><td>On-demand booking, not a calendar slot; racket included</td></tr>
+        <tr><td>Vendor Activation (30-min session + 60–90 min play)</td><td class="num" colspan="2" style="text-align:center;">Included</td><td>Sponsored by rotating partner; open to all members</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  
+
+  <section id="targets">
+    <h2 class="section-title">Participant &amp; enrollment targets</h2>
+    <p class="section-note">Two different kinds of numbers below. <b>Session capacity</b> is a hard ceiling set by courts × ratio (or standard round-robin sizing) — you physically cannot sell more than this for a single session. <b>Target enrolled / season</b> is the realistic sales goal per program: usually 75–100% of the combined capacity across that program's weekly sessions, since a 100%-sold room every single week isn't a realistic ongoing target. Where a program now runs twice a week (Developmental Clinics, Foundations/Progression/Performance, Bronze/Silver/Gold), the target is for the two sessions combined, not each one separately.</p>
+
+    <div class="table-wrap">
+      <p class="table-cap">Clinics &amp; coached programs</p>
+      <table class="price">
+        <tbody><tr><th>Program</th><th>Sessions/week</th><th class="num">Capacity / session</th><th class="num">Target enrolled / season or ongoing</th><th>How it's sized</th></tr>
+        <tr><td>Developmental Clinic (per level: A, B, or C)</td><td class="num">2</td><td class="num">8 (2 courts × 4:1)</td><td class="num">12–16 active members</td><td>Mix of single-day and both-days players against 16 combined weekly seats</td></tr>
+        <tr><td>Purpose Clinic (each: Cardio, Strength, HIIT Padel)</td><td class="num">1</td><td class="num">12 (2 courts × 6:1)</td><td class="num">8–12 regulars / session</td><td>Fitness-framed, higher ratio — fuller rooms are fine here</td></tr>
+        <tr><td>Corporate Lunch Clinic</td><td class="num">2 (Mon + Thu)</td><td class="num">8 (2 courts × 4:1)</td><td class="num">6–8 / session</td><td>Typically 1–2 partner companies per session, not open enrollment</td></tr>
+        <tr><td>Trio Pod (3+1)</td><td class="num">3 concurrent groups</td><td class="num">3 (fixed group size)</td><td class="num">9 total (3 pods full)</td><td>Self-formed trios — the target is simply "all 3 slots full," refilled every 4-session cycle</td></tr>
+        <tr><td>Foundations Cohort (Level A)</td><td class="num">2 generations</td><td class="num">8 / generation (2 courts × 4:1)</td><td class="num">12–16 / season (combined)</td><td>Two parallel 8-seat generations; a few double-pace upgrades count toward both</td></tr>
+        <tr><td>Progression Cohort (Level B)</td><td class="num">2 generations</td><td class="num">8 / generation</td><td class="num">12–16 / season (combined)</td><td>Same model as Foundations, 8-wk season</td></tr>
+        <tr><td>Performance Cohort (Level C)</td><td class="num">2 generations</td><td class="num">8 / generation</td><td class="num">12–16 / season (combined)</td><td>Same model, 8-wk season</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="table-wrap">
+      <p class="table-cap">Leagues &amp; competitive formats</p>
+      <table class="price">
+        <tbody><tr><th>League</th><th>Nights/week</th><th class="num">Target / season (combined)</th><th>Level</th></tr>
+        <tr><td>Bronze League</td><td class="num">2 (Fri + Sat)</td><td class="num">24–32 (12–16/night)</td><td>1.0–2.2 (Level A)</td></tr>
+        <tr><td>Silver League</td><td class="num">2 (Mon + Thu)</td><td class="num">24–32 (12–16/night)</td><td>2.2–3.2 (Level B)</td></tr>
+        <tr><td>Gold League</td><td class="num">2 (Tue + Sun)</td><td class="num">24–32 (12–16/night)</td><td>3.2+ (Level C)</td></tr>
+        <tr><td>Corporate League</td><td class="num">1</td><td class="num">24–40 (6–10 teams × 4)</td><td>Open, all levels</td></tr>
+        <tr><td>Women's League</td><td class="num">1</td><td class="num">16–20</td><td>2.0+</td></tr>
+        <tr><td>Box League</td><td class="num">1</td><td class="num">16–24</td><td>2.2+ (Intermediate &amp; Advanced flights)</td></tr>
+        <tr><td>Ladies Ladder Tournament</td><td class="num">1</td><td class="num">12–18 ongoing</td><td>1.5–3.2 (open, daytime)</td></tr>
+        <tr><td>Ladder (ongoing, app-based)</td><td class="num">2 sessions</td><td class="num">20–30 active</td><td>3.0+</td></tr>
+        <tr><td>King of the Court</td><td class="num">2 sessions</td><td class="num">16–24 / week</td><td>2.5+</td></tr>
+        <tr><td>Retiree League</td><td class="num">2 (Tue + Thu)</td><td class="num">12–16 / season</td><td>1.5–3.0 (recreational)</td></tr>
+        <tr><td>Industry League</td><td class="num">2 (Tue + Thu)</td><td class="num">12–16 / season</td><td>1.5–3.0 (open to newer players)</td></tr>
+        <tr><td>Masters / 50+ Clinic &amp; Ladder</td><td class="num">1</td><td class="num">8–12 / session</td><td>All levels, 50+ demographic</td></tr>
+        <tr><td>Social Play (all levels/nights combined)</td><td class="num">Daily</td><td class="num">8–16 / session</td><td>Ongoing drop-in, not a seasonal enrollment</td></tr>
+      </tbody></table>
+    </div>
+    <p class="foot-note">These are launch-quarter sales targets, not hard caps except where noted as "capacity" — revisit every target after the first full quarter of real attendance data, per the utilization tracking item in Staffing &amp; Implementation below.</p>
+  </section>
+
+  <section id="leagues">
+    <h2 class="section-title">Leagues &amp; formats</h2>
+    <p class="section-note">Format definitions, where each sits on the weekly calendar above, and — for every league — the target roster size and the skill level it's built for. Two new leagues fill the biggest dead zones on the calendar: a weekday-afternoon league for retirees and a weekday-morning league for restaurant/service industry professionals, who are typically free before their shifts start.</p>
+
+    <div class="table-wrap">
+      <p class="table-cap">League roster targets — players &amp; level</p>
+      <table class="price">
+        <tbody><tr><th>League / format</th><th>How it works</th><th class="num">Target players</th><th>Level</th><th>Where it lives this week</th></tr>
+        <tr><td>Social play (Americano, Mexicano, King of the Court, etc. — see style menu)</td><td>Format rotates week to week; hosted by a coordinator, no partner required</td><td class="num">8–16 / session (2–3 courts)</td><td>Mon/Wed: Level A &amp; B separate · Tue/Thu: Level C · Fri–Sun: all 3 levels (demand test)</td><td>Mon–Thu 7–8:30pm, Fri/Sat/Sun evenings</td></tr>
+        <tr><td>Box League</td><td>Small pods play each other; movement between boxes each cycle</td><td class="num">16–24 / season</td><td>2.2+ (Intermediate &amp; Advanced flights)</td><td>Thursday 7–8:30pm (in-house)</td></tr>
+        <tr><td>Women's League</td><td>Round robin, every pair plays every other once</td><td class="num">16–20 / season</td><td>2.0+</td><td>Wednesday 7–8:30pm (prime time)</td></tr>
+        <tr><td>Ladies Ladder Tournament</td><td>Women-only, standing weekly ladder with live match slots</td><td class="num">12–18 ongoing</td><td>1.5–3.2 (open, daytime)</td><td><b>New:</b> Wednesday 9:00–10:30am</td></tr>
+        <tr><td>Ladder (ongoing)</td><td>Always-on, app-based challenge ranking</td><td class="num">20–30 active</td><td>3.0+</td><td>Sat 8:00–9:30am + Sun 8:00–9:30am (2nd session) + ongoing, all week</td></tr>
+        <tr><td>King of the Court</td><td>Winners move up a court, losers move down</td><td class="num">16–24 / week</td><td>2.5+</td><td>Sat 9:30–11:00am (full, 4 courts) + Sun 9:30–11:00am (smaller, 2 courts) — now weekly</td></tr>
+        <tr><td>Corporate League</td><td>Round-robin, 6–10 company teams per season</td><td class="num">24–40 / season</td><td>Open, all levels</td><td>Tuesday 12:00–1:15pm (lunch)</td></tr>
+        <tr><td>Masters / 50+ Clinic &amp; Ladder</td><td>Coach-led clinic + informal ladder challenges</td><td class="num">8–12 / session</td><td>All levels, 50+ demographic</td><td>Sunday 11am–12:30pm</td></tr>
+        <tr><td>Retiree League</td><td>Round robin, relaxed pace, daytime dead-zone slot</td><td class="num">12–16 / season</td><td>1.5–3.0 (recreational)</td><td><b>New:</b> Tue/Thu 2:00–3:30pm</td></tr>
+        <tr><td>Industry League</td><td>Round robin for restaurant/service pros free before shifts</td><td class="num">12–16 / season</td><td>1.5–3.0 (open to newer players)</td><td><b>New:</b> Tue/Thu 10:30am–12:00pm</td></tr>
+        <tr><td>Bronze League — 2 nights/wk</td><td>Round robin, level-locked; both nights scheduled opposite Level A's own clinic days (Mon/Wed)</td><td class="num">24–32 / season (12–16 per night)</td><td>1.0–2.2 (Level A)</td><td><b>New:</b> Friday 8:30–10:00pm (3 courts) + Saturday 7:30–9:00pm (4 courts)</td></tr>
+        <tr><td>Silver League — 2 nights/wk</td><td>Round robin, level-locked; both nights scheduled opposite Level B's own clinic days (Wed/Fri)</td><td class="num">24–32 / season (12–16 per night)</td><td>2.2–3.2 (Level B)</td><td><b>New:</b> Monday 8:30–10:00pm (3 courts) + Thursday 8:30–10:00pm (3 courts)</td></tr>
+        <tr><td>Gold League — 2 nights/wk</td><td>Round robin, level-locked; both nights scheduled opposite Level C's own clinic days (Thu/Sat)</td><td class="num">24–32 / season (12–16 per night)</td><td>3.2+ (Level C)</td><td><b>New:</b> Tuesday 8:30–10:00pm (3 courts) + Sunday 7:00–8:30pm (4 courts)</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="table-wrap">
+      <p class="table-cap">League &amp; format pricing</p>
+      <table class="price">
+        <tbody><tr><th>Program</th><th class="num">Non-member</th><th class="num">Social</th><th class="num">Player</th><th class="num">Performance</th></tr>
+        <tr><td>Social play (drop-in)</td><td class="num">$25</td><td class="num">$23</td><td class="num">$20</td><td class="num hi">Free</td></tr>
+        <tr><td>Box League (8-wk season)</td><td class="num">$175</td><td class="num">$158</td><td class="num">$140</td><td class="num">$122</td></tr>
+        <tr><td>Women's League (8-wk)</td><td class="num">$160</td><td class="num">$144</td><td class="num">$128</td><td class="num">$112</td></tr>
+        <tr><td>Ladies Ladder Tournament (quarterly)</td><td class="num">$45</td><td class="num">$35</td><td class="num hi">Included</td><td class="num hi">Included</td></tr>
+        <tr><td>Ladder (quarterly access)</td><td class="num">$45</td><td class="num">$35</td><td class="num hi">Included</td><td class="num hi">Included</td></tr>
+        <tr><td>King of the Court (per event)</td><td class="num">$30</td><td class="num">$27</td><td class="num">$24</td><td class="num">$21</td></tr>
+        <tr><td>Corporate League (per 4-player team, 8-wk)</td><td class="num" colspan="3" style="text-align:center;">$600 flat</td><td class="num">$540<br>(majority members)</td></tr>
+        <tr><td>Retiree League (8-wk season)</td><td class="num">$140</td><td class="num">$126</td><td class="num">$112</td><td class="num">$98</td></tr>
+        <tr><td>Industry League (8-wk season)</td><td class="num">$140</td><td class="num">$126</td><td class="num">$112</td><td class="num">$98</td></tr>
+        <tr><td>Bronze / Silver / Gold League (8-wk season, each)</td><td class="num">$150</td><td class="num">$135</td><td class="num">$120</td><td class="num">$105</td></tr>
+      </tbody></table>
+    </div>
+
+    <p class="foot-note">Pricing corridor and program structure derived from the Arenna Denver Padel market research (Racket Social Club, Denver Racquets Club, Parker Racquet Club, Padel Haus, Smash Padel, Gates Tennis Center) and reverse-engineered from the confirmed $100 peak / $70 off-peak private lesson rate. Treat as a starting model — revisit after the first quarter of real utilization data.</p>
+  </section>
+
+  <section id="playbook">
+    <h2 class="section-title">Program playbook — how to run &amp; market each activity</h2>
+    <p class="section-note">A resumé for every activity on the calendar: format and ratio, how it should be run day-to-day, and the marketing angle to use for it. Grouped by category.</p>
+
+    <h3 class="sub-title">Clinics &amp; skill-building</h3>
+    <div class="pgrid">
+      <div class="pcard clinic">
+        <h4>Intro to Padel <span style="color:var(--terracotta); font-weight:700;">— now on-demand</span></h4>
+        <span class="fmt">60–75 min · 1 court · max 4:1 · no level required · booked on-demand, not a fixed calendar slot</span>
+        <p><b>How it's run:</b> Booked exactly like a private lesson — whenever a newcomer wants it, not on a published weekly time. One coach walks a small group through grip, scoring, and live rallying so everyone hits real balls in the first 15 minutes; the coach personally books the player's next Open Play or Beginner Clinic before they leave. Moving it off the fixed calendar frees Saturday and Sunday's first morning slot for the new Purpose Clinics below.</p>
+        <p class="market"><b>Marketing:</b> Target people who've never touched a paddle — friends of members, corporate wellness partners, "first-timer" social content. Priced as a loss-leader ($25 flat); promote as "book your first session any time" rather than pointing to a specific weekly slot.</p>
+      </div>
+      <div class="pcard clinic">
+        <h4>Developmental Clinics (Level A/B/C) <span style="color:var(--terracotta); font-weight:700;">— 2 days/week, 4:1</span></h4>
+        <span class="fmt">90 min · 2 of 6 courts · 4:1 ratio · Level A: Mon AM + Wed PM · Level B: Wed AM + Fri PM · Level C: Thu AM + Sat late-AM</span>
+        <p><b>How it's run:</b> This replaces the old scattered Daytime/Weekly/Weekend clinics with one clean system: every level gets exactly two fixed clinic days a week, always at a real 4:1 coach-to-player ratio (tighter than the old 6:1 — see Pricing). Both days teach the same 4-week technical rotation, but the second day is offset two weeks into the cycle, so a player never sees the same theme twice in the same week even if they come both days. Come once a week for 4 weeks and you get the complete 4-theme curriculum; come twice a week and you finish it in 2 weeks with extra reps by week 4. See the exact rotation table in the Seasonal curriculum guide below.</p>
+        <p class="market"><b>Marketing:</b> Sell two enrollment options off the same product: a 4-session pass (pick one day, either week's start point works) or an 8-session pass (both days, "the full program in half the time"). Message: "know exactly what you're working on, and exactly how to get the full arc even on your busiest weeks."</p>
+      </div>
+      <div class="pcard clinic">
+        <h4>Corporate Lunch Clinic</h4>
+        <span class="fmt">60 min · 2 of 6 courts · Level A/B or B/C · 4:1 ratio, fast-paced</span>
+        <p><b>How it's run:</b> Scheduled inside a standard lunch hour for nearby office workers; higher tempo and less standing-around than a leisure clinic so it fits the time box.</p>
+        <p class="market"><b>Marketing:</b> Target nearby office parks/corporate partners directly. It's also the natural feeder into the Corporate League — pitch both together to HR/wellness contacts.</p>
+      </div>
+      <div class="pcard clinic">
+        <h4>Trio Pod (3+1)</h4>
+        <span class="fmt">1.5 hr · 1 of 6 courts · 3 committed players + 1 coach · 4-session package</span>
+        <p><b>How it's run:</b> A pre-formed group of 3 books the same coach and slot for 4 weeks running. Session 1 is a shared assessment; sessions 2–3 target the group's specific gaps; session 4 is match-play integration plus a personalized takeaway plan.</p>
+        <p class="market"><b>Marketing:</b> Target members who already play together informally. Pitch as "your own private squad" — a more personal, premium step up from a group clinic. Promote directly to friend-groups spotted playing Open Play together.</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Purpose Clinics — 3 fixed fitness formats, 6:1 ratio</h3>
+    <p class="section-note" style="margin-bottom:12px;">Down from four rotating technical themes to three fixed, level-open fitness formats — Cardio Padel, Strength Padel, and HIIT Padel — each with its own permanent weekly slot instead of rotating through a shared one. Freeing up that fourth purpose-clinic slot is what made room for the Developmental Clinics' second weekly day above. Purpose Clinics are the one place a looser 6:1 ratio still applies, since the format is fitness-framed rather than technical correction.</p>
+    <div class="pgrid">
+      <div class="pcard clinic">
+        <h4>Cardio Padel</h4>
+        <span class="fmt">90 min · 2 of 6 courts · all levels · 6:1 ratio · Friday 3:00–4:30pm</span>
+        <p><b>How it's run:</b> Coach-led, high-repetition drills prioritizing movement and heart rate over technical correction — constant motion, minimal standing around, same coaching skillset as a regular clinic with a different pace.</p>
+        <p class="market"><b>Marketing:</b> Target the fitness-first buyer who won't sign up for a "padel class" but will sign up for a "workout." Cross-promote through gym/wellness partnerships using calorie/heart-rate messaging, not skill messaging.</p>
+      </div>
+      <div class="pcard clinic">
+        <h4>Strength Padel</h4>
+        <span class="fmt">90 min · 2 of 6 courts · all levels · 6:1 ratio · Saturday 8:00–9:30am</span>
+        <p><b>How it's run:</b> Bodyweight and resistance-band strength intervals worked between padel points — lunges, lateral bounds, med-ball rotational throws — built around the exact movement patterns padel demands (split-step, lateral push-off, rotational power), not a generic gym circuit.</p>
+        <p class="market"><b>Marketing:</b> Position as "the only strength class that also makes you better at padel." Good cross-sell with the adjacent Ladder Challenge Play and Trio Pod happening the same morning — all three share the "getting the most out of the hour" framing.</p>
+      </div>
+      <div class="pcard clinic">
+        <h4>HIIT Padel</h4>
+        <span class="fmt">90 min · 2 of 6 courts · all levels · 6:1 ratio · Sunday 8:00–9:30am</span>
+        <p><b>How it's run:</b> Short, high-intensity padel-movement intervals (sprint-to-net, shadow-rally footwork, reactive ball-feed drills) with brief rest windows — the highest heart-rate-per-minute format of the three, aimed at the "I want to sweat, not just rally" crowd.</p>
+        <p class="market"><b>Marketing:</b> Pair with the 2nd weekly Ladder Challenge Play session right after: "get your heart rate up at 8, then prove it on the ladder by 9:30." Cross-promote through HIIT/bootcamp studio partnerships (see Activations &amp; Vendor Partnerships).</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Seasonal Generations (see full curriculum below)</h3>
+    <div class="pgrid">
+      <div class="pcard seasonal">
+        <h4>Foundations / Progression / Performance cohorts <span style="color:var(--terracotta); font-weight:700;">— 2 generations/week</span></h4>
+        <span class="fmt">6–8 wk season · 2 of 6 courts per generation · same coach + same group every week, by level band · Level A: Mon + Wed · Level B: Tue + Fri · Level C: Thu + Tue — all weekday evenings</span>
+        <p><b>How it's run:</b> Cohort-based, sequential curriculum ending in a graduation match that places players directly into Open Play, the Ladder, or a Box League flight at their level. Each level now runs <b>two parallel generations</b> a week instead of one — Generation 1 and Generation 2 are two separate friend-groups on two different days, both following the identical week-by-week curriculum (unlike the Developmental Clinic's offset rotation, a cohort's two generations are in sync, not staggered, since the content is sequential rather than repeating). This doubles sellable seats per level per season without adding new visit days for anyone — a prospect just picks whichever day suits them. A player who wants extra reps can pay the discounted "double-pace" add-on and attend both generations the same week, finishing the season's curriculum in half the calendar time with double the coached hours.</p>
+        <p class="market"><b>Marketing:</b> Target Developmental Clinic graduates directly, especially the 8-session (both-days) players — they're already primed for the "double-pace" pitch. This is the upsell from "drop-in" to "committed" — sold on a real peer group ("your generation") and a guaranteed next step after the season ends.</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Social &amp; open play</h3>
+    <div class="pgrid">
+      <div class="pcard social">
+        <h4>Social Play — style menu</h4>
+        <span class="fmt">90 min · rotating format, not a fixed one — see schedule below</span>
+        <p><b>How it's run:</b> "Social" is the umbrella — the actual format rotates so regulars don't get the same night twice in a row. Toolkit for coordinators to rotate through:</p>
+        <p><b>Americano</b> — partners rotate randomly each round, individual scoring. Easiest to explain to newcomers, good default.</p>
+        <p><b>Mexicano</b> — partners re-paired each round based on current standings (winners with winners). Keeps matches close as the night goes on; best for a slightly more competitive crowd.</p>
+        <p><b>King of the Court</b> — winners move up a court, losers move down. High energy, easy to spectate — save for the busiest/highest-energy night.</p>
+        <p><b>Round Robin</b> — every pair plays every other pair once. Calmest, most predictable format — good for smaller or newer groups.</p>
+        <p><b>Team Scramble</b> — random doubles re-draw each round, purely social framing (no standings). Best for Friday's date-night crowd.</p>
+        <p class="market"><b>Marketing:</b> Advertise the week's format in advance (e.g. "Tuesday is Mexicano night") so regulars know what they're signing up for, and rotate on a set cycle (Americano → Mexicano → King of the Court → repeat) so the same level-day never goes stale.</p>
+      </div>
+      <div class="pcard social">
+        <h4>Level-specific Social Days</h4>
+        <span class="fmt">Mon–Thu evenings, 7:00–8:30pm · uses courts the leagues aren't on</span>
+        <p><b>How it's run:</b> Monday and Wednesday run Level A (1.0–2.2) and Level B (2.2–3.2) as two separate groups on the same evening — Monday has the full court allocation to itself, Wednesday shares the evening with Women's League and uses only the courts League isn't on. Tuesday and Thursday run Level C (3.2+) the same way, sharing Thursday with Box League. Friday, Saturday, and Sunday deliberately stay all-three-groups-at-once instead of one all-levels block or one level-specific block — that's the demand-sensing period.</p>
+        <p class="market"><b>Marketing:</b> Once Fri/Sat/Sun attendance data shows which level shows up most on which day, convert the highest-demand pairing into its own dedicated day, the same way Mon–Thu already work. Track this from week one — see Staffing &amp; Implementation below.</p>
+      </div>
+      <div class="pcard social">
+        <h4>Round Robin Social Mixer</h4>
+        <span class="fmt">90 min · 2 of 6 courts · every pair plays every other once</span>
+        <p><b>How it's run:</b> Coordinator-run, calmer pace than the evening socials — a good landing spot for beginner clinic graduates who want match play without evening-mixer energy.</p>
+        <p class="market"><b>Marketing:</b> Target newer players and a slightly older/less-competitive crowd than the Friday night crowd. Position Sunday morning as the "easy, unhurried" match-play option.</p>
+      </div>
+      <div class="pcard social">
+        <h4>Friday Night — Themed Rotation</h4>
+        <span class="fmt">Layered on top of the 7:00–8:30pm &amp; 8:30–10:00pm Friday socials · one theme per week, 8-week cycle</span>
+        <p><b>How it's run:</b> Every Friday keeps the usual Social format rotation (Americano, Mexicano, etc.) but also carries a weekly theme that changes the vibe without changing the court logistics. The lineup below is pulled from what already reliably works in hospitality and other racquet clubs — not invented from scratch — with the source noted for each:</p>
+        <p><b>Ladies Night</b> — the single most common recurring promotion at bars and venues like Topgolf (discounted entry/a welcome drink for women), but run the way padel clubs are actually doing it now: built around skill-building and community, not just a price gimmick.</p>
+        <p><b>Industry Night</b> — borrowed directly from the restaurant/bar world's standard service-industry discount night. Doubles as the easiest upsell path for our own Industry League members (servers/bartenders free before their shift) to bring a co-worker on their night off.</p>
+        <p><b>Couples / Date Night</b> — padel clubs are already marketing "padel date nights" as an active, social, surprisingly-romantic alternative to dinner-and-a-movie; pairs register together, scoring stays casual, lounge seating after.</p>
+        <p><b>Trivia Night, Padel Edition</b> — bar trivia is the most reliable weekly-regulars draw in hospitality (cheap to run, builds a loyal returning group); we run a short team trivia round in the lounge between padel rounds, prize for the winning team.</p>
+        <p><b>Retro / Decade Night</b> — combines two proven ideas: padel clubs' "retro tournaments" (dress in classic gear, best-costume prize) and bars' decade-themed nights (a set playlist per decade).</p>
+        <p><b>Guest Pro Exhibition</b> — a touring or local pro plays exhibition points and runs a 15-minute mini-clinic before open play starts; a differentiator racquet clubs have that bars and Topgolf-style venues don't.</p>
+        <p><b>Vinyl / DJ Social</b> — modeled on hotel rooftop-bar programming (a live DJ, a more lounge-than-competitive vibe); leans social, good for a slower week or a rain-check crowd.</p>
+        <p><b>Charity / Community Night</b> — padel clubs' "charity clinic" model: a portion of the night's court fees (or a raffle) benefits a local cause or partner, run with a nonprofit or neighborhood group.</p>
+        <p class="market"><b>Marketing:</b> Announce next week's theme at the end of the current Friday night and again mid-week, so it functions like a standing appointment (e.g. "first Friday of the month is Guest Pro night"). Rotate the eight themes on a set 8-week cycle rather than choosing ad hoc, so planning, vendor bookings, and any guest-pro appearances can happen a month or two out.</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Weekend mornings &amp; vendor activations</h3>
+    <div class="pgrid">
+      <div class="pcard league">
+        <h4>Weekend Morning Restructure — King of the Court &amp; Ladder Challenge</h4>
+        <span class="fmt">Sat 8:00–11:00am, Sun 8:00–11:00am · split by court, not run one-at-a-time</span>
+        <p><b>How it's run:</b> Both formats now start earlier and share the floor with everything else that morning instead of taking it over sequentially. Saturday 8:00–9:30am splits 6 courts three ways — Purpose Clinic: Strength Padel (2), Ladder Challenge Play (2), Trio Pod (1) — then 9:30–11:00am splits again: Developmental Clinic Level C Day 2 (2) and King of the Court (4). Sunday mirrors the idea at smaller scale: a 2nd weekly Ladder Challenge session and a 2nd, smaller King of the Court sit alongside Purpose Clinic: HIIT Padel, Round Robin Mixer, and Masters. The principle: never give one format the whole floor when it can share courts with something else and reach more players in the same hours.</p>
+        <p class="market"><b>Marketing:</b> Promote the earlier start as "beat the heat / beat the crowd" — first-thing weekend energy — and cross-sell: someone dropping a kid at Purpose Clinic can jump on Ladder Challenge on the adjacent court.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Vendor Activations — Breakfast &amp; Padel / Recovery &amp; Wellness</h4>
+        <span class="fmt">Sat 12:00–1:30pm &amp; Sun 12:30–2:00pm · 2 of 6 courts · 30-min session + 60–90 min play</span>
+        <p><b>How it's run:</b> A rotating outside partner (local coffee/breakfast spot, a recovery or nutrition brand, a gear maker) runs a short 30-minute activity — a tasting, a mini-clinic, a recovery demo — immediately followed by 60–90 minutes of hosted social play so the partner gets real face time with players, not just a table in the lobby. Saturday leans breakfast/social; Sunday leans recovery/wellness, but both can flex.</p>
+        <p class="market"><b>Marketing:</b> Sell it to prospective partners as guaranteed engaged attention from a captive, athletic audience — not a sponsorship banner. Promote to members as a rotating perk ("this week's activation: local coffee roaster") to keep the format from feeling repetitive.</p>
+      </div>
+    </div>
+
+    <h3 class="sub-title">Leagues &amp; competitive formats</h3>
+    <div class="pgrid">
+      <div class="pcard league">
+        <h4>Ladies Ladder Tournament <span style="color:var(--terracotta); font-weight:700;">— new</span></h4>
+        <span class="fmt">Weekly, Wed 9:00–10:30am · 3 of 6 courts · women-only standing ladder</span>
+        <span class="target">Target: 12–18 players · Level 1.5–3.2</span>
+        <p><b>How it's run:</b> Coordinator-run; players challenge up/down the ladder each week with published standings, so it feels like a running competition rather than a one-off event.</p>
+        <p class="market"><b>Marketing:</b> Target daytime/flex-schedule women specifically. Market as a standing weekly fixture — "same time every week, same community" — and cross-promote with the Wednesday evening Women's League as a daytime-to-evening pathway.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Box League</h4>
+        <span class="fmt">8-wk season, Thu 7–8:30pm · 3 of 6 courts · in-house co-ed, level flights</span>
+        <span class="target">Target: 16–24 players · Level 2.2+</span>
+        <p><b>How it's run:</b> Coordinator-run; no partner needed, the exact feature that made this the highest-volume league at the tennis clubs it's modeled on.</p>
+        <p class="market"><b>Marketing:</b> Target Progression/Performance cohort graduates and regular Open Play attendees. Sell "your season, your rank, your box" — movement between boxes each cycle is the reason to renew.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Women's League</h4>
+        <span class="fmt">8-wk season, Wed 7–8:30pm (prime time) · 3 of 6 courts · round robin</span>
+        <span class="target">Target: 16–20 players · Level 2.0+</span>
+        <p><b>How it's run:</b> Coordinator-run, deliberately scheduled in the same prime evening slot as the co-ed leagues rather than off-peak.</p>
+        <p class="market"><b>Marketing:</b> Target Ladies Ladder participants and clinic graduates directly. The hook is the prime-time placement itself — signals this is a first-class program, not an afterthought.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Corporate League</h4>
+        <span class="fmt">8-wk season, Tue 12:00–1:15pm · 2 of 6 courts · round robin, 6–10 teams</span>
+        <span class="target">Target: 24–40 players · Open, all levels</span>
+        <p><b>How it's run:</b> Coordinator-run; teams of 4 register together and play through the lunch hour, so no evening commitment is required from participants.</p>
+        <p class="market"><b>Marketing:</b> Target local company HR/wellness budgets with a per-team flat fee ($600). Position as a turnkey team-building product; bundle an Intro clinic for new-to-padel employees.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Ladder (ongoing, app-based)</h4>
+        <span class="fmt">Always-on, quarterly access · 2 of 6 reserved courts Sat 11am–1pm + informal use all week</span>
+        <span class="target">Target: 20–30 active players · Level 3.0+</span>
+        <p><b>How it's run:</b> Self-managed via app/leaderboard; players schedule their own challenge matches with minimal staff involvement beyond the reserved weekend window.</p>
+        <p class="market"><b>Marketing:</b> Target competitive players who've outgrown drop-in Open Play but aren't ready for a full league season. Promote the "always-on" flexibility as the hook.</p>
+      </div>
+      <div class="pcard league">
+        <h4>King of the Court</h4>
+        <span class="fmt">Monthly event, Sat 1–2:30pm · 4 of 6 courts · winners up, losers down</span>
+        <span class="target">Target: 16 players/event · Level 2.5+</span>
+        <p><b>How it's run:</b> Coordinator-run event with a built-in energy spike — a strong candidate for music, spectators, and social content since it's visually dynamic.</p>
+        <p class="market"><b>Marketing:</b> Target the whole member base as a monthly can't-miss event. Use it as the most shareable, social-content-friendly program to drive social reach.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Masters / 50+ Clinic &amp; Ladder</h4>
+        <span class="fmt">90 min, Sun 11am–12:30pm · 2 of 6 courts · lower intensity</span>
+        <span class="target">Target: 8–12 players · All levels, 50+</span>
+        <p><b>How it's run:</b> Coach-led for the clinic portion, self-managed ladder challenges layered on top; paced deliberately slower than the daytime clinics.</p>
+        <p class="market"><b>Marketing:</b> Target the 50+ demographic through community/senior-center partnerships and word of mouth. Message around longevity, low-impact cardio, and a built-in social group rather than competition.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Retiree League <span style="color:var(--terracotta); font-weight:700;">— new</span></h4>
+        <span class="fmt">8-wk season, Tue/Thu 2:00–3:30pm · 2 of 6 courts · round robin</span>
+        <span class="target">Target: 12–16 players · Level 1.5–3.0</span>
+        <p><b>How it's run:</b> Coordinator-run, relaxed pace, sits in the biggest dead zone on the calendar — weekday early afternoon, when courts would otherwise sit empty for hours.</p>
+        <p class="market"><b>Marketing:</b> Target retirees and anyone with a flexible weekday schedule directly — community centers, 55+ neighborhoods, word of mouth. Message: "your weekday game, same time every week, no evening commitment required."</p>
+      </div>
+      <div class="pcard league">
+        <h4>Industry League <span style="color:var(--terracotta); font-weight:700;">— new</span></h4>
+        <span class="fmt">8-wk season, Tue/Thu 10:30am–12:00pm · 2 of 6 courts · round robin</span>
+        <span class="target">Target: 12–16 players · Level 1.5–3.0</span>
+        <p><b>How it's run:</b> Coordinator-run, scheduled in the late-morning dead zone before lunch — exactly when restaurant, bar, and service-industry staff are free before evening shifts start.</p>
+        <p class="market"><b>Marketing:</b> Target restaurant/bar/hospitality staff directly through nearby venues, industry Facebook/Instagram groups, and staff word of mouth. Message: "you're off in the morning — come play." Consider a service-industry discount or partner-venue cross-promotion.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Bronze / Silver / Gold League <span style="color:var(--terracotta); font-weight:700;">— new, 2 nights/week each</span></h4>
+        <span class="fmt">8-wk season · round robin · one league per level band, each running two nights a week instead of one</span>
+        <span class="target">Target: 24–32 players each per season (12–16 per night) · Bronze = Level A, Silver = Level B, Gold = Level C</span>
+        <p><b>How it's run:</b> Coordinator-run. Every league night is deliberately scheduled opposite that level's two Developmental Clinic days, never on top of them — Level A's clinics are Mon/Wed, so Bronze runs Fri (3 courts) + Sat (4 courts); Level B's are Wed/Fri, so Silver runs Mon (3 courts) + Thu (3 courts); Level C's are Thu/Sat, so Gold runs Tue (3 courts) + Sun (4 courts). This replaces the generic "Extended Social Play" filler blocks that used to sit in those same evening windows — the court time is the same, but it's now a structured, sellable league product instead of unstructured drop-in play. Bronze's Saturday night and Gold's Sunday night land on days those levels already have Social Play, so it reads as "stay a little later"; Silver's Thursday night is a genuinely new weekly visit for Level B, which is the trade-off for giving every level a real two-night league instead of one.</p>
+        <p class="market"><b>Marketing:</b> Pitch directly to Developmental Clinic members at their level: "you're already here Monday for Social — Silver League is right after." Players can register for either night, or both if their schedule allows — a second registration option worth surfacing at sign-up. The offset-from-clinic-days framing is also the retention story: it's extra distinct touchpoints in the week without ever colliding with that level's own clinic time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="curriculum">
+    <h2 class="section-title">Seasonal curriculum guide</h2>
+    <p class="section-note">What each Generations cohort actually covers, week by week. Coaches teach from this plan so every cohort of a given level gets a consistent, repeatable experience.</p>
+
+    <p class="section-note">Each cohort's two weekly generations run the identical week-by-week plan below in lockstep (Generation 1 and Generation 2 are both on "Week 3" at the same calendar time) — a player who attends both generations in the same week is getting a second pass at that week's material, not new content.</p>
+
+    <h3 class="sub-title">Foundations Cohort — Level A (1.0–2.2), 6 weeks</h3>
+    <table class="curric">
+      <tbody><tr><th>Week</th><th>Focus</th><th>Key skills</th></tr>
+      <tr><td class="wk">1</td><td>Getting comfortable on court</td><td>Grip, ready position, the "bajada" (bounce off the back wall), rules &amp; scoring refresher, on-court safety</td></tr>
+      <tr><td class="wk">2</td><td>Groundstrokes</td><td>Forehand &amp; backhand off the bounce, basic footwork and positioning</td></tr>
+      <tr><td class="wk">3</td><td>Net play</td><td>Forehand/backhand volleys, positioning at the net</td></tr>
+      <tr><td class="wk">4</td><td>Serve &amp; return</td><td>Underarm serve technique, return of serve fundamentals</td></tr>
+      <tr><td class="wk">5</td><td>Playing the glass</td><td>Back-wall and side-wall rebounds, deciding when to let the ball bounce</td></tr>
+      <tr><td class="wk">6</td><td>Putting it together</td><td>Point construction, mini-matches, cohort graduation round-robin</td></tr>
+    </tbody></table>
+
+    <h3 class="sub-title">Progression Cohort — Level B (2.2–3.2), 8 weeks</h3>
+    <table class="curric">
+      <tbody><tr><th>Week</th><th>Focus</th><th>Key skills</th></tr>
+      <tr><td class="wk">1</td><td>Assessment &amp; positioning</td><td>Baseline rally assessment, parallel vs. cross-court positioning</td></tr>
+      <tr><td class="wk">2</td><td>Defensive overhead</td><td>Bandeja introduction and technique</td></tr>
+      <tr><td class="wk">3</td><td>Offensive overhead</td><td>Vibora and offensive smash variations</td></tr>
+      <tr><td class="wk">4</td><td>Transitioning to net</td><td>Net approach, the 2-back / 2-up transition</td></tr>
+      <tr><td class="wk">5</td><td>Defending from the back</td><td>Lob strategy and defensive positioning</td></tr>
+      <tr><td class="wk">6</td><td>Doubles teamwork</td><td>Communication, court coverage, switching</td></tr>
+      <tr><td class="wk">7</td><td>Soft-game tactics</td><td>Chiquita (low soft shot) and drop-shot tactics</td></tr>
+      <tr><td class="wk">8</td><td>Match strategy</td><td>Applied match strategy, cohort graduation match with video review</td></tr>
+    </tbody></table>
+
+    <h3 class="sub-title">Performance Cohort — Level C (3.2+), 8 weeks</h3>
+    <table class="curric">
+      <tbody><tr><th>Week</th><th>Focus</th><th>Key skills</th></tr>
+      <tr><td class="wk">1</td><td>Assessment &amp; power</td><td>Baseline assessment, serve speed and smash technique analysis</td></tr>
+      <tr><td class="wk">2</td><td>Advanced overheads</td><td>Bandeja/vibora sequencing, smash placement</td></tr>
+      <tr><td class="wk">3</td><td>Attacking transitions</td><td>Forcing the lob, closing the net behind it</td></tr>
+      <tr><td class="wk">4</td><td>Defensive recovery</td><td>Counter-attacking patterns from the back glass</td></tr>
+      <tr><td class="wk">5</td><td>Doubles tactics</td><td>Poaching, switching, signal systems</td></tr>
+      <tr><td class="wk">6</td><td>Playing styles</td><td>Match-play tactics against different opponent styles</td></tr>
+      <tr><td class="wk">7</td><td>Mental game</td><td>Competition prep — routines and handling pressure points</td></tr>
+      <tr><td class="wk">8</td><td>Tournament simulation</td><td>Simulated tournament play, graduation match, league flight placement</td></tr>
+    </tbody></table>
+
+    <h3 class="sub-title">Trio Pod (3+1) — any level, 4 sessions</h3>
+    <table class="curric">
+      <tbody><tr><th>Session</th><th>Focus</th><th>Key skills</th></tr>
+      <tr><td class="wk">1</td><td>Group assessment</td><td>Identify shared strengths/gaps across all 3 players; set goals for the remaining 3 sessions</td></tr>
+      <tr><td class="wk">2</td><td>Technical focus #1</td><td>Deep work on the top gap identified in session 1 (e.g. volleys or serve)</td></tr>
+      <tr><td class="wk">3</td><td>Technical focus #2</td><td>Second technical focus, applied immediately in live points</td></tr>
+      <tr><td class="wk">4</td><td>Integration</td><td>Full match-play integration; personalized takeaway plan and next-step recommendation (repeat pod or a seasonal cohort)</td></tr>
+    </tbody></table>
+
+    <h3 class="sub-title">Developmental Clinics — 4-week rotation, offset by day (Level A/B/C)</h3>
+    <p class="section-note" style="margin-bottom:12px;">Each level meets twice a week — Level A: Monday AM + Wednesday PM; Level B: Wednesday AM + Friday PM; Level C: Thursday AM + Saturday late-AM (see Weekly Calendar) — always at a 4:1 ratio. Both of a level's days teach from the same 4-theme technical bank, but <b>Day 2 always starts two weeks ahead of Day 1</b> in the cycle. The payoff: attend only Day 1 for 4 weeks and you get all 4 themes; attend only Day 2 for 4 weeks, same thing, just in a different order; attend both in the same week and you never repeat a theme, you just get to the full arc twice as fast. This is the same underlying 4-theme bank as the old rotating clinics, now applied consistently across every level.</p>
+    <table class="curric">
+      <tbody><tr><th>Program week</th><th>Day 1 focus (Mon / Wed / Thu)</th><th>Day 2 focus (Wed / Fri / Sat)</th></tr>
+      <tr><td class="wk">1</td><td>Footwork &amp; court positioning — split-step timing, first-step quickness, recovery position after every shot</td><td>Bandeja, vibora &amp; smash — the three overhead options and when to choose each, repetition into live-point decisions</td></tr>
+      <tr><td class="wk">2</td><td>Wall &amp; glass play — reading rebounds off the back and side glass, playing out of the corners</td><td>Doubles positioning &amp; shot selection — court coverage, poaching, calling shots, building a point intentionally</td></tr>
+      <tr><td class="wk">3</td><td>Bandeja, vibora &amp; smash (2nd pass, deeper reps)</td><td>Footwork &amp; court positioning (2nd pass, deeper reps)</td></tr>
+      <tr><td class="wk">4</td><td>Doubles positioning &amp; shot selection (2nd pass, deeper reps)</td><td>Wall &amp; glass play (2nd pass, deeper reps)</td></tr>
+    </tbody></table>
+    <p class="foot-note">The cycle repeats from Week 1 after Week 4. Post each week's Day-1 and Day-2 focus separately at the front desk and in the booking app — a player checking "what's Wednesday's Level A class this week" needs the Day-2 column, not Day-1, even though it's the same level on the same day-of-week pairing.</p>
+  </section>
+
+  <section id="staffing">
+    <h2 class="section-title">Staffing &amp; implementation checklist</h2>
+    <p class="section-note">Coach and coordinator requirements are calculated directly from the calendar above — not a rule of thumb. Private/semi-private lesson hours are booked separately and are additional to the clinic hours below.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">≈40 hrs</div><div class="lbl">Coach-led clinic hours needed per week (6 Developmental Clinic sessions at 4:1 — most need 2 coaches per full 2-court session now, not 1 — + 3 Purpose Clinics + 6 Seasonal cohort generations (2 per level, up from 1) + Trio Pods + Corporate Lunch + Masters). Up from ≈32 hrs pre-redesign — the 4:1 ratio and the 2nd Seasonal generation per level are the drivers.</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">Coaches needed simultaneously for a full 2-court Developmental Clinic at 4:1 (8 players ÷ 4 per coach) — this is the single biggest staffing change in this round</div></div>
+      <div class="stat"><div class="num">2 coaches</div><div class="lbl">Minimum is no longer viable for full-capacity Developmental Clinics — 2 coaches can't be in two places at once when a session needs both of them on one clinic</div></div>
+      <div class="stat"><div class="num">3 coaches</div><div class="lbl">Now the practical minimum, not just the recommendation — ≈11.7 clinic hrs/week each — so one coach is always free to cover the 2nd court of a full Developmental Clinic</div></div>
+      <div class="stat"><div class="num">≈30 hrs</div><div class="lbl">Weekly coordinator hours for Social play, leagues (incl. the new Bronze/Silver/Gold), ladder &amp; tournament formats, and the 2 weekend Vendor Activation slots — front-desk/ops staff, not a certified coach</div></div>
+    </div>
+
+    <h3 class="sub-title">Implementation checklist</h3>
+    <ul class="checklist">
+      <li><b>Hire coaches:</b> 3 minimum to open, not 2 — the 4:1 ratio on Developmental Clinics means a full 2-court session needs 2 coaches at once, so a 2-coach team has zero slack the moment one clinic fills up.</li>
+      <li><b>Assign clinic ownership:</b> map each coach to specific days against this calendar (e.g. Coach 1 — Level A days: Mon AM + Wed PM + Foundations Gen 1 (Mon) &amp; Gen 2 (Wed); Coach 2 — Level B days: Wed AM + Fri PM + Progression Gen 1 (Tue) &amp; Gen 2 (Fri); Coach 3 — Level C days: Thu AM + Sat late-AM + Performance Gen 1 (Thu) &amp; Gen 2 (Tue) + overflow/2nd-coach coverage on full clinics).</li>
+      <li><b>Recruit each Seasonal cohort's two generations separately:</b> Foundations/Progression/Performance now sell two parallel intakes per level per season — track fill rate per generation, not just per level, and flag the "double-pace" add-on at signup for anyone asking about scheduling conflicts.</li>
+      <li><b>Cross-train coordinators:</b> assign 1–2 front-desk/ops staff to run Social play, Box League, Women's League, Corporate League, Ladder, King of the Court, the new Ladies Ladder, Retiree, Industry, Bronze, Silver, and Gold Leagues, and the 2 weekend Vendor Activations (≈30 hrs/week combined) — this role does not require a certified coach.</li>
+      <li><b>Recruit the Retiree League roster:</b> target 12–16 players, level 1.5–3.0, through community/senior-center partnerships — this fills the weekday-afternoon dead zone (Tue/Thu 2:00–3:30pm) that was previously fully open.</li>
+      <li><b>Recruit the Industry League roster:</b> target 12–16 players, level 1.5–3.0, through nearby restaurant/bar/hospitality venues and staff word of mouth — this fills the weekday-morning dead zone (Tue/Thu 10:30am–12:00pm) before the lunch block.</li>
+      <li><b>Configure court-blocking in the booking system:</b> reserve the exact court counts per slot shown on the calendar (e.g. 2 of 6 for Foundations Mon 5:30–7pm, 1 of 6 for that day's Trio Pod), releasing the remainder as open booking automatically.</li>
+      <li><b>Build the Trio Pod signup flow:</b> trios register as a pre-formed group of 3, capture their shared level and pick one of the three weekly windows (Mon 9am / Wed 5:30pm / Sat 8am).</li>
+      <li><b>Set up Ladies Ladder Tournament registration and scoring:</b> ladder app or the booking platform's league module, published standings, Wednesday 9:00–10:30am.</li>
+      <li><b>Finalize and print the four Generations curricula</b> (Foundations, Progression, Performance, Trio Pod) as session-by-session lesson plans — see the guide above — and have every coach review their assigned curriculum before their first cohort starts.</li>
+      <li><b>Load the full 6-court weekly grid into the booking software</b> and confirm the programmed/open court counts match this plan exactly before publishing the calendar publicly.</li>
+      <li><b>Sequence launch marketing:</b> lead with an on-demand Intro to Padel booking, the Wed/Fri 5:30pm Developmental Clinic → 7:00pm Social pairing, and the new Ladies Ladder Tournament — these are the fastest, lowest-friction entry points.</li>
+      <li><b>Track utilization from week one:</b> programmed-vs-open court ratio per slot, seasonal cohort fill rate, Trio Pod signups, and each coach's clinic hours vs. private-lesson hours.</li>
+      <li><b>Revisit court allocation quarterly:</b> shift courts from under-filled programmed slots to open booking (or the reverse) based on real attendance data, not assumptions.</li>
+      <li><b>Move Intro to Padel to on-demand booking:</b> configure it in the booking system exactly like a private lesson (any coach, any open court, first-timer flow) instead of a published weekly slot.</li>
+      <li><b>Build the 3 Purpose Clinic curricula:</b> Cardio Padel, Strength Padel, and HIIT Padel — each a fixed weekly slot rather than a rotation — as session plans a coach can run without prep.</li>
+      <li><b>Build the Developmental Clinic Day-1/Day-2 offset schedule:</b> print the 4-week rotation table (see Seasonal curriculum guide) with Day-1 and Day-2 columns clearly separated, and confirm every coach knows which column applies to their assigned day before the first week goes live.</li>
+      <li><b>Recruit the Bronze/Silver/Gold League rosters:</b> target 24–32 players each per season (12–16 per night, across each league's two weekly nights) at the matching level band, pitched directly to Developmental Clinic members as "your league is right after your usual Social night" — see the League playbook card above for the exact framing.</li>
+      <li><b>Secure weekend vendor partners:</b> line up a rotating roster for Saturday's Breakfast &amp; Padel Activation (coffee/breakfast, local restaurants) and Sunday's Recovery &amp; Wellness Activation (recovery brand, nutrition, gear) — aim for a full month booked in advance.</li>
+      <li><b>Plan the Friday Themed Rotation calendar:</b> assign the 8 themes (Ladies Night, Industry Night, Couples/Date Night, Trivia Night, Retro/Decade Night, Guest Pro Exhibition, Vinyl/DJ Social, Charity/Community Night) to specific Fridays for the next two quarters, and book any guest pro appearances or nonprofit partners early.</li>
+      <li><b>Test and track the weekend-morning court split:</b> compare attendance/fill-rate for the new Sat/Sun court-shared slots (Purpose Clinic + Ladder Challenge + Trio Pod; Developmental Clinic Level C Day 2 + King of the Court) against the old sequential layout, and adjust the court split after 4–6 weeks of data.</li>
+      <li><b>Assign a partnerships lead:</b> one person owns outreach to the Fitness/Longevity/F&amp;B/Lifestyle activation targets and the fitness-club and corporate reciprocity lists below — without a single owner, this list becomes a wish list instead of a pipeline.</li>
+      <li><b>Draft a one-page reciprocal-partnership template:</b> guest-pass counts each direction, one joint social post, one co-hosted event per quarter — so every outreach conversation starts from the same simple ask instead of being negotiated from scratch each time.</li>
+    </ul>
+  </section>
+
+  <section id="activations">
+    <h2 class="section-title">Activations, vendor &amp; community partnerships</h2>
+    <p class="section-note">The calendar already has two standing Activation slots (Sat 12:00–1:30pm Breakfast &amp; Padel, Sun 12:30–2:00pm Recovery &amp; Wellness — see Weekly Calendar and Weekend Mornings &amp; Vendor Activations above). This section is the deeper idea bank and Denver-specific target list behind those slots, organized into four categories so the rotation stays varied instead of becoming "the same coffee cart every month." Each category lists several distinct activation formats plus real local partner candidates already running businesses built for exactly this kind of pop-up/guest-visit collaboration.</p>
+
+    <div class="pgrid">
+      <div class="pcard clinic">
+        <h4>Fitness &amp; Movement</h4>
+        <span class="fmt">Rotates through the standing Sat/Sun Activation slot, or run as a one-off special</span>
+        <p><b>"Sweat &amp; Serve" mobility pop-up</b> — a partner studio's instructor runs a 20-minute mobility/movement warm-up before a Purpose Clinic or league session.</p>
+        <p><b>Gym-swap trial day</b> — Arenna members get a free class at the partner gym for a week; the partner's members get a free Intro to Padel in return. Pure reciprocity, no cash changes hands.</p>
+        <p><b>Run club + padel combo morning</b> — a local run club finishes its route at Arenna and rolls straight into a Social/Americano session — built-in cross-promotion to an entirely new audience.</p>
+        <p><b>Prenatal/postpartum movement + padel intro</b> — partner with a pre/postnatal fitness instructor for a gentle intro session; an underused demographic angle almost no racquet club is targeting.</p>
+        <p class="market"><b>Denver partner candidates:</b> VASA Fitness, CorePower Yoga (Denver-founded — good local-pride marketing angle), Life Time, Chuze Fitness, and Colorado Athletic Club / Zone Athletic Club (Wellbridge) — all run their own class calendars already and are structurally set up for exactly this kind of reciprocal cross-promo.</p>
+      </div>
+      <div class="pcard seasonal">
+        <h4>Longevity &amp; Recovery</h4>
+        <span class="fmt">Rotates through the standing Sat/Sun Activation slot</span>
+        <p><b>Cold plunge &amp; sauna pop-up</b> — a mobile cold-plunge/infrared-sauna trailer parked outside after a Sunday league, framed as "earn your plunge."</p>
+        <p><b>IV hydration / recovery bar</b> — a post-tournament hydration station (electrolytes, IV drip add-on) timed to Ladder Challenge or King of the Court weekends.</p>
+        <p><b>Biomarker / InBody scan day</b> — a longevity clinic brings a body-composition scanner for quick 5-minute reads, positioning Arenna as part of a measurable longevity routine, not just a place to play.</p>
+        <p><b>Red-light therapy / recovery demo</b> — a tabletop demo unit in the lounge on a Purpose Clinic day, no appointment needed, pure walk-up sampling.</p>
+        <p class="market"><b>Denver partner candidates:</b> Restore Hyper Wellness (Cherry Hills — cryo, IV drip, infrared sauna, red light), Denver Sports Recovery, iCRYO Westminster, and the bioEDGE Longevity clinic network (Easy Float Sauna &amp; Plunge, The Cove Sauna and Cold Plunge, VIVE Med Spa) — all already built around a pop-up/guest-visit model, so this is a low-lift ask for them too.</p>
+      </div>
+      <div class="pcard social">
+        <h4>Food &amp; Beverage</h4>
+        <span class="fmt">Rotates through the standing Sat/Sun Activation slot, or ties to league/social nights</span>
+        <p><b>Coffee roaster pop-up cart</b> — a local roaster runs a cart during a Saturday/Sunday morning Purpose Clinic or Ladder Challenge session.</p>
+        <p><b>"First pint's on us" post-league night</b> — a local brewery sponsors the first round after Wednesday or Thursday league nights.</p>
+        <p><b>Healthy meal-prep / protein sampling</b> — a local meal-prep or protein brand samples product right after a clinic wraps.</p>
+        <p><b>Smoothie or juice bar guest day</b> — rotate a local juice bar in for a morning activation, an easy complement to Cardio Padel or Purpose Clinic mornings.</p>
+        <p class="market"><b>Denver partner candidates:</b> Huckleberry Roasters, Corvus Coffee Roasters, Sweet Bloom Coffee Roasters, Copper Door Coffee Roasters (Denver's only woman-owned roaster — a natural pairing with the Ladies Ladder Tournament or a Ladies Night), and Kaladi Coffee Roasters for weekday morning carts; Great Divide Brewing for brewery-sponsored league nights.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Lifestyle &amp; Community</h4>
+        <span class="fmt">One-off special events, not a fixed weekly slot</span>
+        <p><b>Apparel/gear trunk show</b> — a local or Denver-headquartered lifestyle brand runs a pop-up shop or demo table in the lounge.</p>
+        <p><b>Gear-recycling / sustainability day</b> — collect old racquets, shoes, or gear for recycling or donation, tied to a brand's sustainability messaging.</p>
+        <p><b>Charity clinic or raffle night</b> — proceeds from a clinic or raffle go to a local cause; pairs directly with the Charity/Community Night already in the Friday Themed Rotation.</p>
+        <p><b>Content/photo day</b> — a local photographer or content creator shoots action photos of members for Arenna's own social content, and gives members a shareable moment of their own.</p>
+        <p class="market"><b>Denver partner candidates:</b> Crocs (headquartered in Broomfield — a fun, playful lifestyle brand, good fit for a trunk show or giveaway) and VF Corporation's Denver-headquartered brands (The North Face, Vans) for an outdoor/athleisure gear activation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="corporate">
+    <h2 class="section-title">Corporate partnerships</h2>
+    <p class="section-note">Two different tracks live here: selling Arenna's courts and coaching <b>to</b> companies as events and standing programs, and setting up reciprocal member-perk partnerships <b>with</b> other fitness/racquet businesses and with corporates across industries — so Arenna members get real discounts elsewhere, and those companies' employees get a reason to try Arenna.</p>
+
+    <h3 class="sub-title">Corporate event &amp; program offerings — selling to companies</h3>
+    <div class="pgrid">
+      <div class="pcard league">
+        <h4>Corporate Team-Building Tournament</h4>
+        <span class="fmt">Half-day event · round robin + intro clinic for non-players · catered</span>
+        <p><b>How it's run:</b> A coordinator plus 1–2 coaches run a simplified bracket so total beginners and experienced employees can play side by side; a short intro clinic warms up anyone who's never held a paddle before the tournament starts.</p>
+        <p class="market"><b>Pitch:</b> An active, genuinely fun alternative to the usual escape-room or ropes-course team-building day — works for mixed-fitness groups because the format scales from total beginner to competitive in the same event.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Dedicated Corporate League (expanded)</h4>
+        <span class="fmt">Builds on the existing Tuesday 12:00–1:15pm Corporate League</span>
+        <p><b>How it's run:</b> Add a 2nd flight or evening option once a company has 10+ employees signed up, with optional company-branded jerseys or court signage for the season.</p>
+        <p class="market"><b>Pitch:</b> Position as an easy add-on for companies already sending employees to the lunchtime league — the natural next step is "let's get your own team/flight."</p>
+      </div>
+      <div class="pcard league">
+        <h4>Company-Branded Generations Cohort</h4>
+        <span class="fmt">6–8 weeks · same Foundations/Progression/Performance curriculum, private group</span>
+        <p><b>How it's run:</b> A company buys out a full seasonal cohort exclusively for its employees, scheduled around the company's preferred day/time, taught from the exact same curriculum as the public Generations program (see Seasonal curriculum guide).</p>
+        <p class="market"><b>Pitch:</b> Frame it as an employee wellness benefit line item — easier for an HR department to approve as "benefit spend" than an ad-hoc one-off event.</p>
+      </div>
+      <div class="pcard league">
+        <h4>Executive Client Entertainment Package</h4>
+        <span class="fmt">90 min private court block + coach-led mini clinic + catered lounge</span>
+        <p><b>How it's run:</b> A private, guided session designed for hosting clients rather than internal team building — low-pressure enough for non-athletic guests, active and memorable enough to stand out.</p>
+        <p class="market"><b>Pitch:</b> An alternative to the steakhouse dinner or golf outing for client relationship-building — especially strong for professional-services and finance clients (see the corporate list below).</p>
+      </div>
+      <div class="pcard league">
+        <h4>Corporate Wellness Day Add-on</h4>
+        <span class="fmt">60–90 min session bundled into an existing company offsite</span>
+        <p><b>How it's run:</b> A single flat-rate group session slotted into a company's existing wellness day or offsite agenda — minimal setup required from the client's HR/events team.</p>
+        <p class="market"><b>Pitch:</b> The lowest-friction entry point on this list — a single add-on line item rather than a new standalone event to sell and plan from scratch.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <p class="table-cap">Reciprocal partnerships — other fitness &amp; racquet clubs (Denver)</p>
+      <table class="price">
+        <tbody><tr><th>Partner</th><th>Category</th><th>Denver presence</th><th>Partnership structure idea</th></tr>
+        <tr><td>VASA Fitness</td><td>Big-box gym</td><td>Multiple Denver metro locations</td><td>Reciprocal guest-pass exchange (2–3 free visits/month each way) + joint email/social cross-promo</td></tr>
+        <tr><td>CorePower Yoga</td><td>Yoga studio</td><td>Denver-founded, multiple studios</td><td>Cross-discount: their members get a discounted Intro to Padel; our members get a discounted first yoga class — a natural recovery-day pairing</td></tr>
+        <tr><td>Life Time</td><td>Full-service athletic club</td><td>Denver metro locations</td><td>Corporate-account cross-referral; explore a co-hosted "hybrid athlete" event (lift + play)</td></tr>
+        <tr><td>Chuze Fitness</td><td>Value gym chain</td><td>Multiple Denver metro locations</td><td>Reciprocal day-pass exchange — good fit for the budget-conscious member segment</td></tr>
+        <tr><td>Colorado Athletic Club / Zone Athletic Club (Wellbridge)</td><td>Racquet-inclusive athletic club</td><td>Monaco &amp; Cherry Creek locations</td><td>Cross-sport reciprocity — their tennis/racquetball members try padel; position Arenna as the padel arm for their overflow demand</td></tr>
+        <tr><td>Gates Tennis Center</td><td>Public tennis/pickleball facility</td><td>Cherry Creek (Pulaski Park)</td><td>Co-host a padel demo day at their site or vice versa — low-competitive since they're a public/municipal facility, strong community-goodwill angle</td></tr>
+        <tr><td>Denver Racquets Club</td><td>Private multi-racquet club (tennis/padel/pickleball)</td><td>Denver</td><td>Cross-referral for overflow court demand and joint tournament/ladder events rather than pure discount reciprocity, since they also offer padel</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="table-wrap">
+      <p class="table-cap">Reciprocal &amp; sponsorship partnerships — corporates by industry</p>
+      <table class="price">
+        <tbody><tr><th>Company</th><th>Industry</th><th>Denver presence</th><th>Partnership angle</th></tr>
+        <tr><td>Charles Schwab</td><td>Financial services</td><td>Large regional campus, Lone Tree / Highlands Ranch</td><td>Employee wellness perk (discounted corporate membership tier) + an annual "financial wellness meets physical wellness" lunch-and-learn plus social</td></tr>
+        <tr><td>Empower Retirement</td><td>Financial services / retirement</td><td>HQ Greenwood Village, CO</td><td>Same employee-perk model — Empower already brands around "financial wellness," a natural co-branded message with Arenna's physical-wellness angle</td></tr>
+        <tr><td>Western Union</td><td>Financial services / fintech</td><td>HQ Denver</td><td>Corporate membership discount code for employees; potential sponsor of a league or the Corporate League flight</td></tr>
+        <tr><td>FirstBank (Colorado)</td><td>Regional bank</td><td>Denver metro-based</td><td>Local-bank-to-local-business angle — sponsor a community league (e.g. Retiree or Industry League) for goodwill and marketing</td></tr>
+        <tr><td>Kroenke Sports &amp; Entertainment</td><td>Sports &amp; entertainment</td><td>HQ Denver (Nuggets, Avalanche, Rapids, Mammoth, Altitude)</td><td>Guest athlete appearance for a Friday Guest Pro Exhibition night; cross-promotion with their season-ticket-holder database</td></tr>
+        <tr><td>Liberty Media / Liberty Broadband</td><td>Media &amp; entertainment</td><td>HQ Englewood, CO</td><td>Executive Client Entertainment package angle; longer-shot sponsorship conversation given their global sports/entertainment portfolio</td></tr>
+        <tr><td>DISH Network</td><td>Media &amp; telecom</td><td>HQ Douglas County, CO</td><td>Employee wellness perk/discount code; potential AV partner for showing matches or highlight reels in the lounge</td></tr>
+        <tr><td>DaVita</td><td>Healthcare (kidney care)</td><td>HQ Denver</td><td>Strong "movement as medicine" wellness-messaging fit; employee discount plus potential co-branded health content given their patient-wellness focus</td></tr>
+        <tr><td>UCHealth</td><td>Healthcare system</td><td>Major Denver-area presence</td><td>Physician "move more" referral partnership; employee corporate membership discount</td></tr>
+        <tr><td>Centura Health / CommonSpirit</td><td>Healthcare system</td><td>Major Denver-area presence</td><td>Employee wellness benefit plus potential co-branded injury-prevention content (racquet sports + physical therapy tie-in)</td></tr>
+        <tr><td>Kaiser Permanente Colorado</td><td>Healthcare / insurance</td><td>Major Denver-area presence</td><td>Employee/member wellness perk; many Kaiser plans reimburse fitness memberships — worth confirming Arenna's eligibility for that credit</td></tr>
+        <tr><td>Crocs</td><td>CPG / footwear &amp; apparel</td><td>HQ Broomfield, CO</td><td>Fun lifestyle brand collab — trunk show, giveaway, or a co-branded "off-court shoe" moment during a social night</td></tr>
+        <tr><td>VF Corporation (The North Face, Vans, Timberland)</td><td>CPG / apparel</td><td>HQ Denver</td><td>Outdoor/athleisure brand activation, gear demo day, possible sponsored apparel for coaches and staff</td></tr>
+        <tr><td>Great Divide Brewing</td><td>CPG / beverage</td><td>HQ Denver</td><td>Beverage sponsorship for league nights and socials — a local-brewery community-pride angle</td></tr>
+      </tbody></table>
+    </div>
+    <p class="foot-note">Structure reciprocal partnerships as a straight swap, not a cash deal, especially in the first cycle: a fixed number of guest passes each direction per month, one joint social post, and one co-hosted event per quarter. Save the sponsorship-fee conversation (leagues, Friday nights, apparel) for after that first reciprocal cycle proves out real attendance. Company names above are researched as of August 2026 for HQ location and industry fit — confirm current wellness-partnership policies directly with each company before outreach, since those programs change independently of where a company is headquartered.</p>
+  </section>
+
+</div>
+
+<script>
+const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const START_HOUR = 6, END_HOUR = 22;
+const TOTAL_COURTS = 6;
+
+function rowFor(time){
+  const [h,m] = time.split(":").map(Number);
+  return ((h - START_HOUR) * 60 + m) / 15 + 2; // +2: row1=daylabel
+}
+
+const SLOTS = {
+  Mon: [
+    {start:"09:00", end:"10:30", lanes:[
+      {cat:"clinicA", courts:2, t1:"Developmental Clinic", t2:"Level A · Day 1/2 · 4:1 ratio", t3:"$25 off-peak"},
+      {cat:"trio", courts:1, t1:"Trio Pod 3+1", t2:"Group 1 trio", t3:"$56/session"},
+    ]},
+    {start:"12:00", end:"13:00", lanes:[
+      {cat:"mixed", courts:2, t1:"Corporate Lunch Clinic", t2:"Level B/C · 4:1 ratio", t3:"$20 off-peak"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"seasonal", courts:2, t1:"Foundations", t2:"Level A · Generation 1 of 2 · 6-wk cohort", t3:"$229/season"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"social", courts:2, t1:"Social — Level A", t2:"1.0–2.2 · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level B", t2:"2.2–3.2 · rotating format", t3:"$25 peak"},
+    ]},
+    {start:"20:30", end:"22:00", lanes:[
+      {cat:"league", courts:3, t1:"Silver League", t2:"Level B (2.2–3.2) · Night 1 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+  Tue: [
+    {start:"09:00", end:"10:30", lanes:[
+      {cat:"mixed", courts:2, t1:"Cardio Padel", t2:"All levels · Fitness-framed", t3:"$20 off-peak"},
+    ]},
+    {start:"10:30", end:"12:00", lanes:[
+      {cat:"league", courts:2, t1:"Industry League", t2:"Service pros · new", t3:"$140/season"},
+    ]},
+    {start:"12:00", end:"13:15", lanes:[
+      {cat:"league", courts:2, t1:"Corporate League", t2:"Team match play · 8-wk season", t3:"$600/team"},
+    ]},
+    {start:"14:00", end:"15:30", lanes:[
+      {cat:"league", courts:2, t1:"Retiree League", t2:"Daytime · new", t3:"$140/season"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"seasonal", courts:2, t1:"Progression", t2:"Level B · Generation 1 of 2 · 8-wk cohort", t3:"$299/season"},
+      {cat:"seasonal", courts:2, t1:"Performance", t2:"Level C · Generation 2 of 2 · 8-wk cohort", t3:"$299/season"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"social", courts:4, t1:"Social — Level C", t2:"3.2+ · rotating format", t3:"$25 peak"},
+    ]},
+    {start:"20:30", end:"22:00", lanes:[
+      {cat:"league", courts:3, t1:"Gold League", t2:"Level C (3.2+) · Night 1 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+  Wed: [
+    {start:"09:00", end:"10:30", lanes:[
+      {cat:"league", courts:3, t1:"Ladies Ladder Tournament", t2:"Women-only · weekly standings", t3:"new"},
+      {cat:"clinicB", courts:2, t1:"Developmental Clinic", t2:"Level B · Day 1/2 · 4:1 ratio", t3:"$25 off-peak"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"clinicA", courts:2, t1:"Developmental Clinic", t2:"Level A · Day 2/2 · 4:1 ratio", t3:"$50 peak"},
+      {cat:"trio", courts:1, t1:"Trio Pod 3+1", t2:"Group 2 trio", t3:"$56/session"},
+      {cat:"seasonal", courts:2, t1:"Foundations", t2:"Level A · Generation 2 of 2 · 6-wk cohort", t3:"$229/season"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"league", courts:3, t1:"Women's League", t2:"Round robin · Prime time · 8-wk", t3:"$160/season"},
+      {cat:"social", courts:1, t1:"Social — Level A", t2:"1.0–2.2 · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level B", t2:"2.2–3.2 · rotating format", t3:"$25 peak"},
+    ]},
+  ],
+  Thu: [
+    {start:"09:00", end:"10:30", lanes:[
+      {cat:"clinicC", courts:2, t1:"Developmental Clinic", t2:"Level C · Day 1/2 · 4:1 ratio", t3:"$25 off-peak"},
+    ]},
+    {start:"10:30", end:"12:00", lanes:[
+      {cat:"league", courts:2, t1:"Industry League", t2:"Service pros · new", t3:"$140/season"},
+    ]},
+    {start:"12:00", end:"13:00", lanes:[
+      {cat:"clinicA", courts:2, t1:"Corporate Lunch Clinic", t2:"Level A/B · 4:1 ratio", t3:"$20 off-peak"},
+    ]},
+    {start:"14:00", end:"15:30", lanes:[
+      {cat:"league", courts:2, t1:"Retiree League", t2:"Daytime · new", t3:"$140/season"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"seasonal", courts:2, t1:"Performance", t2:"Level C · Generation 1 of 2 · 8-wk cohort", t3:"$299/season"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"league", courts:3, t1:"Box League", t2:"In-house co-ed · Level flights", t3:"$175/season"},
+      {cat:"social", courts:3, t1:"Social — Level C", t2:"3.2+ · rotating format", t3:"$25 peak"},
+    ]},
+    {start:"20:30", end:"22:00", lanes:[
+      {cat:"league", courts:3, t1:"Silver League", t2:"Level B (2.2–3.2) · Night 2 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+  Fri: [
+    {start:"15:00", end:"16:30", lanes:[
+      {cat:"purpose", courts:2, t1:"Purpose Clinic", t2:"Cardio Padel · All levels", t3:"$20 off-peak"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"clinicB", courts:2, t1:"Developmental Clinic", t2:"Level B · Day 2/2 · 4:1 ratio", t3:"$50 peak"},
+      {cat:"seasonal", courts:2, t1:"Progression", t2:"Level B · Generation 2 of 2 · 8-wk cohort", t3:"$299/season"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"social", courts:2, t1:"Social — Level A", t2:"Demand test · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level B", t2:"Demand test · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level C", t2:"Demand test · rotating format", t3:"$25 peak"},
+    ]},
+    {start:"20:30", end:"22:00", lanes:[
+      {cat:"league", courts:3, t1:"Bronze League", t2:"Level A (1.0–2.2) · Night 1 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+  Sat: [
+    {start:"08:00", end:"09:30", lanes:[
+      {cat:"purpose", courts:2, t1:"Purpose Clinic", t2:"Strength Padel · All levels", t3:"$20 off-peak"},
+      {cat:"league", courts:2, t1:"Ladder Challenge Play", t2:"Open · App-based ranking", t3:"$45/quarter"},
+      {cat:"trio", courts:1, t1:"Trio Pod 3+1", t2:"Group 3 trio", t3:"$56/session"},
+    ]},
+    {start:"09:30", end:"11:00", lanes:[
+      {cat:"clinicC", courts:2, t1:"Developmental Clinic", t2:"Level C · Day 2/2 · 4:1 ratio", t3:"$35 peak"},
+      {cat:"league", courts:4, t1:"King of the Court", t2:"Weekly event (Mexicano alt. weeks)", t3:"$30/event"},
+    ]},
+    {start:"12:00", end:"13:30", lanes:[
+      {cat:"activation", courts:2, t1:"Breakfast & Padel Activation", t2:"Guest vendor · 30-min lesson + 60–90 min play", t3:"rotating partner"},
+    ]},
+    {start:"18:00", end:"19:30", lanes:[
+      {cat:"social", courts:2, t1:"Social — Level A", t2:"Demand test · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level B", t2:"Demand test · rotating format", t3:"$25 peak"},
+      {cat:"social", courts:2, t1:"Social — Level C", t2:"Demand test · rotating format", t3:"$25 peak"},
+    ]},
+    {start:"19:30", end:"21:00", lanes:[
+      {cat:"league", courts:4, t1:"Bronze League", t2:"Level A (1.0–2.2) · Night 2 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+  Sun: [
+    {start:"08:00", end:"09:30", lanes:[
+      {cat:"purpose", courts:2, t1:"Purpose Clinic", t2:"HIIT Padel · All levels", t3:"$20 off-peak"},
+      {cat:"league", courts:2, t1:"Ladder Challenge Play", t2:"2nd weekly session · App-based ranking", t3:"$45/quarter"},
+    ]},
+    {start:"09:30", end:"11:00", lanes:[
+      {cat:"league", courts:2, t1:"Round Robin Mixer", t2:"Social · Every pair plays once", t3:"$20"},
+      {cat:"league", courts:2, t1:"King of the Court", t2:"2nd weekly session · smaller scale", t3:"$30/event"},
+    ]},
+    {start:"11:00", end:"12:30", lanes:[
+      {cat:"mixed", courts:2, t1:"Masters / 50+", t2:"Clinic & ladder · Lower intensity", t3:"$20 off-peak"},
+    ]},
+    {start:"12:30", end:"14:00", lanes:[
+      {cat:"activation", courts:2, t1:"Recovery & Wellness Activation", t2:"Guest vendor · 30-min session + 60–90 min play", t3:"rotating partner"},
+    ]},
+    {start:"17:30", end:"19:00", lanes:[
+      {cat:"social", courts:2, t1:"Social — Level A", t2:"Demand test · rotating format", t3:"$18 off-peak"},
+      {cat:"social", courts:2, t1:"Social — Level B", t2:"Demand test · rotating format", t3:"$18 off-peak"},
+      {cat:"social", courts:2, t1:"Social — Level C", t2:"Demand test · rotating format", t3:"$18 off-peak"},
+    ]},
+    {start:"19:00", end:"20:30", lanes:[
+      {cat:"league", courts:4, t1:"Gold League", t2:"Level C (3.2+) · Night 2 of 2 · new", t3:"$150/season"},
+    ]},
+  ],
+};
+
+const grid = document.getElementById("calGrid");
+
+// day header row
+DAYS.forEach((d,i)=>{
+  const el = document.createElement("div");
+  el.className = "daylabel";
+  el.style.gridColumn = (i+2);
+  el.textContent = d;
+  grid.appendChild(el);
+});
+
+// time labels + hour lines
+for(let h=START_HOUR; h<=END_HOUR; h++){
+  const row = ((h-START_HOUR)*60)/15 + 2;
+  const label = document.createElement("div");
+  label.className = "timelabel";
+  label.style.gridRow = row + " / " + (row+4);
+  label.style.gridColumn = "1";
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  const ampm = h < 12 || h === 24 ? "am" : "pm";
+  label.textContent = hh + (h===START_HOUR ? ":00" : "") + ampm;
+  grid.appendChild(label);
+
+  const line = document.createElement("div");
+  line.className = "hourline";
+  line.style.gridRow = row;
+  grid.appendChild(line);
+}
+// total row count so grid has correct height
+const totalRows = ((END_HOUR-START_HOUR)*60)/15 + 2;
+grid.style.gridTemplateRows = "repeat(" + totalRows + ", 15px)";
+
+// slots -> lane-wrap flex containers, one per day/timeframe
+DAYS.forEach(day=>{
+  const daySlots = SLOTS[day] || [];
+  const col = DAYS.indexOf(day) + 2;
+  daySlots.forEach(slot=>{
+    const rStart = rowFor(slot.start);
+    const rEnd = rowFor(slot.end);
+    const lanes = slot.lanes;
+    const wrap = document.createElement("div");
+    wrap.className = "lanewrap lanes-" + lanes.length;
+    wrap.style.gridColumn = col;
+    wrap.style.gridRow = rStart + " / " + rEnd;
+    lanes.forEach(l=>{
+      const el = document.createElement("div");
+      el.className = "block cat-" + l.cat;
+      el.dataset.cat = l.cat;
+      // each concurrent activity gets an equal horizontal share but the FULL slot height,
+      // so its top/bottom edges line up exactly with its real start/end time on the axis
+      el.style.flex = "1 1 0";
+      const timeStr = slot.start + "–" + slot.end;
+      const courtStr = l.courts + "/6 courts";
+      const detail = timeStr + (l.t3 ? " · " + l.t3 : "") + " · " + courtStr;
+      el.title = l.t1 + " — " + l.t2 + " (" + detail + ")";
+      el.innerHTML = '<div class="t1">'+l.t1+'</div><div class="t2">'+l.t2+'</div><div class="t3">'+detail+'</div>';
+      wrap.appendChild(el);
+    });
+    grid.appendChild(wrap);
+  });
+});
+
+// legend filter
+let active = "all";
+document.getElementById("legend").addEventListener("click", (e)=>{
+  const chip = e.target.closest(".chip");
+  if(!chip) return;
+  const cat = chip.dataset.cat;
+  active = (active === cat) ? "all" : cat;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("off", active!=="all" && c.dataset.cat!==active));
+  document.querySelectorAll(".block").forEach(b=>{
+    b.classList.toggle("dim", active!=="all" && b.dataset.cat!==active);
+  });
+});
+</script>
+
+
+</body></html>
