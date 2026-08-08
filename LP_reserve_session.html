@@ -143,32 +143,75 @@
   </div>
 
   <script>
-    document.getElementById('bookingForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const requestType = document.getElementById('requestType').value;
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
+    // After deploying the companion Apps Script (arenna-booking-apps-script.gs)
+    // under hello@arennadenverpadel.com, paste its Web app URL below.
+    const APPS_SCRIPT_URL = "APPS_SCRIPT_URL";
 
-      const subject = "Reservation request: " + requestType + ", " + firstName + " " + lastName;
+    const form = document.getElementById('bookingForm');
+    const button = form.querySelector('button');
+    const status = document.getElementById('status');
+
+    function showStatus(text) {
+      status.style.display = 'block';
+      status.textContent = text;
+    }
+
+    function sendByEmailFallback(payload) {
+      const subject = "Reservation request: " + payload.requestType + ", " + payload.firstName + " " + payload.lastName;
       const body =
-        "Request type: " + requestType + "\n" +
-        "First name: " + firstName + "\n" +
-        "Last name: " + lastName + "\n" +
-        "Email: " + email + "\n" +
-        "Phone: " + phone + "\n" +
-        "Desired date: " + date + "\n" +
-        "Desired time: " + time + "\n";
-
+        "Request type: " + payload.requestType + "\n" +
+        "First name: " + payload.firstName + "\n" +
+        "Last name: " + payload.lastName + "\n" +
+        "Email: " + payload.email + "\n" +
+        "Phone: " + payload.phone + "\n" +
+        "Desired date: " + payload.date + "\n" +
+        "Desired time: " + payload.time + "\n";
       const mailto = "mailto:hello@arennadenverpadel.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       window.location.href = mailto;
+      showStatus("Opening your email app to send the request to Nico...");
+    }
 
-      const status = document.getElementById('status');
-      status.style.display = 'block';
-      status.textContent = "Opening your email app to send the request to Nico...";
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const payload = {
+        requestType: document.getElementById('requestType').value,
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+      };
+
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === "APPS_SCRIPT_URL") {
+        // Not deployed yet, fall back to the email draft method.
+        sendByEmailFallback(payload);
+        return;
+      }
+
+      button.disabled = true;
+      showStatus("Booking your court...");
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (result) {
+          button.disabled = false;
+          if (result.ok) {
+            showStatus("You're booked! Check your email for the calendar invite from Nico.");
+            form.reset();
+          } else {
+            showStatus("Something went wrong. Please text or email hello@arennadenverpadel.com directly.");
+          }
+        })
+        .catch(function () {
+          button.disabled = false;
+          showStatus("Could not reach the booking system. Please text or email hello@arennadenverpadel.com directly.");
+        });
     });
   </script>
 </body>
