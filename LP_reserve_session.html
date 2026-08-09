@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reserve your session, Arenna Denver Padel</title>
@@ -101,8 +99,8 @@
 
     <form id="bookingForm">
       <label for="requestType">What are you booking?</label>
-      <select id="requestType" required>
-        <option value="" disabled selected>Select one</option>
+      <select id="requestType" required="">
+        <option value="" disabled="" selected="">Select one</option>
         <option value="Free Intro Clinic">Free Intro Clinic</option>
         <option value="$10 First Play">$10 First Play</option>
         <option value="Membership Tour">Membership Tour</option>
@@ -111,29 +109,29 @@
       <div class="row">
         <div>
           <label for="firstName">First name</label>
-          <input type="text" id="firstName" required>
+          <input type="text" id="firstName" required="">
         </div>
         <div>
           <label for="lastName">Last name</label>
-          <input type="text" id="lastName" required>
+          <input type="text" id="lastName" required="">
         </div>
       </div>
 
       <label for="email">Email</label>
-      <input type="email" id="email" required>
+      <input type="email" id="email" required="">
 
       <label for="phone">Phone number</label>
-      <input type="tel" id="phone" required>
+      <input type="tel" id="phone" required="">
 
       <div class="row">
         <div>
           <label for="date">Desired date</label>
-          <input type="date" id="date" required>
+          <input type="date" id="date" required="">
         </div>
         <div>
           <label for="time">Desired time</label>
-          <select id="time" required>
-            <option value="" disabled selected>Select a time</option>
+          <select id="time" required="">
+            <option value="" disabled="" selected="">Select a time</option>
             <option value="08:00">8:00 AM</option>
             <option value="08:30">8:30 AM</option>
             <option value="09:00">9:00 AM</option>
@@ -164,15 +162,15 @@
       </div>
 
       <button type="submit">Request this reservation</button>
-      <p class="status" id="status"></p>
-      <p class="note">This opens an email to Nico at hello@arennadenverpadel.com with your details. We will reply to confirm.</p>
+      <p class="status" id="status" style="display: block;">You're booked! Check your email for the calendar invite from Nico.</p>
+      <p class="note">You'll get a calendar invite the moment you submit. Questions before then? Text or email hello@arennadenverpadel.com.</p>
     </form>
   </div>
 
   <script>
     // After deploying the companion Apps Script (arenna-booking-apps-script.gs)
     // under hello@arennadenverpadel.com, paste its Web app URL below.
-    const APPS_SCRIPT_URL = "APPS_SCRIPT_URL";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMKPoPbxUOmRokCdseilZsGYDsEb8aRUZEiEgpK1A4nx5xNvL13RQez5wNsZEJBRwC/exec";
 
     const form = document.getElementById('bookingForm');
     const button = form.querySelector('button');
@@ -241,5 +239,6 @@
         });
     });
   </script>
-</body>
-</html>
+
+
+</body></html>
