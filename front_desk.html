@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arenna Denver — Front Desk Calendar v5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800&family=Noto+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF9F3; --blue:#454A60; --mint:#B7D7C0; --green:#718F85;
+    --pink:#ECCDBC; --terracotta:#B93700;
+    --lilly: var(--mint); --enzo: var(--pink); --juanma: var(--green); --luis: var(--blue);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--cream); font-family:'Red Hat Display', Arial, sans-serif; color:var(--blue); padding:32px 20px 60px;}
+  .wrap{max-width:1180px; margin:0 auto;}
+  header{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; border-bottom:2px solid var(--blue); padding-bottom:18px; margin-bottom:20px;}
+  .eyebrow{font-family:'Noto Serif', serif; font-style:italic; font-size:14px; color:var(--terracotta); margin:0 0 6px;}
+  h1{font-size:27px; font-weight:800; margin:0; letter-spacing:-0.01em;}
+  .subtitle{font-size:13.5px; color:var(--blue); opacity:0.72; max-width:440px; text-align:right; line-height:1.45;}
+
+  .rule-banner{background:#fff; border-radius:12px; padding:14px 18px; margin-bottom:20px; display:flex; gap:22px; flex-wrap:wrap; font-size:13px; line-height:1.5;}
+  .rule-banner .item{display:flex; gap:8px; align-items:flex-start; max-width:330px;}
+  .swatch{width:16px; height:16px; border-radius:4px; flex-shrink:0; margin-top:2px;}
+  .swatch.onsite{background:var(--blue);}
+  .swatch.oncall{background:repeating-linear-gradient(45deg, var(--blue) 0 3px, transparent 3px 6px); opacity:0.55;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;}
+  .chip{display:flex; align-items:center; gap:8px; background:#fff; border:1px solid rgba(69,74,96,0.12); border-radius:999px; padding:7px 14px 7px 8px; font-size:13px; font-weight:600;}
+  .dot{width:14px; height:14px; border-radius:4px; flex-shrink:0;}
+  .chip .hrs{font-weight:500; opacity:0.6; margin-left:2px;}
+
+  .cal-wrap{display:flex; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 1px 0 rgba(69,74,96,0.08);}
+  .time-col{width:64px; flex-shrink:0; border-right:1px solid rgba(69,74,96,0.10); background:#fdfaf6;}
+  .time-col .head{height:38px; border-bottom:2px solid var(--blue);}
+  .time-col .tick{font-size:10.5px; font-weight:600; opacity:0.5; text-align:right; padding-right:8px; box-sizing:border-box;}
+
+  .days{display:flex; flex:1; overflow-x:auto;}
+  .day-col{flex:1; min-width:126px; border-right:1px solid rgba(69,74,96,0.08); position:relative;}
+  .day-col:last-child{border-right:none;}
+  .day-head{height:38px; background:var(--blue); color:var(--cream); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; letter-spacing:0.02em;}
+  .day-body{position:relative;}
+  .hour-line{position:absolute; left:0; right:0; border-top:1px solid rgba(69,74,96,0.06);}
+  .block{position:absolute; left:6px; right:14px; border-radius:7px; padding:5px 6px; font-size:11px; font-weight:700; color:var(--blue); line-height:1.2; overflow:hidden;}
+  .block.on-blue{color:var(--cream);}
+  .block small{display:block; font-weight:500; font-size:9.5px; opacity:0.85;}
+  .oncall-rail{position:absolute; right:2px; width:7px; border-radius:4px; opacity:0.9;}
+
+  .footnote{margin-top:20px; font-size:13px; line-height:1.6; color:var(--blue); background:#fff; border-left:3px solid var(--terracotta); padding:14px 18px; border-radius:0 10px 10px 0;}
+  .footnote + .footnote{margin-top:12px;}
+  .footnote b{color:var(--terracotta);}
+
+  .totals{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:12px; margin-top:22px;}
+  .tcard{background:#fff; border-radius:12px; padding:16px 18px; border-top:4px solid var(--blue);}
+  .tcard .name{font-size:13px; font-weight:700; text-transform:uppercase; opacity:0.7;}
+  .tcard .split{display:flex; gap:14px; margin-top:4px;}
+  .tcard .num{font-size:20px; font-weight:800;}
+  .tcard .unit{font-size:10.5px; font-weight:500; opacity:0.55; display:block;}
+
+  @media (max-width:640px){ h1{font-size:22px;} .subtitle{text-align:left;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <p class="eyebrow">Unlock your potential</p>
+      <h1>Front Desk Calendar — Final</h1>
+    </div>
+    <p class="subtitle">Built with redundancy in mind: no one person carries the whole week, Enzo's hours are real and protected, Juan Ma backs up everyone instead of being the single point of failure.</p>
+  </header>
+
+  <div class="rule-banner">
+    <div class="item"><span class="swatch onsite"></span><span><b>On-site block</b> — one person at the desk, no overlap.</span></div>
+    <div class="item"><span class="swatch oncall"></span><span><b>Rail (right edge)</b> — backup on-call for that stretch, colored by who's covering it.</span></div>
+  </div>
+
+  <div class="legend">
+    <div class="chip"><span class="dot" style="background:var(--lilly)"></span>Lilly <span class="hrs">· 6 hrs/wk, Tue &amp; Thu only</span></div>
+    <div class="chip"><span class="dot" style="background:var(--enzo)"></span>Enzo <span class="hrs">· 18 fixed hrs/wk (5–7pm blocked for coaching)</span></div>
+    <div class="chip"><span class="dot" style="background:var(--juanma)"></span>Juan Ma <span class="hrs">· 7.5 on-site + on-call all day Sunday</span></div>
+    <div class="chip"><span class="dot" style="background:var(--luis)"></span>Luis <span class="hrs">· on-call all day Monday + 6–10am other days</span></div>
+    <div class="chip"><span class="dot" style="background:var(--lilly)"></span>Lilly <span class="hrs">· 12 fixed hrs</span></div>
+    <div class="chip"><span class="dot" style="background:var(--luis)"></span>Luis <span class="hrs">· Mon, 4 hrs</span></div>
+  </div>
+
+  <div class="cal-wrap">
+    <div class="time-col" id="timeCol"></div>
+    <div class="days" id="days"></div>
+  </div>
+
+  <div class="totals" id="totals"></div>
+
+  <div class="footnote"><b>No single point of failure:</b> Enzo and Lilly split weekday evenings between them, so Juan Ma being out sick doesn't take down a fixed shift — but he's still the only one who can cover the Friday midday block or most of the on-call layer, so cross-training Enzo and Lilly on opening/closing procedures closes that last gap.</div>
+  <div class="footnote"><b>Coaching conflict resolved:</b> Enzo's off the desk 5–7pm every day he's scheduled (Mon/Wed/Fri). Juan Ma still picks up Wed/Fri 5–7pm on-site.</div>
+  <div class="footnote"><b>Worth a look — Monday 5–7pm:</b> Luis is now on-call all day Monday instead of physically covering that gap, which means nobody's on-site from close-of-morning until Enzo arrives at 7pm. That includes Monday's actual peak hour (6–7pm, historically your busiest Monday slot at ~46% occupancy). Fine if on-call response time genuinely covers it — just flagging since it's real, proven demand, not a dead zone.</div>
+  <div class="footnote"><b>Sunday, fully on-call:</b> Juan Ma now covers all of Sunday (6am–10pm) on-call rather than splitting the early morning with Luis.</div>
+  <div class="footnote"><b>Pay structure note:</b> keep Enzo's 24 fixed hours on a standard hourly rate, separate from any coaching split — that way hours can flex down later without needing to walk back a rate.</div>
+  <div class="footnote"><b>Scale this up, don't rebuild it:</b> when a currently-dark block (Sun, weekday mornings, Sat evening) holds ~15–20% average utilization for 2–3 straight weeks, that's the trigger to add fixed coverage there from the original programming staffing plan — check monthly against the occupancy report rather than redesigning ad hoc.</div>
+
+</div>
+
+<script>
+const startHour = 6, endHour = 22;
+const pxPerHour = 46;
+const totalHeight = (endHour-startHour)*pxPerHour;
+const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+function t(h,m){ return h*60+(m||0); }
+function toPx(mins){ return ((mins - startHour*60)/60)*pxPerHour; }
+const colorVar = {lilly:'var(--lilly)', enzo:'var(--enzo)', juanma:'var(--juanma)', luis:'var(--luis)'};
+const onBlue = {luis:true};
+const names = {lilly:'Lilly', enzo:'Enzo', juanma:'Juan Ma', luis:'Luis'};
+
+// on-site: single lane, no overlap. [person, start, end]
+const onsite = {
+  Monday: [
+    ['enzo', t(19,0), t(21,0)],
+  ],
+  Tuesday: [
+    ['lilly', t(17,0), t(20,0)],
+    ['enzo', t(20,0), t(22,0)],
+  ],
+  Wednesday: [
+    ['juanma', t(17,0), t(19,0)],
+    ['enzo', t(19,0), t(21,0)],
+  ],
+  Thursday: [
+    ['lilly', t(17,0), t(20,0)],
+    ['enzo', t(20,0), t(22,0)],
+  ],
+  Friday: [
+    ['juanma', t(11,30), t(15,0)],
+    ['juanma', t(17,0), t(19,0)],
+    ['enzo', t(19,0), t(21,0)],
+  ],
+  Saturday: [ ['enzo', t(9,0), t(17,0)] ],
+  Sunday: [],
+};
+
+// on-call rail: [start, end, backupPerson] — Luis all day Monday, Juan Ma all day Sunday, split mornings/rest otherwise
+const oncall = {
+  Monday: [[t(6,0), t(22,0), 'luis']],
+  Tuesday: [[t(6,0), t(10,0), 'luis'], [t(10,0), t(22,0), 'juanma']],
+  Wednesday: [[t(6,0), t(10,0), 'luis'], [t(10,0), t(17,0), 'juanma'], [t(19,0), t(22,0), 'juanma']],
+  Thursday: [[t(6,0), t(10,0), 'luis'], [t(10,0), t(22,0), 'juanma']],
+  Friday: [[t(6,0), t(10,0), 'luis'], [t(10,0), t(11,30), 'juanma'], [t(15,0), t(17,0), 'juanma'], [t(19,0), t(22,0), 'juanma']],
+  Saturday: [[t(6,0), t(9,0), 'luis'], [t(9,0), t(22,0), 'juanma']],
+  Sunday: [[t(6,0), t(22,0), 'juanma']],
+};
+
+const timeCol = document.getElementById('timeCol');
+let tcHtml = '<div class="head"></div>';
+for(let h=startHour; h<=endHour; h++){ tcHtml += `<div class="tick" style="height:${pxPerHour}px; padding-top:2px;">${formatHour(h)}</div>`; }
+timeCol.innerHTML = tcHtml;
+function formatHour(h){ const ap=h<12?'AM':'PM'; let hh=h%12; if(hh===0) hh=12; return hh+' '+ap; }
+
+const daysEl = document.getElementById('days');
+days.forEach(day=>{
+  const col = document.createElement('div');
+  col.className = 'day-col';
+  let html = `<div class="day-head">${day.slice(0,3)}</div><div class="day-body" style="height:${totalHeight}px;">`;
+  for(let h=startHour+1; h<endHour; h++){ html += `<div class="hour-line" style="top:${(h-startHour)*pxPerHour}px;"></div>`; }
+  (onsite[day]||[]).forEach(([person,s,e])=>{
+    const top = toPx(s), height = toPx(e)-toPx(s);
+    const durH = (e-s)/60;
+    const durLabel = (durH%1===0)? durH+'h' : durH.toFixed(1)+'h';
+    html += `<div class="block ${onBlue[person]?'on-blue':''}" style="top:${top}px; height:${height}px; background:${colorVar[person]}">${names[person]}<small>${durLabel}</small></div>`;
+  });
+  (oncall[day]||[]).forEach(([s,e,person])=>{
+    const top = toPx(s), height = toPx(e)-toPx(s);
+    html += `<div class="oncall-rail" style="top:${top}px; height:${height}px; background-image:repeating-linear-gradient(45deg, ${colorVar[person]} 0 3px, #fff 3px 6px);"></div>`;
+  });
+  html += '</div>';
+  col.innerHTML = html;
+  daysEl.appendChild(col);
+});
+
+const totalsOnsite = {lilly:0, enzo:0, juanma:0, luis:0};
+Object.values(onsite).flat().forEach(([person,s,e])=>{ totalsOnsite[person] += (e-s)/60; });
+const totalsOncall = {lilly:0, enzo:0, juanma:0, luis:0};
+Object.values(oncall).flat().forEach(([s,e,person])=>{ totalsOncall[person] += (e-s)/60; });
+const totalsEl = document.getElementById('totals');
+['juanma','enzo','lilly','luis'].forEach(p=>{
+  totalsEl.innerHTML += `<div class="tcard" style="border-top-color:${colorVar[p]}">
+    <div class="name">${names[p]}</div>
+    <div class="split">
+      <div><span class="num">${totalsOnsite[p]}</span><span class="unit">on-site hrs</span></div>
+      ${totalsOncall[p] ? `<div><span class="num">${totalsOncall[p]}</span><span class="unit">on-call hrs</span></div>` : ''}
+    </div>
+  </div>`;
+});
+</script>
+</body>
+</html>
