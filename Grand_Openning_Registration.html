@@ -1,0 +1,717 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Grand Opening Check-In — Arenna Denver Padel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Noto+Serif:ital,wght@1,500&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF9F3;
+    --blue:#454A60;
+    --mint:#B7D7C0;
+    --green:#718F85;
+    --pink:#ECCDBC;
+    --orange:#ED7A42;
+    --terracotta:#B93700;
+    --blue-08: rgba(69,74,96,0.08);
+    --blue-14: rgba(69,74,96,0.14);
+    --blue-40: rgba(69,74,96,0.4);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0;
+    background:var(--cream);
+    color:var(--blue);
+    font-family:"Red Hat Display", sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 64px;
+  }
+
+  .page{
+    width:100%;
+    max-width:560px;
+    position:relative;
+  }
+
+  /* signature corner motif — abstract linear racket + ball, bleeding off the edge */
+  .corner-motif{
+    position:absolute;
+    top:-32px;
+    right:-28px;
+    width:132px;
+    height:132px;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.9;
+  }
+
+  header.top{
+    text-align:center;
+    position:relative;
+    z-index:1;
+    margin-bottom:8px;
+  }
+
+  header.top img{
+    height:64px;
+    width:auto;
+  }
+
+  .eyebrow{
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:12px;
+    font-weight:600;
+    color:var(--green);
+    margin:22px 0 6px;
+  }
+
+  h1{
+    text-align:center;
+    font-size:32px;
+    line-height:1.15;
+    font-weight:700;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+
+  .tagline{
+    text-align:center;
+    font-family:"Noto Serif", serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--terracotta);
+    font-size:17px;
+    margin:0 0 28px;
+  }
+
+  .intro{
+    text-align:center;
+    font-size:15px;
+    line-height:1.55;
+    color:var(--blue);
+    opacity:0.85;
+    margin:0 0 32px;
+    padding:0 8px;
+  }
+
+  form{
+    position:relative;
+    z-index:1;
+  }
+
+  .card{
+    background:#fff;
+    border:1px solid var(--blue-14);
+    border-radius:18px;
+    padding:26px 22px;
+    margin-bottom:18px;
+  }
+
+  .field{
+    margin-bottom:16px;
+  }
+  .field:last-child{ margin-bottom:0; }
+
+  .field-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--blue);
+    margin-bottom:6px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"]{
+    width:100%;
+    font-family:inherit;
+    font-size:16px;
+    color:var(--blue);
+    background:var(--cream);
+    border:1.5px solid var(--blue-14);
+    border-radius:10px;
+    padding:12px 14px;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+
+  input::placeholder{ color:var(--blue-40); }
+
+  input:focus{
+    border-color:var(--orange);
+  }
+
+  input.invalid{
+    border-color:var(--terracotta);
+  }
+
+  .section-label{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--green);
+    margin-bottom:14px;
+  }
+
+  .waiver-title{
+    font-size:17px;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+
+  .waiver-sub{
+    font-size:13px;
+    color:var(--blue);
+    opacity:0.7;
+    margin:0 0 14px;
+  }
+
+  .waiver-box{
+    max-height:260px;
+    overflow-y:auto;
+    background:var(--cream);
+    border:1.5px solid var(--blue-14);
+    border-radius:12px;
+    padding:16px 16px;
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--blue);
+  }
+
+  .waiver-box h4{
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin:18px 0 6px;
+  }
+  .waiver-box h4:first-child{ margin-top:0; }
+
+  .waiver-box p{ margin:0 0 10px; }
+  .waiver-box ul{ margin:0 0 10px; padding-left:18px; }
+  .waiver-box li{ margin-bottom:4px; }
+  .waiver-box .doc-heading{
+    text-align:center;
+    margin-bottom:14px;
+  }
+  .waiver-box .doc-heading .k1{
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--green);
+    margin-bottom:4px;
+  }
+  .waiver-box .doc-heading .k2{
+    font-size:14px;
+    font-weight:700;
+  }
+  .waiver-box strong.callout{
+    display:block;
+    margin:0 0 10px;
+    font-weight:700;
+  }
+
+  .agree-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--blue-14);
+  }
+
+  .agree-row input[type="checkbox"]{
+    margin-top:3px;
+    width:18px;
+    height:18px;
+    accent-color:var(--orange);
+    flex-shrink:0;
+  }
+
+  .agree-row label{
+    font-size:13.5px;
+    line-height:1.5;
+    font-weight:500;
+    margin:0;
+  }
+
+  button.submit{
+    width:100%;
+    font-family:inherit;
+    font-size:17px;
+    font-weight:700;
+    color:#fff;
+    background:var(--orange);
+    border:none;
+    border-radius:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease, opacity .15s ease;
+    letter-spacing:0.01em;
+  }
+
+  button.submit:hover{ background:var(--terracotta); }
+  button.submit:active{ transform:scale(0.98); }
+  button.submit:disabled{ opacity:0.55; cursor:not-allowed; }
+
+  .error-msg{
+    display:none;
+    text-align:center;
+    color:var(--terracotta);
+    font-size:13.5px;
+    font-weight:600;
+    margin-top:12px;
+  }
+  .error-msg.show{ display:block; }
+
+  .fine-print{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--blue);
+    opacity:0.55;
+    margin-top:16px;
+    line-height:1.5;
+  }
+
+  /* success state */
+  .success{
+    display:none;
+    text-align:center;
+    padding:52px 22px 40px;
+  }
+  .success.show{ display:block; }
+  form.hide{ display:none; }
+  .intro.hide, .eyebrow.hide, h1.hide, .tagline.hide{ display:none; }
+
+  .success-badge{
+    width:66px; height:66px;
+    border-radius:50%;
+    background:var(--mint);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 22px;
+  }
+  .success-badge svg{ width:30px; height:30px; }
+
+  .success h2{
+    font-size:26px;
+    margin:0 0 10px;
+  }
+  .success p{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--blue);
+    opacity:0.85;
+    max-width:380px;
+    margin:0 auto;
+  }
+  .success .tag{
+    font-family:"Noto Serif", serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--terracotta);
+    font-size:16px;
+    margin-top:28px;
+  }
+
+  .share-card{
+    text-align:left;
+    background:#fff;
+    border:1px solid var(--blue-14);
+    border-radius:18px;
+    padding:24px 22px;
+    margin:32px auto 0;
+    max-width:420px;
+  }
+
+  .share-eyebrow{
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--green);
+    margin:0 0 8px;
+  }
+
+  .share-text{
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--blue);
+    margin:0 0 20px;
+  }
+
+  .share-text .handle{
+    font-weight:700;
+    color:var(--terracotta);
+  }
+
+  .idea-list{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .idea{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+
+  .idea-icon{
+    width:32px;
+    height:32px;
+    flex-shrink:0;
+    background:var(--cream);
+    border-radius:10px;
+    padding:5px;
+    box-sizing:content-box;
+  }
+
+  .idea-title{
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--blue);
+    margin:2px 0 2px;
+  }
+
+  .idea-sub{
+    font-size:13px;
+    line-height:1.45;
+    color:var(--blue);
+    opacity:0.75;
+    margin:0;
+  }
+
+  @media (max-width:400px){
+    .field-row{ grid-template-columns:1fr; gap:0; }
+    h1{ font-size:27px; }
+    .card{ padding:22px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  
+
+  <header class="top">
+    <img src="data:image/png;base64,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" alt="Arenna Denver Padel">
+  </header>
+
+  <p class="eyebrow hide" id="eyebrow">Grand Opening · August 15</p>
+  <h1 id="mainHeading" class="hide">You're here. Let's check in.</h1>
+  <p class="tagline hide" id="tagline">Unlock your potential</p>
+  <p class="intro hide" id="introText">
+    Welcome to the Arenna Denver Padel grand opening exhibition. Fill in your details, review the facility agreement below, and tap Check In to confirm your spot on-site.
+  </p>
+
+  <form id="regForm" action="https://script.google.com/macros/s/AKfycbxKpisHjrhx8tVJlWriG5M-Ptb_H_4_d8VVQ2jFE2S4xhqC7Ysc6XP1We8ksVP6LZI/exec" method="POST" target="hidden_iframe" class="hide">
+
+    <div class="card">
+      <p class="section-label">Your details</p>
+      <div class="field field-row">
+        <div>
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Alex" autocomplete="given-name" required="">
+        </div>
+        <div>
+          <label for="lastName">Last name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Rivera" autocomplete="family-name" required="">
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required="">
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="(303) 555-0148" autocomplete="tel" required="">
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="waiver-title">Participant Agreement &amp; Waiver</p>
+      <p class="waiver-sub">Please read before checking in — this is a binding legal agreement.</p>
+
+      <div class="waiver-box" id="waiverBox">
+        <div class="doc-heading">
+          <div class="k1">Arenna Denver Padel</div>
+          <div class="k2">Arenna Denver Padel Facility Agreement</div>
+        </div>
+        <p><strong>Padel Colorado</strong> | Participant Agreement</p>
+        <p><strong>PARTICIPANT AGREEMENT, ASSUMPTION OF RISK, WAIVER AND RELEASE OF LIABILITY, INDEMNIFICATION, AND ARBITRATION AGREEMENT</strong></p>
+        <strong class="callout">THIS IS A BINDING LEGAL AGREEMENT. PLEASE READ IT CAREFULLY BEFORE SIGNING.</strong>
+        <p>In consideration for being permitted to access and use the facilities, premises, amenities, equipment, and services (collectively, the "Facility") owned, operated, leased, or managed by Padel Colorado LLC, a Colorado limited liability company, together with its parent companies, subsidiaries, affiliates, and related entities (collectively, "Padel Colorado" or the "Company"), and for other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the undersigned individual ("Participant," "I," or "me") voluntarily agrees to all terms and conditions set forth in this agreement (this "Agreement").</p>
+        <p>This Agreement applies to all current and future visits to, and participation in activities at, any Padel Colorado location in Denver, Colorado, or any other location now existing or hereafter established, without requiring additional acknowledgment or execution of a new agreement. The Company is expressly relying on Participant's waiver, release, and agreement as a condition of granting access to the Facility and its activities.</p>
+
+        <h4>1. Activities Covered</h4>
+        <p>This Agreement covers Participant's use of and participation in any and all activities, programs, classes, events, leagues, clinics, lessons, tournaments, open-play sessions, social gatherings, and any other offerings at the Facility (collectively, the "Activities"), including but not limited to:</p>
+        <ul>
+          <li>Padel, pickleball, and other racquet sports</li>
+          <li>Fitness classes and programming, including but not limited to barre, Pilates (mat and reformer), stretching, yoga, functional training, HIIT, running clubs, and cycling or spin classes</li>
+          <li>Use of fitness and wellness amenities, including but not limited to cold plunge pools, saunas, steam rooms, recovery areas, locker rooms, and any other wellness or spa amenities</li>
+          <li>Use of all equipment, whether owned, leased, rented, or borrowed by the Company, including rackets, balls, nets, fitness machines, mats, weights, cycling equipment, and any other apparatus</li>
+          <li>Organized or informal social events, community gatherings, and spectator attendance</li>
+          <li>Private or group instruction, coaching, training sessions, and clinics provided by Company staff, contractors, or third-party instructors</li>
+          <li>Use of common areas, parking lots, walkways, lobbies, lounge areas, food and beverage areas, pro shop, and all other areas on or adjacent to the Facility premises</li>
+          <li>Any other activities or services offered by or at the Facility, whether now existing or hereafter developed</li>
+        </ul>
+
+        <h4>2. Acknowledgment and Assumption of Risk</h4>
+        <p>I understand and acknowledge that participation in the Activities is inherently and potentially dangerous and involves the risk of serious personal injury, illness (including communicable and infectious diseases such as COVID-19 and its variants), permanent disability, paralysis, death, and property damage or loss. These risks include, but are not limited to:</p>
+        <ul>
+          <li>Physical exertion, overexertion, and cardiovascular stress, which may be compounded by underlying health conditions;</li>
+          <li>Slips, trips, falls, collisions with walls (including glass enclosures), nets, doors, posts, equipment, floors, and other surfaces or objects;</li>
+          <li>Contact or collision with other participants, spectators, staff, or third parties;</li>
+          <li>Being struck by balls, rackets, weights, or other equipment, whether in use or at rest;</li>
+          <li>Injuries to muscles, bones, joints, ligaments, tendons, and connective tissue, including sprains, fractures, dislocations, and torn ligaments;</li>
+          <li>Heart attack, stroke, heat exhaustion, heat stroke, hypothermia, shock, cold-induced breathing difficulties, loss of consciousness, or other medical complications, particularly for individuals with underlying health conditions;</li>
+          <li>Equipment malfunction, failure, misuse, or defective condition;</li>
+          <li>Negligent instruction, supervision, or facility maintenance;</li>
+          <li>Exposure to communicable or infectious diseases, bacteria, viruses, or other pathogens transmitted through respiratory droplets, surface contact, or proximity to other individuals;</li>
+          <li>Injuries arising from construction, renovation, uneven surfaces, debris, wet or slippery floors, and environmental or weather conditions;</li>
+          <li>Delays or limitations in emergency response or rescue operations; and</li>
+          <li>Other risks and hazards, known or unknown, foreseeable or unforeseeable, which are inherent or incidental to the Activities or use of the Facility.</li>
+        </ul>
+        <p>Notwithstanding the above risks, I am voluntarily and knowingly participating in the Activities with full knowledge and understanding of the dangers involved. I hereby accept and assume all risks of injury, illness, property damage, disability, and/or death arising therefrom, whether caused by the ordinary negligence of Padel Colorado, any Released Parties (as defined below), or otherwise, to the fullest extent permitted by law.</p>
+
+        <h4>3. Released Parties</h4>
+        <p>As used in this Agreement, "Released Parties" means Padel Colorado LLC, its parent companies, subsidiaries, affiliates, and related entities, and each of their respective owners, members, managers, partners, shareholders, officers, directors, employees, agents, representatives, volunteers, contractors, independent contractors, instructors, trainers, coaches, sponsors, landlords, tenants, licensees, invitees, trustees, insurers, successors, and assigns, and any and all other persons and entities acting in any capacity on their behalf.</p>
+
+        <h4>4. Waiver and Release of Liability</h4>
+        <p>I hereby expressly waive and release any and all claims, demands, actions, causes of action, suits, liabilities, damages, judgments, losses, costs, and expenses of any nature whatsoever (including but not limited to court costs and reasonable attorneys' fees), whether now known or hereafter known, whether in law or in equity, foreseen or unforeseen, matured or unmatured (collectively, "Claims"), that I, my heirs, executors, administrators, assigns, personal representatives, or next of kin may have or hereafter acquire against any of the Released Parties, arising out of or attributable to my presence at, access to, or use of the Facility, or my participation in the Activities, including but not limited to Claims arising from the ordinary negligence of any of the Released Parties.</p>
+        <p>I COVENANT NOT TO SUE and agree not to make or bring any Claim against any of the Released Parties, and forever release and discharge the Released Parties from all liability under such Claims. This release is intended to be as broad and inclusive as permitted by the laws of the State of Colorado.</p>
+
+        <h4>5. Indemnification and Hold Harmless</h4>
+        <p>I agree to defend, indemnify, and hold harmless the Released Parties from and against any and all Claims, losses, damages, liabilities, deficiencies, fines, penalties, settlements, interest, awards, costs, and expenses of whatever kind (including reasonable attorneys' fees, the costs of enforcing any right to indemnification under this Agreement, and the cost of pursuing any insurance providers) arising out of or in any way resulting from (a) my presence at, access to, or use of the Facility; (b) my participation in the Activities; (c) any breach of this Agreement; (d) my own actions, omissions, or violations of any applicable law, rule, or regulation; or (e) any Claim brought by or on behalf of my minor child or dependent. This indemnification obligation shall survive the termination of this Agreement.</p>
+
+        <h4>6. Physical Condition and Medical Acknowledgment</h4>
+        <p>I represent, warrant, and certify that:</p>
+        <ul>
+          <li>I am in good health and have no physical or mental condition, disability, or limitation that would prevent or impair my safe participation in the Activities, or I have obtained clearance from a licensed medical professional to participate;</li>
+          <li>I am not and will not be under the influence of alcohol, drugs, or any prescription or non-prescription medication that would impair my ability to safely participate in the Activities;</li>
+          <li>I am not currently experiencing symptoms of any communicable or infectious disease and do not have a confirmed or suspected case of such disease;</li>
+          <li>I will exercise my own sole judgment to determine my fitness, skill, and health to participate in any Activity, and I will only participate in Activities for which I have sufficient ability and training to avoid injury;</li>
+          <li>It is my sole responsibility to determine whether I am sufficiently fit and healthy to participate. Padel Colorado has not made, nor will it make, any investigation into my physical fitness or ability to participate.</li>
+        </ul>
+        <p>I agree to comply with all federal, state, and local laws, orders, directives, and guidelines related to the Activities and the Facility. I will follow all instructions, recommendations, posted signage, and cautions of Padel Colorado at all times. If at any time I believe conditions to be unsafe or I am no longer in proper physical or mental condition to participate, I will immediately discontinue participation and cease accessing the Facility.</p>
+
+        <h4>7. Insurance</h4>
+        <p>I represent that I have adequate insurance (including, without limitation, health, accident, and liability insurance) necessary to provide for and pay any and all medical costs, expenses, or other losses that may directly or indirectly result from my participation in the Activities or presence at the Facility. In the absence of adequate insurance, I agree to bear all such costs myself.</p>
+
+        <h4>8. Emergency Medical Treatment</h4>
+        <p>In the event of any injury, illness, or medical condition I may sustain or experience during my participation in the Activities or presence at the Facility, I authorize Padel Colorado and/or its agents to arrange for emergency first aid, medical treatment, transportation, or surgery as deemed necessary by attending medical personnel, at my sole expense. I release the Released Parties from any liability arising out of or in connection with any such authorized emergency medical treatment. I understand and agree that I am solely responsible for all costs related to such medical treatment and any related medical transportation or evacuation.</p>
+
+        <h4>9. No Warranties or Representations</h4>
+        <p>I have neither requested nor received any express or implied representations, warranties, guarantees, or assurances as to the safety of the Activities or the condition of the Facility, and the Released Parties have not made and do not make any such representations or warranties regarding the Activities, the Facility, or any equipment. I acknowledge and agree that no one (including, but not limited to, any Company personnel or representative) has made any promise or statement to me regarding the Activities or the Facility, including, without limitation, anything related to the condition of the Facility or the safety of the Activities.</p>
+
+        <h4>10. Equipment Acknowledgment</h4>
+        <p>I understand that the use of sports equipment, fitness equipment, wellness amenities, and any other apparatus at the Facility, including but not limited to padel and pickleball rackets, balls, nets, playing surfaces, weights, machines, mats, cycling equipment, cold plunge pools, and saunas, carries inherent risks. I assume full responsibility for ensuring that I use all equipment properly, and I understand that improper use may result in injury. The Released Parties are not responsible for any damages or injuries resulting from equipment misuse or failure, except in cases of gross negligence or willful misconduct.</p>
+        <p>I acknowledge that rental equipment is provided as a courtesy and is used at my own risk. I agree to return all rented equipment in the condition received and acknowledge that I may be charged for any lost, damaged, or unreturned equipment.</p>
+
+        <h4>11. Rules, Safety Policies, and Code of Conduct</h4>
+        <p>Padel Colorado strives to create a positive, respectful, and welcoming environment for all members, guests, staff, and visitors. I agree to:</p>
+        <ul>
+          <li>Treat all persons at the Facility with respect, courtesy, and good sportsmanship;</li>
+          <li>Follow all club policies regarding court usage, reservations, scheduling, and cancellations;</li>
+          <li>Refrain from inappropriate language, aggressive behavior, unsportsmanlike conduct, harassment, or discrimination of any kind;</li>
+          <li>Comply with all safety regulations, instructions, and posted signage provided by staff or displayed at the Facility;</li>
+          <li>Wear appropriate athletic attire and closed-toe athletic footwear at all times while using courts or fitness areas;</li>
+          <li>Not enter or use any area of the Facility while visibly intoxicated; and</li>
+          <li>Immediately report any unsafe conditions, injuries, or incidents to Facility staff.</li>
+        </ul>
+        <p>Rules governing behavior at the Facility ("Rules") shall be posted and are subject to change without notice at the sole and absolute discretion of Padel Colorado. I agree to comply with all posted Rules and all applicable federal, state, and local laws, orders, and regulations as a condition of use. Failure to comply may result in immediate suspension or termination of membership, participation, or access privileges at the sole discretion of Padel Colorado, without refund.</p>
+        <p>I hereby release, indemnify, and defend each Released Party for any injury, illness, loss, damage, claim, or expense that I incur or cause to others for failing to comply with the Rules.</p>
+
+        <h4>12. Photography, Video, and Media Release</h4>
+        <p>By entering the Facility and/or participating in the Activities, I hereby irrevocably grant Padel Colorado and the Released Parties, and their respective licensees, successors, and assigns, the unrestricted, royalty-free, worldwide, perpetual right and license to:</p>
+        <ul>
+          <li>Photograph, film, record, and otherwise capture my name, image, likeness, voice, appearance, and performance ("Likeness") in connection with the Activities or the Facility;</li>
+          <li>Use, reproduce, display, publish, transmit, broadcast, create derivative works from, and otherwise exploit such Likeness in any and all media, formats, and platforms now known or hereafter devised, throughout the world, in perpetuity;</li>
+          <li>Use such Likeness for any lawful purpose, including advertising, marketing, promotion, publicity, social media, and internal business purposes, without compensation, credit, approval, or further notice to me.</li>
+        </ul>
+        <p>I waive any right to inspect or approve any Materials or the use thereof, and I release the Released Parties from any and all claims arising from such use, including but not limited to claims for invasion of privacy, right of publicity, defamation, or copyright infringement. I acknowledge that Padel Colorado is the exclusive owner of all such Materials.</p>
+        <p>If I am signing on behalf of a minor child, I also grant this release on behalf of such minor child and represent that I have full authority to do so.</p>
+
+        <h4>13. Electronic Communications Consent</h4>
+        <p>By providing my mobile phone number, email address, or other contact information, I consent to receive communications from Padel Colorado and its affiliates in electronic form, including but not limited to:</p>
+        <ul>
+          <li>Text messages (SMS/MMS) related to bookings, scheduling, marketing, promotions, community events, and other informational updates;</li>
+          <li>Email communications related to the Facility, general corporate and community events, notices, disclosures, rules, and regulations; and</li>
+          <li>Push notifications, if I have installed a Padel Colorado mobile application.</li>
+        </ul>
+        <p>I understand that there is some level of risk that third parties might be able to read unencrypted communications. I am responsible for keeping my contact information updated. I may withdraw my consent to receive electronic communications at any time by contacting Padel Colorado in writing or by emailing info@studioarenna.com. Message and data rates may apply. Consent is not a condition of purchase or membership.</p>
+
+        <h4>14. Privacy and Data Collection</h4>
+        <p>I acknowledge that Padel Colorado and its agents may collect, use, share, and secure my personal information as part of my participation in the Activities and use of the Facility. I agree to review and be bound by the Padel Colorado Privacy Policy, which is available at the Facility and online, and which may be updated from time to time. Video surveillance may be in operation at the Facility for safety and security purposes. I understand and acknowledge that the Released Parties do not retain video surveillance footage beyond thirty (30) days unless required by law or legal proceedings.</p>
+
+        <h4>15. Property and Personal Belongings</h4>
+        <p>The Released Parties are not liable for any personal property that is damaged, lost, or stolen while on or about the Facility premises, including but not limited to items left in vehicles, lockers, common areas, or any other location, whether or not the Released Parties were negligent. I assume all risk of loss, theft of, or damage to my personal property.</p>
+
+        <h4>16. Payments and Cancellation Policy</h4>
+        <p>Padel Colorado operates as a cashless facility. All court reservations, memberships, clinics, classes, programs, and services require full payment at the time of booking. The primary booker is financially responsible for any remaining balances. For private lessons or services, I authorize the Company to securely store my credit card information and process charges on the day of the lesson or service.</p>
+        <p>Bookings may be cancelled up to twenty-four (24) hours prior to the scheduled start time without penalty. Cancellations made less than twenty-four (24) hours before the scheduled time will be charged in full. Failed or declined payments will result in an account hold until payment is resolved. All bookings, changes, and cancellations must be managed through the Company's website, mobile application, or other designated platform.</p>
+
+        <h4>17. Minors</h4>
+        <p>If Participant is under the age of eighteen (18), this Agreement must be signed by a parent or legal guardian who, by signing, consents and agrees to all terms and conditions herein on behalf of the minor Participant. Children under the age of thirteen (13) are not eligible for membership or participation unless supervised at all times by a parent or legal guardian. Parents and legal guardians will be held responsible for all conduct, damage, injury, or claims arising from their children's actions.</p>
+        <p>I represent under penalty of perjury that I am actually authorized to sign this Agreement on behalf of all minors herein, and I understand that signing this Agreement on behalf of a minor without actual authority may subject me to obligations including defense and indemnification, fraud, and trespass. This waiver extends to all claims that the minor child may have now or in the future, including any claims that may arise after the minor child reaches the age of majority. I expressly intend that this Agreement binds both me and the minor child, and I acknowledge that unless prohibited by applicable law, the minor child will not have the right to disaffirm or void this Agreement upon reaching the age of majority.</p>
+
+        <h4>18. Governing Law and Jurisdiction</h4>
+        <p>This Agreement shall be governed by, construed in accordance with, and enforced under the laws of the State of Colorado, without giving effect to any choice or conflict of law provision or rule. Any claim or cause of action arising under this Agreement or Participant's use of the Facility shall be brought only in the state or federal courts located in Denver County, Colorado, and I hereby consent to the exclusive personal jurisdiction of such courts and waive any objection to venue or inconvenience.</p>
+
+        <h4>19. Dispute Resolution and Arbitration</h4>
+        <p>Any controversy, dispute, or claim arising out of or relating to this Agreement, its enforcement, arbitrability, or interpretation, or Participant's use of the Facility, including claims of personal injury (including death), property damage, or any other matter (collectively, "Matters"), that cannot be resolved through direct discussions, shall be first attempted to be resolved by mediation administered by JAMS (or a comparable alternative dispute resolution provider) in Denver, Colorado.</p>
+        <p>If the Matter is not resolved through direct discussions or mediation, the parties agree that it shall be resolved by final and binding confidential arbitration before a single arbitrator administered by JAMS pursuant to its Streamlined Arbitration Rules and Procedures, or subsequent versions thereof. The arbitration shall be conducted in Denver County, Colorado, in English. Each party shall bear its own share of JAMS fees and expenses. The arbitrator's award shall be limited to actual damages and shall have no authority to award punitive, exemplary, or consequential damages. Judgment on the arbitration award may be entered in any federal or state court having jurisdiction thereof.</p>
+        <p>BY AGREEING TO ARBITRATION, THE PARTIES ACKNOWLEDGE THAT THEY HAVE WAIVED THE RIGHT TO A JURY TRIAL. ALL DISPUTES SHALL BE BROUGHT BY THE PARTIES IN THEIR INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING.</p>
+
+        <h4>20. Severability of Provisions</h4>
+        <p>If any term, provision, or portion of this Agreement is found to be invalid, illegal, or unenforceable by a court of competent jurisdiction, such invalidity, illegality, or unenforceability shall not affect any other term or provision of this Agreement or invalidate or render unenforceable such term or provision in any other jurisdiction. Any such invalid, illegal, or unenforceable provision shall be modified in the subject jurisdiction to the least extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect.</p>
+
+        <h4>21. Entire Agreement</h4>
+        <p>This Agreement constitutes the sole and entire agreement of the parties with respect to the subject matter contained herein and supersedes all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, with respect to such subject matter. No amendment or modification of this Agreement shall be binding unless in a writing signed by each party or its authorized representative. Any waiver by the Company of any term of this Agreement in a particular instance will not operate as a waiver of such term for the future. I agree that the invalidity or unenforceability of any part of this Agreement will in no way affect the validity or enforceability of any other part of this Agreement.</p>
+
+        <h4>22. Assignment and Transferability</h4>
+        <p>The Company may assign this Agreement, and its rights hereunder, in whole or in part, including the sub-license of its rights to the exploitation of my Likeness and any Materials, to any person or entity. This Agreement is binding upon and shall inure to the benefit of the parties hereto, their respective heirs, legal representatives, executors, administrators, successors, and assigns.</p>
+
+        <h4>23. Survival and Effect of Termination</h4>
+        <p>The provisions of this Agreement, including but not limited to Sections 2 through 5, 8, 12, 14, 17, 18, 19, 20, and 22, shall survive the termination of my membership, participation, access, or this Agreement, and shall continue in full force and effect indefinitely.</p>
+
+        <h4>24. Electronic Signature and Acceptance</h4>
+        <p>This Agreement may be executed and delivered via electronic means, including by clicking an "ACCEPT" or "I AGREE" button, electronic signature, facsimile, or any electronic signature process complying with the U.S. federal ESIGN Act of 2000, the Uniform Electronic Transactions Act (UETA), and/or the Colorado Uniform Electronic Transactions Act. Electronic signatures shall be deemed original signatures for all purposes and shall have the same legal effect as handwritten signatures.</p>
+
+        <h4>Participant Acknowledgment and Acceptance</h4>
+        <p><strong>By signing below or clicking "Accept," I acknowledge and certify that:</strong></p>
+        <ul>
+          <li>I am at least eighteen (18) years of age, or I am the parent or legal guardian of the minor Participant identified below and have full authority to execute this Agreement on their behalf;</li>
+          <li>I have carefully read this entire Agreement in its entirety, fully understand its terms and conditions, and understand that it affects my legal rights;</li>
+          <li>I am knowingly and voluntarily giving up substantial legal rights, including the right to sue the Released Parties in the circumstances described herein;</li>
+          <li>I have not relied upon any oral statements or representations of anyone to induce me to sign this Agreement;</li>
+          <li>I have had the opportunity to consult with an attorney before signing, and I have either consulted with an attorney or have voluntarily waived my right to do so;</li>
+          <li>I intend my signature or electronic acceptance to be a complete and unconditional release of all liability to the greatest extent allowed by applicable law; and</li>
+          <li>I agree that my electronic acceptance of this Agreement has the same legal effect as a handwritten signature.</li>
+        </ul>
+      </div>
+
+      <div class="agree-row">
+        <input type="checkbox" id="waiverCheck" required="">
+        <label for="waiverCheck">I have read and agree to the Arenna Denver Padel Facility Agreement — Participant Agreement, Assumption of Risk, Waiver and Release of Liability, Indemnification, and Arbitration Agreement above.</label>
+      </div>
+    </div>
+
+    <input type="hidden" id="waiverAccepted" name="waiverAccepted" value="Yes">
+    <input type="hidden" id="waiverAcceptedAt" name="waiverAcceptedAt" value="2026-08-15T17:40:37.197Z">
+
+    <button type="submit" class="submit" id="submitBtn" disabled="">Checking you in…</button>
+    <p class="error-msg" id="errorMsg">Please fill in your name, email, and phone, and agree to the facility agreement to check in.</p>
+    <p class="fine-print">Your information is sent securely to the Arenna Denver Padel front desk team and stored for registration purposes only.</p>
+  </form>
+
+  <div class="success show" id="successView">
+    <div class="success-badge">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#454A60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </div>
+    <h2>You're registered!</h2>
+    <p>Thank you for coming — enjoy.</p>
+
+    <div class="share-card">
+      <p class="share-eyebrow">Share the moment</p>
+      <p class="share-text">Post an Instagram story from today and tag <span class="handle">@arenna.denver.padel</span> — we'll be resharing our favorites.</p>
+
+      <div class="idea-list">
+        <div class="idea">
+          <svg class="idea-icon" viewBox="0 0 32 32" fill="none"><path d="M9 12l3-4h8l3 4h3a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V14a2 2 0 012-2h3z" stroke="#454A60" stroke-width="1.6" stroke-linejoin="round"></path><circle cx="16" cy="19" r="4" stroke="#454A60" stroke-width="1.6"></circle></svg>
+          <div>
+            <p class="idea-title">Mirror selfie</p>
+            <p class="idea-sub">Snap a photo with our sticker wall in the mirrors</p>
+          </div>
+        </div>
+        <div class="idea">
+          <svg class="idea-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="#454A60" stroke-width="1.6"></circle><circle cx="16" cy="13" r="3.2" stroke="#454A60" stroke-width="1.6"></circle><path d="M9.5 24c1.4-3 3.8-4.6 6.5-4.6s5.1 1.6 6.5 4.6" stroke="#454A60" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          <div>
+            <p class="idea-title">Logo selfie</p>
+            <p class="idea-sub">Pose with the Arenna logo</p>
+          </div>
+        </div>
+        <div class="idea">
+          <svg class="idea-icon" viewBox="0 0 32 32" fill="none"><rect x="5" y="9" width="16" height="14" rx="2" stroke="#454A60" stroke-width="1.6"></rect><path d="M21 13.5l6-3.2v11.4l-6-3.2" stroke="#454A60" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+          <div>
+            <p class="idea-title">Best rally</p>
+            <p class="idea-sub">Film the good points out on the courts</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="tag">Unlock your potential</p>
+  </div>
+
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+  var form = document.getElementById('regForm');
+  var iframe = document.getElementById('hidden_iframe');
+  var submitBtn = document.getElementById('submitBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var waiverCheck = document.getElementById('waiverCheck');
+  var waiverAccepted = document.getElementById('waiverAccepted');
+  var waiverAcceptedAt = document.getElementById('waiverAcceptedAt');
+  var hasSubmitted = false;
+  var iframeLoadCount = 0;
+
+  function fieldsValid(){
+    var firstName = document.getElementById('firstName').value.trim();
+    var lastName = document.getElementById('lastName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return firstName && lastName && emailOk && phone && waiverCheck.checked;
+  }
+
+  form.addEventListener('submit', function(e){
+    if (!fieldsValid()){
+      e.preventDefault();
+      errorMsg.classList.add('show');
+      return false;
+    }
+    errorMsg.classList.remove('show');
+    waiverAccepted.value = waiverCheck.checked ? 'Yes' : 'No';
+    waiverAcceptedAt.value = new Date().toISOString();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Checking you in…';
+    hasSubmitted = true;
+  });
+
+  iframe.addEventListener('load', function(){
+    iframeLoadCount++;
+    // first load is the blank initial iframe render — ignore it
+    if (!hasSubmitted) return;
+    form.classList.add('hide');
+    document.getElementById('eyebrow').classList.add('hide');
+    document.getElementById('mainHeading').classList.add('hide');
+    document.getElementById('tagline').classList.add('hide');
+    document.getElementById('introText').classList.add('hide');
+    document.getElementById('successView').classList.add('show');
+  });
+</script>
+
+
+
+</body></html>
