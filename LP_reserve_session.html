@@ -62,8 +62,11 @@
     outline: none;
     border-color: #ED7A42;
   }
-  .row { display: flex; gap: 12px; }
-  .row > div { flex: 1; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 0; }
+  @media (max-width: 420px) {
+    .row { flex-direction: column; gap: 0; }
+  }
   button {
     margin-top: 26px;
     width: 100%;
