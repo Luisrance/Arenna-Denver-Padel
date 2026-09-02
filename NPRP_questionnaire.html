@@ -35,7 +35,7 @@
   .wrap{width:100%;max-width:560px;}
 
   /* header */
-  header{display:flex;align-items:center;justify-content:flex-start;margin-bottom:32px;}
+  header{display:flex;align-items:center;justify-content:center;margin-bottom:32px;}
   .logo{height:44px;width:auto;display:block;}
 
   .intro-copy{
@@ -82,6 +82,60 @@
     color:var(--green);
   }
   .save-status.error{color:var(--terracotta);}
+
+  /* promo card */
+  .promo-card{
+    margin-top:8px;
+    padding:24px 22px;
+    border-radius:16px;
+    background:var(--pink);
+    border:1.5px solid var(--orange);
+    text-align:left;
+  }
+  .promo-label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    margin-bottom:10px;
+  }
+  .promo-text{
+    font-size:14px;
+    font-weight:600;
+    color:var(--blue);
+    white-space:pre-line;
+    line-height:1.6;
+    margin-bottom:16px;
+  }
+  .promo-btn{
+    display:inline-block;
+    background:var(--terracotta);
+    color:var(--cream);
+    text-decoration:none;
+    font-family:inherit;
+    font-weight:700;
+    font-size:14px;
+    padding:12px 22px;
+    border-radius:10px;
+    transition:background .15s;
+  }
+  .promo-btn:hover{background:#96280a;}
+  .promo-code-line{
+    margin-top:16px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--blue);
+  }
+  .promo-code{
+    display:inline-block;
+    background:var(--blue);
+    color:var(--cream);
+    font-weight:800;
+    letter-spacing:0.03em;
+    padding:3px 9px;
+    border-radius:6px;
+  }
 
   /* court progress signature element */
   .court{
@@ -369,6 +423,14 @@
     <div class="result-number" id="resultNumber">0.0</div>
     <div class="result-scale">out of 6.0</div>
     <div class="result-tier" id="resultTier">Intermediate</div>
+
+    <div class="promo-card">
+      <div class="promo-label">Book Your Next Session</div>
+      <div class="promo-text" id="promoText"></div>
+      <a href="#" id="promoLink" class="promo-btn" target="_blank" rel="noopener noreferrer">View Program Details</a>
+      <div class="promo-code-line">Use code <span class="promo-code">25OPENPLAY</span> when booking your next session.</div>
+    </div>
+
     <div id="saveStatus" class="save-status"></div>
   </div>
 
@@ -572,6 +634,7 @@ function computeNPRP(){
 
   return {
     score: normalized,
+    rawScore: raw,
     rows: [
       {label:'Level (Q1)', value: answers.q1.label, points: q1},
       {label:'Match frequency (Q4)', value: answers.q4.label, points: q4},
@@ -592,6 +655,22 @@ function tierLabel(score){
   return 'Competition';
 }
 
+const PROMO_BEGINNER = {
+  text: "📍 Arenna Denver Padel\nSocial Americano | Arenna Rising | 1.0–2.9\n🎯 Level 1–2.9\n✅ Click below to view more details about this program",
+  link: "https://app.playbypoint.com/programs/americano-social"
+};
+const PROMO_ADVANCED = {
+  text: "📍 Arenna Denver Padel\n| Arenna Connect | 3.0–4.0\n🎯 Level 3–5\n✅ Click below to view more details about this program",
+  link: "https://app.playbypoint.com/programs/sunday-open-play-arenna-connect-3-0-4-0"
+};
+
+function setPromo(rawScore){
+  // Program levels are defined on the underlying 1–5 NPRP scale, not the 1–6 display scale.
+  const promo = rawScore < 2.9 ? PROMO_BEGINNER : PROMO_ADVANCED;
+  document.getElementById('promoText').textContent = promo.text;
+  document.getElementById('promoLink').href = promo.link;
+}
+
 function showResult(){
   const result = computeNPRP();
   quizView.style.display = 'none';
@@ -601,6 +680,7 @@ function showResult(){
 
   document.getElementById('resultNumber').textContent = result.score.toFixed(2);
   document.getElementById('resultTier').textContent = tierLabel(result.score);
+  setPromo(result.rawScore);
 
   saveSubmission(result);
 }
